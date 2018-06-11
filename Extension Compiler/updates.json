@@ -1,0 +1,14 @@
+{
+ "addons": {
+  "{0f929014-5ed2-4527-8b8d-86a9c889b129}": {
+   "updates": [
+    {
+     "version": "v1.0.0.518",
+     "applications": { "gecko": { "strict_min_version": "52.0" } },
+     "update_info_url": "https://github.com/LiCybora/NanoCore/tree/v1.0.0.518",
+     "update_link": "https://github.com/LiCybora/NanoCore/releases/download/v1.0.0.518/nano_adblocker-1.0.0.518-an+fx.xpi"
+    }
+   ]
+  }
+ }
+}
