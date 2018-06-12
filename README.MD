@@ -1,26 +1,18 @@
-# Nano Adblocker Core
+# Nano Adblocker Core for Firefox (unoffical)
 
 Just another adblocker
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
-Please open an issue if there is something you want us to know.
+WARNING: This is NOT official Firefox port to Nano Adblocker and most likely extremely unstable!
 
-*Chrome Web Store approves new builds **within seconds** but Microsoft Store
-takes weeks for a new version to be published, so the Edge version will be
-somewhat behind and that is out of my control.*
+Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore).
 
-### [Get it for Chrome](https://chrome.google.com/webstore/detail/nano-adblocker/gabbbocakeomblphkmmnoamkioajlkfo)
+jspenguin2017 still find Maintainers for Firefox build!
 
-### [(Beta) Get it for Edge](https://www.microsoft.com/store/productId/9NSXDX2TDB3V)
+### [(Unofficial and Experimental) Get it for Firefox](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### Maintainers wanted for other browsers (open an issue and let me know)
-
-### [Get Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector/)
-
-## For Developers
-
-### [Edge version discussion thread](https://github.com/NanoAdblocker/NanoCore/issues/40)
+### [Get Nano Defender for Firefox, the perfect companion extension for Nano Adblocker](https://github.com/LiCybora/NanoDefenderFirefox/releases/)
 
 ## Notable Change
 
