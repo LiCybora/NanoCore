@@ -4,11 +4,11 @@ Just another adblocker
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
-WARNING: This is NOT official Firefox port to Nano Adblocker and most likely extremely unstable!
+### WARNING: This is NOT official Firefox port to Nano Adblocker and most likely extremely unstable!
 
 Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore).
 
-jspenguin2017 still find Maintainers for Firefox build!
+### jspenguin2017 still find Maintainers for Firefox build!
 
 ### [(Unofficial and Experimental) Get it for Firefox](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
