@@ -106,7 +106,7 @@ vAPI.webextFlavor = {
     // https://github.com/gorhill/uBlock/issues/3588
     if ( soup.has('chromium') && flavor.major >= 66 ) {
         // Patch 2018-04-19: Disable UserCSS for now
-        //soup.add('user_stylesheet');
+        soup.add('user_stylesheet');
     }
 
     // Don't starve potential listeners
