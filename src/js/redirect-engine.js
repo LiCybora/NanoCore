@@ -453,12 +453,11 @@ RedirectEngine.prototype.toSelfie = function() {
         }
         rules.push(rule);
     }
-    var µb = µBlock;
     return {
         rules: rules,
-        ruleTypes: µb.arrayFrom(this.ruleTypes),
-        ruleSources: µb.arrayFrom(this.ruleSources),
-        ruleDestinations: µb.arrayFrom(this.ruleDestinations)
+        ruleTypes: Array.from(this.ruleTypes),
+        ruleSources: Array.from(this.ruleSources),
+        ruleDestinations: Array.from(this.ruleDestinations)
     };
 };
 
@@ -553,7 +552,7 @@ RedirectEngine.prototype.selfieFromResources = function() {
     vAPI.cacheStorage.set({
         resourcesSelfie: {
             version: resourcesSelfieVersion,
-            resources: µBlock.arrayFrom(this.resources)
+            resources: Array.from(this.resources)
         }
     });
 };
