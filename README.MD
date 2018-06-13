@@ -12,7 +12,7 @@ Official builds and sources can be found on [Nano Adblocker](https://github.com/
 
 ### [(Unofficial and Experimental) Get it for Firefox](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### [Get Nano Defender for Firefox, the perfect companion extension for Nano Adblocker](https://github.com/LiCybora/NanoDefenderFirefox/releases/)
+### [Get Nano Defender for Firefox, the perfect companion extension for Nano Adblocker](https://github.com/LiCybora/NanoDefenderFirefox)
 
 ## Notable Change
 
