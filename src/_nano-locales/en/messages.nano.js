@@ -199,7 +199,7 @@
         },
         // Extended filtering errors
         "filterLinterRejectedAdguardJSInjection": {
-            "message": "Raw JavaSript injection is not accepted due to security concerns.",
+            "message": "Raw JavaScript injection is not accepted due to security concerns.",
             "description": "Error when raw JavaScript injection"
         },
         "filterLinterRejectedBadSelector": {
