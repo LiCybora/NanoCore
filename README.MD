@@ -10,7 +10,7 @@ Official builds and sources can be found on [Nano Adblocker](https://github.com/
 
 ### jspenguin2017 still find Maintainers for Firefox build!
 
-### [(Signed, Unofficial and Experimental) Get it for Firefox](https://github.com/LiCybora/NanoCoreFirefox/releases/)
+### [Get it for Firefox (Unofficial, Signed, Unlisted, Experimental)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
 ### [Get Nano Defender for Firefox, the perfect companion extension for Nano Adblocker](https://github.com/LiCybora/NanoDefenderFirefox)
 
