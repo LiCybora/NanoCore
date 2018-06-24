@@ -22,8 +22,8 @@ still in experimental stage. Please help me to test and report issues.
 
 ## Installation
 
-You need Firefox version 52.0 or above to install this extension, but recommend 
-58.0 or above for working with Nano Defender.
+You need Firefox version 52 or above to install this extension, but recommend 
+58 or above for working with Nano Defender.
 
 ### Normal Install
 
@@ -31,34 +31,41 @@ Click .xpi file to download and install from link below.
 
 ### [Get it for Firefox (Unofficial, Signed, Unlisted, Experimental)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### [Get Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
-
 Note: Firefox Sync will **NOT** sync this addon among devices due to unlisted 
 from AMO.
 
+### [Get Also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
+
 ### Install Unsigned (For Developers or testing purpose ONLY)
 
-Developer version will not be signed. Please download the zip file. 
-I **won't** provide unsigned xpi file which may cause confusion.
+Developer version will not be signed. Please download the zip file. I **won't**
+provide unsigned xpi file which may cause confusion.
 
 #### Force Install
 
- 1. You will need either [Developer Edition](https://www.mozilla.org/firefox/developer/) or [Nightly](https://nightly.mozilla.org/) to Install.
- 	 - If release or beta build is mandatory, consider [ESR](https://www.mozilla.org/en-US/firefox/organizations/) or [Unbranded Builds](https://wiki.mozilla.org/Add-ons/Extension_Signing#Unbranded_Builds). 
+ 1. You will need either [Developer Edition](https://www.mozilla.org/firefox/developer/)
+ or [Nightly](https://nightly.mozilla.org/) to Install.
+ 	 - If release or beta build is mandatory, consider
+ 	 [ESR](https://www.mozilla.org/en-US/firefox/organizations/) or
+ 	 [Unbranded Builds](https://wiki.mozilla.org/Add-ons/Extension_Signing#Unbranded_Builds). 
  	 - Otherwise see [Debugging](https://github.com/LiCybora/NanoCoreFirefox#debugging).
 
- 2. Go `about:config`, then set `xpinstall.signatures.required` to false (by double click).
+ 2. Go `about:config`, then set `xpinstall.signatures.required` to false (by 
+ double click).
  	 - In regular release or beta has **no** effect for this setting.
 
- 3. Either rename .zip to .xpi then drag-and drop to Firefox, or go `about:addons`, 
- and click `Install from Add-on File...` and choose the .zip you just downloaded.
+ 3. Either rename .zip to .xpi then drag-and drop to Firefox, or go 
+ `about:addons`, and click `Install from Add-on File...` and choose the .zip
+ you just downloaded.
 
 #### Debugging
 
- - This works for **ALL** Firefox builds, but **got removed** whenever quit Firefox.
+ - This works for **ALL** Firefox builds, but all debugging addons **will be
+ removed** whenever quit Firefox.
  	- But seems settings and filters will remain.
 
- - Go `about:debugging#addons` and `Load Temporary Add-on`, choose the .zip you just downloaded.
+ - Go `about:debugging#addons` and `Load Temporary Add-on`, choose the .zip you
+ just downloaded.
 
 ## Notable Change
 
