@@ -34,7 +34,7 @@ Click .xpi file to download and install from link below.
 Note: Firefox Sync will **NOT** sync this addon among devices due to unlisted 
 from AMO.
 
-### [Get Also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
+### [Get also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
 
 ### Install Unsigned (For Developers or testing purpose ONLY)
 
