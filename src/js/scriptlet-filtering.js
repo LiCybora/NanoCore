@@ -427,7 +427,7 @@
         if ( µb.hiddenSettings.debugScriptlets ) {
             code = 'debugger;\n' + code;
         }
-        chrome.tabs.executeScript(
+        vAPI.tabs.injectScript(
             details.tabId,
             {
                 code: code,
