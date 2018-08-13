@@ -4,9 +4,15 @@ Just another adblocker on Firefox
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
+This repository contains the legacy code of Nano Adblocker for Firefox 
+(Unofficial), the new code can be found in the
+[Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
+
 ### WARNING: This is NOT official Firefox port to Nano Adblocker and still experimental!
 
-Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore).
+Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore). 
+As this is unofficial port, report issues here instead of upstream or you may 
+not get help.
 
 ## Announcement
 
@@ -69,25 +75,9 @@ provide unsigned xpi file which may cause confusion.
 
 ## Notable Change
 
-<!--
-### \[[Work in progress](https://github.com/NanoAdblocker/NanoCore/issues/33)\] Nano Dashboard, clean and modern
-
-![Screenshot](https://i.imgur.com/LUAu7KO.png)
-
-Not yet available
--->
-
 ### \[[Work in progress](https://github.com/NanoAdblocker/NanoCore/issues/1)\] Nano Filter Linter, neat and saves frustration
 
-#### Know exactly why your rule is misbehaving
-
-![Screenshot](https://i.imgur.com/zboYYEr.png)
-
-<!--
-#### Get notified for common mistakes
-
-![Screenshot](https://i.imgur.com/IkTaEQ3.png)
--->
+![Screenshot](https://i.imgur.com/SStKkqq.png)
 
 Partially available since 1.0.0.22
 
@@ -113,22 +103,16 @@ Available since 1.0.0.0
 
 *Note: user interface and other housekeeping changes are not listed here.*
 
-- [Extended advanced settings](/notes/advanced-settings.MD#advanced-settings)
-- [Extended filter syntax](/notes/filter-syntax.MD#filter-syntax)
-- [Polished filter list subscription process](/notes/filter-list-authoring.MD#filter-list-authoring)
+- [Extended advanced settings](https://github.com/NanoAdblocker/NanoCore2/blob/master/notes/advanced_settings.md#advanced-settings)
+- [Tweaked filter syntax](https://github.com/NanoAdblocker/NanoCore2/blob/master/notes/filter_syntax.md#filter-syntax)
 - Enabled `Block CSP reports` by default (to prevent websites from abusing it
   to track users)
 - Added a few more filters to filters manager
 - Made cache control button to be always shown
 - Added force scroll mode (to be used with element zapper)
 
-There are also a few changes specifically for Edge: 
-- [Added whitelists for Edge build](/notes/dashboard-whitelist.MD#dashboard-whitelist)
+There are also a few changes specifically for Edge:
 - Mapped `fetch` requests to `xhr`
 - Fixed the popup panel in logger
 - Fixed advanced settings button in dashboard
-
-## Pending Features
-
-We are constantly improving! The list of pending features can be found
-[here](/notes/pending-features.MD#pending-features).
+- Fixed issues with InPrivate mode
