@@ -157,7 +157,7 @@ https://github.com/gorhill/uBlock/issues/2837
 
 Public API for better integration with other extensions.
 
-It is more difficult than it sounds, as we also need a white list manager for
+It is more difficult than it sounds, as we also need a whitelist manager for
 which extension is allowed to connect.
 
 `very hard`
