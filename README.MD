@@ -16,20 +16,19 @@ not get help.
 
 ## Announcement
 
-### jspenguin2017 still find Maintainers for Firefox build!
+Due to unavailable for Nano Defender on AMO, there is no plan to put Nano 
+Adblocker for Firefox on AMO. There will be only unofficial support for Nano 
+Adblocker for Firefox. No plan to be an official port in this moment. 
 
-If you want the official Firefox port, please help me to test the new build, or 
-consider to be collaborator. The Firefox port is dropped for 2 months. I need 
-time to catch up and confirm its stability, which is far away to be qualified 
-as official build.
-
-Recently I update the build script and I hope it is good now. The new build is
-still in experimental stage. Please help me to test and report issues.
+However, this repository will still follow update from upstream. Feel free to 
+use it if it is good to you.
 
 ## Installation
 
 You need Firefox version 52 or above to install this extension, but recommend 
 58 or above for working with Nano Defender.
+
+Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
 ### Normal Install
 
