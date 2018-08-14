@@ -22,11 +22,16 @@
 'use strict';
 
 (function() {
-
+    let isMac = navigator.platform.indexOf("Mac");
+    let CtrlKey = 'MacCtrl';
+    if (isMac === -1) {
+        CtrlKey = 'Ctrl';
+    }
     // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values
     let validStatus0Keys = new Map([
         [ 'alt', 'Alt' ],
-        [ 'control', 'Ctrl' ],
+        [ 'control', CtrlKey ],
+        [ 'meta', 'Command'],
     ]);
     let validStatus1Keys = new Map([
         [ 'a', 'A' ],
@@ -91,6 +96,84 @@
         [ 'arrowleft', 'Left' ],
         [ 'arrowright', 'Right' ],
         [ 'shift', 'Shift' ],
+        // Silly hack for mac keyboard Alt+key.
+        [ 'å',  'A' ],
+        [ '∫',  'B' ],
+        [ 'ç',  'C' ],
+        [ '∂',  'D' ],
+        [ '´',  'E' ],
+        [ 'ƒ',  'F' ],
+        [ '©',  'G' ],
+        [ '˙',  'H' ],
+        [ 'ˆ',  'I' ],
+        [ '∆',  'J' ],
+        [ '˚',  'K' ],
+        [ '¬',  'L' ],
+        [ 'µ',  'M' ],
+        [ '˜',  'N' ],
+        [ 'ø',  'O' ],
+        [ 'π',  'P' ],
+        [ 'œ',  'Q' ],
+        [ '®',  'R' ],
+        [ 'ß',  'S' ],
+        [ '†',  'T' ],
+        [ '¨',  'U' ],
+        [ '√',  'V' ],
+        [ '∑',  'W' ],
+        [ '≈',  'X' ],
+        [ '¥',  'Y' ],
+        [ 'Ω',  'Z' ],
+        [ 'Å',  'A' ],
+        [ 'ı',  'B' ],
+        [ 'Ç',  'C' ],
+        [ 'Î',  'D' ],
+        [ '´',  'E' ],
+        [ 'Ï',  'F' ],
+        [ '˝',  'G' ],
+        [ 'Ó',  'H' ],
+        [ 'ˆ',  'I' ],
+        [ 'Ô',  'J' ],
+        [ '',  'K' ],
+        [ 'Ò',  'L' ],
+        [ 'Â',  'M' ],
+        [ '˜',  'N' ],
+        [ 'Ø',  'O' ],
+        [ '∏',  'P' ],
+        [ 'Œ',  'Q' ],
+        [ '‰',  'R' ],
+        [ 'Í',  'S' ],
+        [ 'ˇ',  'T' ],
+        [ '¨',  'U' ],
+        [ '◊',  'V' ],
+        [ '„',  'W' ],
+        [ '˛',  'X' ],
+        [ 'Á',  'Y' ],
+        [ '¸',  'Z' ],
+        [ 'º',  '0' ],
+        [ '¡',  '1' ],
+        [ '™',  '2' ],
+        [ '£',  '3' ],
+        [ '¢',  '4' ],
+        [ '∞',  '5' ],
+        [ '§',  '6' ],
+        [ '¶',  '7' ],
+        [ '•',  '8' ],
+        [ 'ª',  '9' ],
+        [ '‚',  '0' ],
+        [ '⁄',  '1' ],
+        [ '€',  '2' ],
+        [ '‹',  '3' ],
+        [ '›',  '4' ],
+        [ 'ﬁ',  '5' ],
+        [ 'ﬂ',  '6' ],
+        [ '‡',  '7' ],
+        [ '°',  '8' ],
+        [ '·',  '9' ],
+        [ '≤',  'Comma' ],
+        [ '≥',  'Period' ],
+        [ '¯',  'Comma' ],
+        [ '˘',  'Period' ],
+        ['']
     ]);
 
     let commandNameFromElement = function(elem) {
