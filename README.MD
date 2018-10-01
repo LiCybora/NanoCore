@@ -74,6 +74,12 @@ provide unsigned xpi file which may cause confusion.
 
 ## Notable Change
 
+### Customizable short keys for Mac Machine (Experimental)
+
+![Screenshot](https://i.imgur.com/If3yfEe.png)
+
+Available since 1.0.0.67
+
 ### \[[Work in progress](https://github.com/NanoAdblocker/NanoCore/issues/1)\] Nano Filter Linter, neat and saves frustration
 
 ![Screenshot](https://i.imgur.com/SStKkqq.png)
