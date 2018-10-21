@@ -3,10 +3,6 @@
 The Edge builds are still **in beta**, please report problems you encounter,
 even minor ones! We can not fix bugs that we are not aware of!
 
-~~Also, please upvote
-[this Edge layout engine bug](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/17473318/)!~~
-We are dropping support for Edge 41 soon, please update Windows!
-
 ## Store Version
 
 [Nano Adblocker](https://www.microsoft.com/store/productId/9NSXDX2TDB3V)
@@ -37,8 +33,9 @@ process.
 Nano Adblocker and Nano Defender do not actively collect any data of any kind.
 
 Nano Adblocker may connect to first-party and/or third-party servers to download
-assets updates. Built-in assets are defined [here](/assets/assets.json). You
-may import other assets, in which case Nano Adblocker will connect to
+assets updates. Built-in assets are defined
+[here](https://github.com/NanoAdblocker/NanoCore2/blob/master/src/assets.json).
+You may import other assets, in which case Nano Adblocker will connect to
 additional servers as per your instruction.
 
 When connecting to first-party servers, Nano Adblocker *may* supply a version

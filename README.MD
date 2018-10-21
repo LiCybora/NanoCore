@@ -8,7 +8,7 @@ This repository contains the legacy code of Nano Adblocker for Firefox
 (Unofficial), the new code can be found in the
 [Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
 
-### WARNING: This is NOT official Firefox port to Nano Adblocker and still experimental!
+### WARNING: This is NOT official Firefox port to Nano Adblocker!
 
 Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore). 
 As this is unofficial port, report issues here instead of upstream or you may 
@@ -16,12 +16,16 @@ not get help.
 
 ## Announcement
 
-Due to unavailable for Nano Defender on AMO, there is no plan to put Nano 
-Adblocker for Firefox on AMO. There will be only unofficial support for Nano 
-Adblocker for Firefox. No plan to be an official port in this moment. 
+### Warning: If you find this on AMO, that IS NOT MINE.
 
-However, this repository will still follow update from upstream. Feel free to 
-use it if it is good to you.
+
+Due to unavailable for Nano Defender on AMO, there is no plan to put Nano 
+Adblocker for Firefox on AMO. **The one in AMO is neither supported by me nor 
+original author!**
+
+**Installing from unofficial source is strongly NOT recommend,** including this 
+repo. But if you think this repo is good for you, feel free to use it, just 
+remind that report issue to right person.
 
 ## Installation
 
