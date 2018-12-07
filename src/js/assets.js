@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -85,7 +85,7 @@ api.fetchText = function(url, onLoad, onError) {
     }
 
     var contentLoaded = 0,
-        timeoutAfter = µBlock.hiddenSettings.assetFetchTimeout * 1000 || 60000,
+        timeoutAfter = µBlock.hiddenSettings.assetFetchTimeout * 1000 || 30000,
         timeoutTimer,
         xhr = new XMLHttpRequest();
 
@@ -149,15 +149,6 @@ api.fetchText = function(url, onLoad, onError) {
         timeoutTimer = vAPI.setTimeout(onTimeout, timeoutAfter);
     };
 
-    // Patch 2018-03-05: Add ability to opt out from assets mirror
-    if ( 
-        nano.hiddenSettings._nanoDisconnectFrom_jspenguincom === true &&
-        actualUrl.startsWith('https://jspenguin.com/NanoAdblocker/AssetsMirror/')
-    ) {
-        onErrorEvent.call(xhr);
-        return;
-    }
-    
     // Be ready for thrown exceptions:
     // I am pretty sure it used to work, but now using a URL such as
     // `file:///` on Chromium 40 results in an exception being thrown.
@@ -212,11 +203,9 @@ api.fetchFilterList = function(mainlistURL, onLoad, onError) {
 
         pendingSublistURLs.delete(details.url);
         loadedSublistURLs.add(details.url);
-        
-        // Patch 2018-03-01: Make generated content more highlighter friendly
-        if ( isSublist ) { content.push('\n!#nano-include-content-start ' + details.url); }
+        if ( isSublist ) { content.push('\n! ' + '>>>>>>>> ' + details.url); }
         content.push(details.content.trim());
-        if ( isSublist ) { content.push('!#nano-include-content-end ' + details.url); }
+        if ( isSublist ) { content.push('! <<<<<<<< ' + details.url); }
         if ( parsedURL !== undefined && parsedURL.pathname.length > 0 ) {
             processIncludeDirectives(details);
         }
@@ -313,7 +302,7 @@ var saveAssetSourceRegistry = (function() {
     var timer;
     var save = function() {
         timer = undefined;
-        vAPI.cacheStorage.set({ assetSourceRegistry: assetSourceRegistry });
+        µBlock.cacheStorage.set({ assetSourceRegistry: assetSourceRegistry });
     };
     return function(lazily) {
         if ( timer !== undefined ) {
@@ -379,9 +368,7 @@ var getAssetSourceRegistry = function(callback) {
     var registryReady = function() {
         var callers = assetSourceRegistryStatus;
         assetSourceRegistryStatus = 'ready';
-        // TODO 2017-12-12: Woudln't a for...of loop be better?
-        var fn;
-        while ( (fn = callers.shift()) ) {
+        for ( var fn of callers ) {
             fn(assetSourceRegistry);
         }
     };
@@ -397,7 +384,7 @@ var getAssetSourceRegistry = function(callback) {
         );
     };
 
-    vAPI.cacheStorage.get('assetSourceRegistry', function(bin) {
+    µBlock.cacheStorage.get('assetSourceRegistry', function(bin) {
         if ( !bin || !bin.assetSourceRegistry ) {
             createRegistry();
             return;
@@ -451,13 +438,12 @@ var getAssetCacheRegistry = function(callback) {
     var registryReady = function() {
         var callers = assetCacheRegistryStatus;
         assetCacheRegistryStatus = 'ready';
-        var fn;
-        while ( (fn = callers.shift()) ) {
+        for ( var fn of callers ) {
             fn(assetCacheRegistry);
         }
     };
 
-    vAPI.cacheStorage.get('assetCacheRegistry', function(bin) {
+    µBlock.cacheStorage.get('assetCacheRegistry', function(bin) {
         if ( bin && bin.assetCacheRegistry ) {
             assetCacheRegistry = bin.assetCacheRegistry;
         }
@@ -469,7 +455,7 @@ var saveAssetCacheRegistry = (function() {
     var timer;
     var save = function() {
         timer = undefined;
-        vAPI.cacheStorage.set({ assetCacheRegistry: assetCacheRegistry });
+        µBlock.cacheStorage.set({ assetCacheRegistry: assetCacheRegistry });
     };
     return function(lazily) {
         if ( timer !== undefined ) { clearTimeout(timer); }
@@ -482,37 +468,41 @@ var saveAssetCacheRegistry = (function() {
 })();
 
 var assetCacheRead = function(assetKey, callback) {
-    var internalKey = 'cache/' + assetKey;
+    let internalKey = 'cache/' + assetKey;
 
-    var reportBack = function(content, err) {
-        var details = { assetKey: assetKey, content: content };
-        if ( err ) { details.error = err; }
+    let reportBack = function(content) {
+        if ( content instanceof Blob ) { content = ''; }
+        let details = { assetKey: assetKey, content: content };
+        if ( content === '' ) { details.error = 'E_NOTFOUND'; }
         callback(details);
     };
 
-    var onAssetRead = function(bin) {
-        if ( !bin || !bin[internalKey] ) {
-            return reportBack('', 'E_NOTFOUND');
+    let onAssetRead = function(bin) {
+        if (
+            bin instanceof Object === false ||
+            bin.hasOwnProperty(internalKey) === false
+        ) {
+            return reportBack('');
         }
-        var entry = assetCacheRegistry[assetKey];
+        let entry = assetCacheRegistry[assetKey];
         if ( entry === undefined ) {
-            return reportBack('', 'E_NOTFOUND');
+            return reportBack('');
         }
         entry.readTime = Date.now();
         saveAssetCacheRegistry(true);
         reportBack(bin[internalKey]);
     };
 
-    var onReady = function() {
-        vAPI.cacheStorage.get(internalKey, onAssetRead);
+    let onReady = function() {
+        µBlock.cacheStorage.get(internalKey, onAssetRead);
     };
 
     getAssetCacheRegistry(onReady);
 };
 
 var assetCacheWrite = function(assetKey, details, callback) {
-    var internalKey = 'cache/' + assetKey;
-    var content = '';
+    let internalKey = 'cache/' + assetKey;
+    let content = '';
     if ( typeof details === 'string' ) {
         content = details;
     } else if ( details instanceof Object ) {
@@ -523,16 +513,8 @@ var assetCacheWrite = function(assetKey, details, callback) {
         return assetCacheRemove(assetKey, callback);
     }
 
-    var reportBack = function(content) {
-        var details = { assetKey: assetKey, content: content };
-        if ( typeof callback === 'function' ) {
-            callback(details);
-        }
-        fireNotification('after-asset-updated', details);
-    };
-
-    var onReady = function() {
-        var entry = assetCacheRegistry[assetKey];
+    let onReady = function() {
+        let entry = assetCacheRegistry[assetKey];
         if ( entry === undefined ) {
             entry = assetCacheRegistry[assetKey] = {};
         }
@@ -540,10 +522,15 @@ var assetCacheWrite = function(assetKey, details, callback) {
         if ( details instanceof Object && typeof details.url === 'string' ) {
             entry.remoteURL = details.url;
         }
-        var bin = { assetCacheRegistry: assetCacheRegistry };
+        let bin = { assetCacheRegistry: assetCacheRegistry };
         bin[internalKey] = content;
-        vAPI.cacheStorage.set(bin);
-        reportBack(content);
+        µBlock.cacheStorage.set(bin);
+        let result = { assetKey: assetKey, content: content };
+        if ( typeof callback === 'function' ) {
+            callback(result);
+        }
+        // https://github.com/uBlockOrigin/uBlock-issues/issues/248
+        fireNotification('after-asset-updated', result);
     };
     getAssetCacheRegistry(onReady);
 };
@@ -565,9 +552,9 @@ var assetCacheRemove = function(pattern, callback) {
             delete cacheDict[assetKey];
         }
         if ( removedContent.length !== 0 ) {
-            vAPI.cacheStorage.remove(removedContent);
+            µBlock.cacheStorage.remove(removedContent);
             var bin = { assetCacheRegistry: assetCacheRegistry };
-            vAPI.cacheStorage.set(bin);
+            µBlock.cacheStorage.set(bin);
         }
         if ( typeof callback === 'function' ) {
             callback();
@@ -607,7 +594,7 @@ var assetCacheMarkAsDirty = function(pattern, exclude, callback) {
         }
         if ( mustSave ) {
             var bin = { assetCacheRegistry: assetCacheRegistry };
-            vAPI.cacheStorage.set(bin);
+            µBlock.cacheStorage.set(bin);
         }
         if ( typeof callback === 'function' ) {
             callback();
@@ -647,7 +634,7 @@ var readUserAsset = function(assetKey, callback) {
         var content = '';
         if ( typeof bin['cached_asset_content://assets/user/filters.txt'] === 'string' ) {
             content = bin['cached_asset_content://assets/user/filters.txt'];
-            vAPI.cacheStorage.remove('cached_asset_content://assets/user/filters.txt');
+            µBlock.cacheStorage.remove('cached_asset_content://assets/user/filters.txt');
         }
         if ( typeof bin['assets/user/filters.txt'] === 'string' ) {
             content = bin['assets/user/filters.txt'];
@@ -913,7 +900,6 @@ api.rmrf = function() {
 // Asset updater area.
 var updaterStatus,
     updaterTimer,
-    // Patch 2018-01-21: Update default value
     updaterAssetDelayDefault = 300000,
     updaterAssetDelay = updaterAssetDelayDefault,
     updaterUpdated = [],
@@ -962,9 +948,11 @@ var updateNext = function() {
             if ( cacheEntry && (cacheEntry.writeTime + assetEntry.updateAfter * 86400000) > now ) {
                 continue;
             }
-            // Patch 2017-12-09: Add nano-resources
             // Update of user scripts/resources forbidden?
-            if ( (assetKey === 'ublock-resources' || assetKey === 'nano-resources') && noRemoteResources ) {
+            if ( assetKey === 'ublock-resources' && noRemoteResources ) {
+                continue;
+            }
+            if ( assetKey === 'nano-resources' && noRemoteResources ) {
                 continue;
             }
             if (

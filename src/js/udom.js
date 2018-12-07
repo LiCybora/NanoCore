@@ -675,20 +675,6 @@ DOMList.prototype.trigger = function(etype) {
 
 /******************************************************************************/
 
-// Cleanup
-
-var onBeforeUnload = function() {
-    var entry;
-    while ( (entry = listenerEntries.pop()) ) {
-        entry.dispose();
-    }
-    window.removeEventListener('beforeunload', onBeforeUnload);
-};
-
-window.addEventListener('beforeunload', onBeforeUnload);
-
-/******************************************************************************/
-
 return DOMListFactory;
 
 })();

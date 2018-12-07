@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2016 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,78 +19,39 @@
     Home: https://github.com/gorhill/uBlock
 */
 
-/* global uDom */
-
-/******************************************************************************/
-
-(function() {
+/* global CodeMirror, uBlockDashboard */
 
 'use strict';
 
 /******************************************************************************/
 
-// Patch 2018-01-06: User filters can be an empty file, make it a special case
-// and do not show the error message
-var currentAsset = "";
+(function() {
 
-/******************************************************************************/
-
-var onAssetContentReceived = function(details) {
-    if ( details && details.content ) {
-        if ( !details.content.endsWith('\n') ) {
-            details.content += '\n';
-        }
-        nanoIDE.setValueFocus(details.content, -1);
-    } else {
-        nanoIDE.setValueFocus('', -1);
-        if ( currentAsset !== 'user-filters' ) {
-            nanoIDE.editor.session.setAnnotations([{
-                row: 0,
-                type: 'error',
-                text: vAPI.i18n('genericFilterReadError')
-            }]);
-        }
-    }
-};
-
-/******************************************************************************/
-
-// Patch 2018-01-01: Read line wrap settings
-var onLineWrapSettingsReceived = function(lineWrap) {
-    nanoIDE.setLineWrap(lineWrap === true);
-    
-    var q = window.location.search;
-    var matches = q.match(/^\?url=([^&]+)/);
-    if ( !matches || matches.length !== 2 ) {
-        // Patch 2018-01-06: Display an error
-        onAssetContentReceived();
-        return;
-    }
-    currentAsset = matches[1];
+    let params = new URL(document.location).searchParams;
+    let assetKey = params.get('url');
+    if ( assetKey === null ) { return; }
 
     vAPI.messaging.send(
         'default',
         {
-            what: 'getAssetContent',
-            url: decodeURIComponent(currentAsset)
+            what : 'getAssetContent',
+            url: assetKey
         },
-        onAssetContentReceived
+        details => {
+            cmEditor.setValue(details && details.content || '');
+        }
     );
-};
 
-/******************************************************************************/
+    let cmEditor = new CodeMirror(
+        document.getElementById('content'),
+        {
+            autofocus: true,
+            lineNumbers: true,
+            lineWrapping: true,
+            readOnly: true,
+            styleActiveLine: true
+        }
+    );
 
-// Patch 2018-01-01: Read line wrap settings
-nanoIDE.init('content', true, true);
-vAPI.messaging.send(
-    'dashboard',
-    {
-        what: 'userSettings',
-        name: 'nanoViewerWordSoftWrap'
-    },
-    onLineWrapSettingsReceived
-);
-
-/******************************************************************************/
-
+    uBlockDashboard.patchCodeMirrorEditor(cmEditor);
 })();

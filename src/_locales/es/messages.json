@@ -1,14 +1,14 @@
 {
   "extName": {
-    "message": "uBlock₀",
+    "message": "Nano",
     "description": "extension name."
   },
   "extShortDesc": {
     "message": "Por fin, un bloqueador eficiente con uso mínimo de procesador y memoria.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
-    "message": "uBlock₀ — Panel de control",
+    "message": "Nano — Panel de control",
     "description": "English: uBlock₀ — Dashboard"
   },
   "settingsPageName": {
@@ -31,28 +31,36 @@
     "message": "Lista blanca",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Atajos",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
-    "message": "uBlock₀ — Registro de peticiones de red",
+    "message": "Nano — Registro de peticiones",
     "description": "Title for the logger window"
   },
   "aboutPageName": {
     "message": "Acerca de",
     "description": "appears as tab name in dashboard"
   },
+  "assetViewerPageName": {
+    "message": "Nano — Visor de recursos",
+    "description": "Title for the asset viewer page"
+  },
   "advancedSettingsPageName": {
-    "message": "Ajustes avanzados",
+    "message": "Configuración avanzada",
     "description": "Title for the advanced settings page"
   },
   "popupPowerSwitchInfo": {
-    "message": "Clic: desactivar\/activar uBlock₀ para este sitio.\n\nCtrl + clic: deshabilitar uBlock₀ sólo en esta página.",
-    "description": "English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
+    "message": "Clic: deshabilitar/habilitar Nano en este sitio.\n\nCtrl+clic: deshabilitar Nano solo en esta página.",
+    "description": "English: Click: disable/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
   },
   "popupPowerSwitchInfo1": {
-    "message": "Clic para deshabilitar uBlock₀ en este sitio. \n\nCtrl+clic para deshabilitar uBlock₀ solo en esta página.",
+    "message": "Clic para deshabilitar Nano en este sitio.\n\nCtrl+clic para deshabilitar Nano solo en esta página.",
     "description": "Message to be read by screen readers"
   },
   "popupPowerSwitchInfo2": {
-    "message": "Clic para habilitar uBlock₀ en este sitio.",
+    "message": "Clic para habilitar Nano en este sitio.",
     "description": "Message to be read by screen readers"
   },
   "popupBlockedRequestPrompt": {
@@ -76,7 +84,7 @@
     "description": "English: or"
   },
   "popupTipDashboard": {
-    "message": "Abrir Panel de control",
+    "message": "Abrir panel de control",
     "description": "English: Click to open the dashboard"
   },
   "popupTipZapper": {
@@ -84,7 +92,7 @@
     "description": "Tooltip for the element-zapper icon in the popup panel"
   },
   "popupTipPicker": {
-    "message": "Activar el modo de selección de elementos",
+    "message": "Activar el modo selección de elementos",
     "description": "English: Enter element picker mode"
   },
   "popupTipLog": {
@@ -92,7 +100,7 @@
     "description": "Tooltip used for the logger icon in the panel"
   },
   "popupTipNoPopups": {
-    "message": "Alternar bloqueo de todos los pop-ups para este sitio",
+    "message": "Alternar bloqueo de todas las ventanas emergentes en este sitio",
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoPopups1": {
@@ -104,7 +112,7 @@
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoLargeMedia": {
-    "message": "Alternar bloqueo de elementos multimedia grandes para este sitio",
+    "message": "Alternar bloqueo de elementos multimedia grandes en este sitio",
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoLargeMedia1": {
@@ -116,7 +124,7 @@
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoCosmeticFiltering": {
-    "message": "Alternar filtros cosméticos para este sitio",
+    "message": "Alternar el filtrado cosmético en este sitio",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering1": {
@@ -128,7 +136,7 @@
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoRemoteFonts": {
-    "message": "Alternar bloqueo de fuentes remotas para este sitio",
+    "message": "Alternar bloqueo de fuentes remotas en este sitio",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
   "popupTipNoRemoteFonts1": {
@@ -138,6 +146,14 @@
   "popupTipNoRemoteFonts2": {
     "message": "Clic para no bloquear más fuentes remotas en este sitio",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "Clic para deshabilitar JavaScript en este sitio",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Clic para no deshabilitar más JavaScript en este sitio",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "Reglas globales: las reglas en esta columna se aplican a todos los sitios.",
@@ -160,31 +176,31 @@
     "description": ""
   },
   "popupImageRulePrompt": {
-    "message": "Imágenes",
+    "message": "imágenes",
     "description": ""
   },
   "popup3pAnyRulePrompt": {
-    "message": "De terceros",
+    "message": "terceros",
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "css\/imágenes de terceros",
+    "message": "CSS/imágenes de terceros",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
-    "message": "Scripts embebidos",
+    "message": "scripts integrados",
     "description": ""
   },
   "popup1pScriptRulePrompt": {
-    "message": "Scripts del dominio",
+    "message": "scripts del dominio",
     "description": ""
   },
   "popup3pScriptRulePrompt": {
-    "message": "Scripts de terceros",
+    "message": "scripts de terceros",
     "description": ""
   },
   "popup3pFrameRulePrompt": {
-    "message": "Frames de terceros",
+    "message": "frames de terceros",
     "description": ""
   },
   "popupHitDomainCountPrompt": {
@@ -252,11 +268,11 @@
     "description": ""
   },
   "settingsAdvancedUserPrompt": {
-    "message": "Soy usuario avanzado (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Advanced-user-features'> Lectura Obligatoria - Inglés<\/a>)",
+    "message": "Soy usuario avanzado (<a href='https://github.com/gorhill/uBlock/wiki/Advanced-user-features'>lectura necesaria</a>)",
     "description": ""
   },
   "settingsAdvancedUserSettings": {
-    "message": "ajustes avanzados",
+    "message": "configuración avanzada",
     "description": "For the tooltip of a link which gives access to advanced settings"
   },
   "settingsPrefetchingDisabledPrompt": {
@@ -280,7 +296,7 @@
     "description": ""
   },
   "settingsNoCosmeticFilteringPrompt": {
-    "message": "Deshabilitar filtros cosméticos",
+    "message": "Deshabilitar el filtrado cosmético",
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
@@ -291,9 +307,13 @@
     "message": "Bloquear fuentes remotas",
     "description": ""
   },
+  "settingsNoScriptingPrompt": {
+    "message": "Deshabilitar JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
+  },
   "settingsNoCSPReportsPrompt": {
     "message": "Bloquear reportes CSP",
-    "description": "background information: https:\/\/github.com\/gorhill\/uBlock\/issues\/3150"
+    "description": "background information: https://github.com/gorhill/uBlock/issues/3150"
   },
   "settingsStorageUsed": {
     "message": "Almacenamiento usado: {{value}} bytes",
@@ -312,11 +332,11 @@
     "description": "Appears at the top of the _3rd-party filters_ pane"
   },
   "3pListsOfBlockedHostsPerListStats": {
-    "message": "{{used}} de {{total}} utilizados",
+    "message": "{{used}} utilizados de {{total}}",
     "description": "Appears aside each filter list in the _3rd-party filters_ pane"
   },
   "3pAutoUpdatePrompt1": {
-    "message": "Actualizar automáticamente la lista de filtros.",
+    "message": "Actualizar automáticamente las listas de filtros",
     "description": "A checkbox in the _3rd-party filters_ pane"
   },
   "3pUpdateNow": {
@@ -328,11 +348,11 @@
     "description": "A button in the in the _3rd-party filters_ pane"
   },
   "3pParseAllABPHideFiltersPrompt1": {
-    "message": "Analizar y aplicar filtros cosméticos.",
+    "message": "Analizar y aplicar filtros cosméticos",
     "description": "English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo": {
-    "message": "<p>Esta opción permite el análisis y aplicación de <a href=\"https:\/\/adblockplus.org\/es\/faq_internal#elemhide\">&ldquo;filtros de ocultación de elementos&rdquo; compatibles con Adblock Plus\"<\/a>. Estos filtros son esencialmente cosméticos, sirven para ocultar elementos que se consideran una molestia visual en una página web, no siendo posible su eliminación con el motor de bloqueo basado en peticiones.<\/p><p>Habilitar esta opción aumenta el consumo de memoria de <i>uBlock₀<\/i>.<\/p>",
+    "message": "<p>Esta opción permite el análisis y aplicación de <a href=\"https://adblockplus.org/es/faq_internal#elemhide\">filtros de &ldquo;ocultación de elementos&rdquo; compatibles con Adblock Plus\"</a>. Estos filtros son esencialmente cosméticos, sirven para ocultar elementos que se consideran una molestia visual en una página web, no siendo posible su eliminación con el motor de bloqueo basado en peticiones.</p><p>Habilitar esta opción aumenta el consumo de memoria de Nano.</p>",
     "description": "Describes the purpose of the 'Parse and enforce cosmetic filters' feature."
   },
   "3pIgnoreGenericCosmeticFilters": {
@@ -340,11 +360,11 @@
     "description": "This will cause uBO to ignore all generic cosmetic filters."
   },
   "3pIgnoreGenericCosmeticFiltersInfo": {
-    "message": "<p>Los filtros cosméticos genéricos son aquellos filtros cosméticos que aplican a todas las páginas. <p>Aunque uBlock₀ los gestiona de forma eficiente, estos filtros pueden contribuir a un aumento del uso de la memoria y la CPU en algunas páginas web, especialmente si contienen gran cantidad de contenido.<p>Al habilitar esta opción se disminuirá el uso de la CPU y exceso de uso de la memoria que resulta del procesamiento de los filtros cosméticos genéricos, así como el consumo de memoria de uBlock₀.<p>Se recomienda habilitar esta opción para dispositivos poco potentes.",
+    "message": "<p>Los filtros cosméticos genéricos son aquellos filtros cosméticos que aplican a todas las páginas.<p>Aunque Nano los gestiona de forma eficiente, estos filtros pueden contribuir a un aumento del uso de la memoria y la CPU en algunas páginas web, especialmente si contienen gran cantidad de contenido.<p>Al habilitar esta opción se disminuirá el uso de la CPU y exceso de uso de la memoria que resulta del procesamiento de los filtros cosméticos genéricos, así como el consumo de memoria de Nano.<p>Se recomienda habilitar esta opción para dispositivos poco potentes.",
     "description": "Describes the purpose of the 'Ignore generic cosmetic filters' feature."
   },
   "3pListsOfBlockedHostsHeader": {
-    "message": "Lista de servidores bloqueados",
+    "message": "Lista de dominios bloqueados",
     "description": "English: Lists of blocked hosts"
   },
   "3pApplyChanges": {
@@ -408,7 +428,7 @@
     "description": "used as a tooltip for error icon beside a list"
   },
   "1pFormatHint": {
-    "message": "Un filtro por línea. Los filtros pueden ser un nombre de servidor, o un filtro compatible con Adblock Plus. Las líneas que comiencen con &lsquo;!&rsquo; serán ignoradas.",
+    "message": "Un filtro por línea. Los filtros pueden ser un nombre de dominio, o un filtro compatible con Adblock Plus. Las líneas que comiencen con <code>!</code> serán ignoradas.",
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
@@ -420,7 +440,7 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "ublock-mis-filtros-estaticos_{{datetime}}.txt",
+    "message": "nano-mis-filtros-estaticos_{{datetime}}.txt",
     "description": "English: my-ublock-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
@@ -460,23 +480,23 @@
     "description": ""
   },
   "rulesExport": {
-    "message": "Exportar a archivo",
+    "message": "Exportar a archivo...",
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "ublock-mis-reglas-dinamicas_{{datetime}}.txt",
+    "message": "nano-mis-reglas-dinamicas_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
-    "message": "Listado de sus reglas de filtrado dinámico.",
+    "message": "Lista de sus reglas de filtrado dinámico.",
     "description": "English: List of your dynamic filtering rules."
   },
   "rulesFormatHint": {
-    "message": "Sintaxis de las reglas: <code>origen destino tipo acción<\/code> (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Dynamic-filtering:-rule-syntax'> documentación completa<\/a>).",
+    "message": "Sintaxis de las reglas: <code>origen destino tipo acción</code> (<a href='https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-rule-syntax'>documentación completa</a>).",
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "Lista de servidores para los cuales se deshabilitará uBlock₀. Una entrada por línea. Se omitirán nombres de servidores inválidos.",
+    "message": "Lista blanca de páginas web para los cuales se deshabilitará Nano. Una entrada por línea. Se omitirán nombres de páginas web no válidos.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -488,7 +508,7 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "ublock-mi-lista-de-permitidos_{{datetime}}.txt",
+    "message": "nano-mi-lista-blanca_{{datetime}}.txt",
     "description": "English: my-ublock-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
@@ -512,7 +532,7 @@
     "description": "English: Filter"
   },
   "logAll": {
-    "message": "Todas",
+    "message": "Todo",
     "description": "Appears in the logger's tab selector"
   },
   "logBehindTheScene": {
@@ -584,16 +604,20 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Filtro estático {{filter}} encontrado en:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Filtro estático <code>{{filter}}</code> encontrado en:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "No se pudo encontrar el filtro estático <code>{{filter}}</code> en ninguna de las listas de filtros actualmente habilitadas",
+    "description": "Message to show when a filter cannot be found in any filter lists"
   },
   "aboutChangelog": {
     "message": "Registro de cambios",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Soporte",
@@ -611,12 +635,16 @@
     "message": "Colaboradores",
     "description": "English: Contributors"
   },
+  "aboutDependencies": {
+    "message": "Dependencias externas (compatibles con GPLv3):",
+    "description": "Shown in the About pane"
+  },
   "aboutBackupDataButton": {
     "message": "Respaldar en archivo...",
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "ublock-respaldo_{{datetime}}.txt",
+    "message": "nano-mi-respaldo_{{datetime}}.txt",
     "description": "English: my-ublock-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
@@ -628,7 +656,7 @@
     "description": "English: Reset to default settings..."
   },
   "aboutRestoreDataConfirm": {
-    "message": "Toda la configuración se sobrescribirá utilizando datos respaldados en {{time}} y uBlock₀ se reiniciará.  \n\n¿Sobrescribir toda la configuración existente utilizando datos de la copia de seguridad?",
+    "message": "Toda la configuración se sobrescribirá utilizando datos respaldados en {{time}} y Nano se reiniciará.\n\n¿Sobrescribir toda la configuración existente utilizando los datos de respaldo?",
     "description": "Message asking user to confirm restore"
   },
   "aboutRestoreDataError": {
@@ -636,7 +664,7 @@
     "description": "Message to display when an error occurred during restore"
   },
   "aboutResetDataConfirm": {
-    "message": "Se borrará toda la configuración y uBlock₀ se reiniciará.\n\n¿Restaurar uBlock₀ a la configuración por defecto?",
+    "message": "Se borrará todas sus configuraciones y Nano se reiniciará.\n\n¿Restablecer Nano a la configuración predeterminada?",
     "description": "Message asking user to confirm reset"
   },
   "errorCantConnectTo": {
@@ -644,7 +672,7 @@
     "description": "English: Network error: {{msg}}"
   },
   "subscriberConfirm": {
-    "message": "uBlock₀: ¿Desea añadir la siguiente dirección a su lista de filtros personalizados?\n\nTítulo: \"{{title}}\"\nURL: {{url}}",
+    "message": "Nano: ¿Desea añadir la siguiente dirección a su lista de filtros personalizados?\n\nTítulo: \"{{title}}\"\nURL: {{url}}",
     "description": "English: The message seen by the user to confirm subscription to a ABP filter list"
   },
   "elapsedOneMinuteAgo": {
@@ -672,19 +700,19 @@
     "description": "English: {{value}} days ago"
   },
   "showDashboardButton": {
-    "message": "Mostrar Panel de control",
-    "description": "Firefox\/Fennec-specific: Show Dashboard"
+    "message": "Mostrar panel de control",
+    "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
-    "message": "Mostrar registro",
-    "description": "Firefox\/Fennec-specific: Show Logger"
+    "message": "Mostrar registro de peticiones",
+    "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
     "message": "desactivado",
     "description": "Firefox-specific: appears as 'uBlock₀ (off)'"
   },
   "docblockedPrompt1": {
-    "message": "uBlock Origin impidió la carga de la página:",
+    "message": "Nano impidió la carga de la página:",
     "description": "English: uBlock₀ has prevented the following page from loading:"
   },
   "docblockedPrompt2": {
@@ -693,7 +721,7 @@
   },
   "docblockedNoParamsPrompt": {
     "message": "sin parámetros",
-    "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+    "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
   },
   "docblockedFoundIn": {
     "message": "Encontrado en:",
@@ -708,7 +736,7 @@
     "description": "English: Close this window"
   },
   "docblockedProceed": {
-    "message": "Deshabilitar bloqueo estricto para  {{hostname}}",
+    "message": "Deshabilitar bloqueo estricto para {{hostname}}",
     "description": "English: Disable strict blocking for {{hostname}} ..."
   },
   "docblockedDisableTemporary": {
@@ -740,7 +768,7 @@
     "description": "used as a prompt for the user to provide a custom device name"
   },
   "advancedSettingsWarning": {
-    "message": "¡Alerta! Cambie estos ajustes avanzados bajo su propio riesgo.",
+    "message": "¡Alerta! Cambie estas configuraciones avanzadas bajo su propio riesgo.",
     "description": "A warning to users at the top of 'Advanced settings' page"
   },
   "genericSubmit": {
@@ -763,8 +791,236 @@
     "message": "Permitir temporalmente elementos multimedia grandes",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
   },
-  "dummy": {
-    "message": "Esta entrada debe ser la última",
-    "description": "so we dont need to deal with comma for last entry"
+  "shortcutCapturePlaceholder": {
+    "message": "Escriba un atajo",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "nano_d_ui_group": {
+    "message": "Interfaz de usuario",
+    "description": "Group 'User interface' of settings tab"
+  },
+  "nano_d_line_wrap_e": {
+    "message": "Soft wrap long lines in filter editor",
+    "description": "English: Soft wrap long lines in filter editor"
+  },
+  "nano_d_line_wrap_v": {
+    "message": "Soft wrap long lines in filter viewer",
+    "description": "English: Soft wrap long lines in filter viewer"
+  },
+  "nano_d_recompile_filters": {
+    "message": "Forzar recompilado de filtros",
+    "description": "Button in advanced settings to recompile filters"
+  },
+  "nano_d_resources_links": {
+    "message": "Nano viene con dos conjuntos de recursos, los <a href='https://github.com/gorhill/uBlock/wiki/Resources-Library'>Recursos de uBlock Origin</a> y los <a href='https://github.com/NanoAdblocker/NanoFilters/blob/master/NanoFiltersSource/NanoResources.txt'>Recursos Extra de Nano</a>.",
+    "description": "Resources reference links"
+  },
+  "nano_d_ace_help": {
+    "message": "El Editor de Filtros de Nano está potenciado por Ace y la mayoría de los atajos de teclado funcionan igual.",
+    "description": "Explain the similarity between Nano Filter Editor and Ace in terms of shortcut keys"
+  },
+  "nano_d_unsaved_warning": {
+    "message": "¿Seguro que quieres salir?\nLos cambios realizados no serán guardados.",
+    "description": "Unsaved change warning"
+  },
+  "nano_d_about_based_on": {
+    "message": "Basado en uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "description": "English: Based on {{@data}}"
+  },
+  "nano_v_title": {
+    "message": "Nano — Visor de filtros",
+    "description": "Title of the filter viewer"
+  },
+  "nano_v_read_error": {
+    "message": "No se puede cargar el contenido. Por favor, actualice la pestaña.",
+    "description": "Error when filter content could not be loaded"
+  },
+  "nano_p_cache_control": {
+    "message": "control de caché",
+    "description": "The cache control strip name"
+  },
+  "nano_p_open_firewall_pane": {
+    "message": "Toggle the overview panel",
+    "description": "Tooltip for toggle firewall (sometimes called overview) panel button"
+  },
+  "nano_p_refresh_button": {
+    "message": "Haz clic aquí para actualizar esta página.\n\nCtrl+clic para actualizar esta página sin usar memoria caché.",
+    "description": "English: Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache."
+  },
+  "nano_p_force_scroll": {
+    "message": "(beta) Enter force scroll mode (will break layout)",
+    "description": "Tooltip for force scroll button"
+  },
+  "nano_p_bug_reporter": {
+    "message": "(beta) Abrir la ficha de reporte de fallos",
+    "description": "Tooltip for bug reporter button"
+  },
+  "nano_l_whitelist_aborted_w": {
+    "message": "Nano no analizó el resto de las líneas buscando advertencias porque hay demasiadas advertencias.",
+    "description": "Warning when too many warnings in whitelists"
+  },
+  "nano_l_whitelist_suspecious_re": {
+    "message": "Esta línea es tratada como una expresión regular. ¿Está puesto a propósito?",
+    "description": "Warning when parsed as regular expression but is unlikely the intention of user"
+  },
+  "nano_l_whitelist_aborted_e": {
+    "message": "Nano no analizó el resto de las líneas buscando errores porque hay demasiados errores.",
+    "description": "Error when too many errors in whitelists"
+  },
+  "nano_l_whitelist_invalid_hostname": {
+    "message": "Este nombre de host no es válido.",
+    "description": "Error when hostname not valid"
+  },
+  "nano_l_whitelist_invalid_re": {
+    "message": "Esta expresión regular tiene errores de sintaxis.",
+    "description": "Error when regular expression has syntax errors"
+  },
+  "nano_l_whitelist_invalid_url": {
+    "message": "Esta URL no es válida.",
+    "description": "Error when a URL not valid"
+  },
+  "nano_l_filter_aborted_w": {
+    "message": "Nano no analizó el resto de las líneas buscando advertencias porque hay demasiadas advertencias.",
+    "description": "Warning when too many warnings in filter rules"
+  },
+  "nano_l_filter_script_snippet_double_exception": {
+    "message": "Nano discarded a negated domain because it cannot be used in a script snippet exception rule.",
+    "description": "Warning when negated domain used with script snippet exception"
+  },
+  "nano_l_filter_converted_to_exception": {
+    "message": "Nano convirtió esta regla en una excepción porque solo contiene dominios negados.",
+    "description": "Warning when a rule is convered to exception because all negated domains"
+  },
+  "nano_l_filter_negated_html_filtering": {
+    "message": "Los dominios negados aún no son admitidos para filtros de HTML.",
+    "description": "Warning when negated domain used with HTML filtering"
+  },
+  "nano_l_filter_discarded_non_negatable_type": {
+    "message": "Nano descartó la opción de tipo {{type}} porque no puede ser negado.",
+    "description": "English: Nano discarded the type option '{{type}}' because it cannot be negated."
+  },
+  "nano_l_filter_expanded_mp4_option": {
+    "message": "Nano reemplazó la opción 'mp4' con 'media,redirect=noopmp4-1s'.",
+    "description": "Warning when 'mp4' is replaced"
+  },
+  "nano_l_filter_unsupported_type_ignored": {
+    "message": "Nano descartó las opciones de tipo que aún no son admitidas.",
+    "description": "Warning when unsupported type options discarded but not entire rule"
+  },
+  "nano_l_filter_resource_not_found": {
+    "message": "El recurso '{{res}}' no puede ser encontrado. ¿Está escrito correctamente?",
+    "description": "Warning when resource not found"
+  },
+  "nano_l_filter_comment_bracket": {
+    "message": "El uso de '[' para denotar un comentario está obsoleto. Usa '!' en su lugar.",
+    "description": "Deprecation when '[' used for comments"
+  },
+  "nano_l_filter_inline_comment": {
+    "message": "Los comentarios en una línea están obsoletos.",
+    "description": "Deprecation when inline comments"
+  },
+  "nano_l_filter_script_contains": {
+    "message": "'##script:contains(...)' está obsoleto. Usa '##^script:has-text(...)' en su lugar.",
+    "description": "Deprecation when 'script:contains' is used"
+  },
+  "nano_l_filter_mp4_option": {
+    "message": "El uso de la opción 'mp4' está obsoleto. Escribe las opciones completas en su lugar.",
+    "description": "Deprecation when 'mp4'"
+  },
+  "nano_l_filter_aborted_e": {
+    "message": "Nano no analizó el resto de las líneas buscando errores porque hay demasiados errores.",
+    "description": "Error when too many errors in filter rules"
+  },
+  "nano_l_filter_ag_js_injection": {
+    "message": "La inyección de código JavaScript puro no es aceptada por motivos de seguridad.",
+    "description": "Error when raw JavaScript injection"
+  },
+  "nano_l_filter_bad_selector": {
+    "message": "El selector en esta regla tiene errores de sintaxis.",
+    "description": "Error when selector has syntax errors"
+  },
+  "nano_l_filter_too_expensive": {
+    "message": "Esta regla no puede ser genérica.",
+    "description": "Error when expensive rule is generic"
+  },
+  "nano_l_filter_style_injection_syntax_error": {
+    "message": "Esta regla de inyección de CSS tiene errores de sintaxis.",
+    "description": "Error when CSS injection has syntax errors"
+  },
+  "nano_l_filter_assets_access_violation": {
+    "message": "Los filtros no privilegiados no pueden hacer referencia a recursos privilegiados.",
+    "description": "Error when unprivileged filter references a privileged resources"
+  },
+  "nano_l_filter_localhost_entry": {
+    "message": "Esta entrada de archivo de host está descartada porque es una declaración a este equipo.",
+    "description": "Error when localhost declaration"
+  },
+  "nano_l_filter_ag_element_remove": {
+    "message": "Las reglas de remoción de elementos con la sintaxis de AdGuard aún no son admitidas. Use '##^' en su lugar.",
+    "description": "Error when AdGuard style element remove rule"
+  },
+  "nano_l_filter_negated_generichide": {
+    "message": "Las opciones 'generichide', 'ghide', y 'elemhide' no pueden ser negadas.",
+    "description": "Error when 'generichide' is negated"
+  },
+  "nano_l_filter_bad_domain_option_arguments": {
+    "message": "La opción 'domain=...' tiene argumentos inválidos.",
+    "description": "Error when 'domain=' has invalid arguments"
+  },
+  "nano_l_filter_bad_csp_option_arguments": {
+    "message": "La opción 'csp=...' tiene argumentos inválidos.",
+    "description": "Error when 'csp=' has invalid arguments"
+  },
+  "nano_l_filter_unknown_option": {
+    "message": "La opción '{{option}}' no es reconocida.",
+    "description": "English: The option '{{option}}' is not recognized."
+  },
+  "nano_l_filter_only_unsupported_type": {
+    "message": "Una opción de tipo aún no es admitida.",
+    "description": "Error when unsupported type option used and entire rule discarded"
+  },
+  "nano_l_filter_bad_re": {
+    "message": "Esta regla de red tiene errores de sintaxis de expresión regular.",
+    "description": "Error when network has regular expression syntax errors"
+  },
+  "nano_l_filter_intervention_smed79": {
+    "message": "El ancla de dominio no puede ser seguido inmediatamente por un '^'.",
+    "description": "Error when the bad rule from SMed79 is discarded"
+  },
+  "nano_r_no_type": {
+    "message": "Nano descartó la opción 'redirect=...' porque requiere una opción de tipo.",
+    "description": "Warning when 'redirect=' has no type"
+  },
+  "nano_r_too_many_types": {
+    "message": "Nano descartó la opción 'redirect=...' porque tiene muchas opciones de tipo.",
+    "description": "Warning when 'redirect=' has too many types"
+  },
+  "nano_r_no_resource_token": {
+    "message": "Nano descartó la opción 'redirect=...' porque no tiene argumentos.",
+    "description": "Warning when 'redirect=' has no arguments"
+  },
+  "nano_r_no_supported_type": {
+    "message": "Nano descartó la opción 'redirect=...' porque no tiene una opción de tipo admitida.",
+    "description": "Warning when 'redirect=' has no supported type"
+  },
+  "nano_r_negated_domain": {
+    "message": "Nano descartó un dominio negado porque no se puede usar con la opción 'redirect=...'.",
+    "description": "Warning when negated domain used with 'redirect='"
+  },
+  "nano_r_no_destination": {
+    "message": "Nano descartó la opción 'redirect=...' porque no tiene un dominio de destino válido.",
+    "description": "Warning when 'redirect=' has no destination"
+  },
+  "nano_r_redirect_in_exception": {
+    "message": "La opción 'redirect=...' no se puede usar en reglas de excepción.",
+    "description": "Error when 'redirect=' used in exception"
+  },
+  "nano_r_does_not_match_re": {
+    "message": "Nano descartó la opción 'redirect=...' porque esta regla de red no coincide con la expresión regular: {{regexp}}",
+    "description": "Warning when 'redirect=' failed initial test, use '{{regexp}}' to denote the tester if needed"
+  },
+  "nano_b_cosmetic_filter_passed_through": {
+    "message": "Esta regla es rechazada por ahora. Más información: https://github.com/NanoAdblocker/NanoCore/issues/77",
+    "description": "https://github.com/NanoAdblocker/NanoCore/issues/77"
   }
 }

@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -161,6 +161,7 @@ var hashFromPopupData = function(reset) {
     hasher.push(uDom.nodeFromId('no-large-media').classList.contains('on'));
     hasher.push(uDom.nodeFromId('no-cosmetic-filtering').classList.contains('on'));
     hasher.push(uDom.nodeFromId('no-remote-fonts').classList.contains('on'));
+    hasher.push(uDom.nodeFromId('no-scripting').classList.contains('on'));
 
     var hash = hasher.join('');
     if ( reset ) {
@@ -390,30 +391,56 @@ var renderPrivacyExposure = function() {
 
 /******************************************************************************/
 
+let updateHnSwitches = function() {
+    uDom.nodeFromId('no-popups').classList.toggle(
+        'on',
+        popupData.noPopups === true
+    );
+    uDom.nodeFromId('no-large-media').classList.toggle(
+        'on', popupData.noLargeMedia === true
+    );
+    uDom.nodeFromId('no-cosmetic-filtering').classList.toggle(
+        'on',
+        popupData.noCosmeticFiltering === true
+    );
+    uDom.nodeFromId('no-remote-fonts').classList.toggle(
+        'on',
+        popupData.noRemoteFonts === true
+    );
+    uDom.nodeFromId('no-scripting').classList.toggle(
+        'on',
+        popupData.noScripting === true
+    );
+};
+
+/******************************************************************************/
+
 // Assume everything has to be done incrementally.
 
 var renderPopup = function() {
-    var elem, text;
-
     if ( popupData.tabTitle ) {
         document.title = popupData.appName + ' - ' + popupData.tabTitle;
     }
 
-    elem = document.body;
-    elem.classList.toggle('advancedUser', popupData.advancedUserEnabled);
+    let elem = document.body;
+    elem.classList.toggle(
+        'advancedUser',
+        popupData.advancedUserEnabled === true
+    );
     elem.classList.toggle(
         'off',
-        popupData.pageURL === '' || !popupData.netFilteringSwitch
+        popupData.pageURL === '' || popupData.netFilteringSwitch !== true
     );
 
-    // If you think the `=== true` is pointless, you are mistaken
-    uDom.nodeFromId('gotoPick').classList.toggle('enabled', popupData.canElementPicker === true);
-    uDom.nodeFromId('gotoZap').classList.toggle('enabled', popupData.canElementPicker === true);
-    // Patch 2018-02-01: Add force enable scroll
-    uDom.nodeFromId('forceEnableScroll').classList.toggle('enabled', popupData.canElementPicker === true);
+    let canElementPicker = popupData.canElementPicker === true &&
+                           popupData.netFilteringSwitch === true;
+    uDom.nodeFromId('gotoPick').classList.toggle('enabled', canElementPicker);
+    uDom.nodeFromId('gotoZap').classList.toggle('enabled', canElementPicker);
+    uDom.nodeFromId('nanoForceEnableScroll').classList.toggle('enabled', canElementPicker);
 
-    var blocked = popupData.pageBlockedRequestCount,
-        total = popupData.pageAllowedRequestCount + blocked;
+    let blocked = popupData.pageBlockedRequestCount,
+        total = popupData.pageAllowedRequestCount + blocked,
+        text;
     if ( total === 0 ) {
         text = formatNumber(0);
     } else {
@@ -436,10 +463,7 @@ var renderPopup = function() {
     renderPrivacyExposure();
 
     // Extra tools
-    uDom.nodeFromId('no-popups').classList.toggle('on', popupData.noPopups === true);
-    uDom.nodeFromId('no-large-media').classList.toggle('on', popupData.noLargeMedia === true);
-    uDom.nodeFromId('no-cosmetic-filtering').classList.toggle('on', popupData.noCosmeticFiltering === true);
-    uDom.nodeFromId('no-remote-fonts').classList.toggle('on', popupData.noRemoteFonts === true);
+    updateHnSwitches();
 
     // Report blocked popup count on badge
     total = popupData.popupBlockedCount;
@@ -458,7 +482,7 @@ var renderPopup = function() {
 
     // https://github.com/chrisaljoudi/uBlock/issues/470
     // This must be done here, to be sure the popup is resized properly
-    var dfPaneVisible = popupData.dfEnabled;
+    let dfPaneVisible = popupData.dfEnabled;
 
     // https://github.com/chrisaljoudi/uBlock/issues/1068
     // Remember the last state of the firewall pane. This allows to
@@ -469,11 +493,20 @@ var renderPopup = function() {
         vAPI.localStorage.setItem('popupFirewallPane', dfPaneVisibleStored);
     }
 
-    uDom.nodeFromId('panes').classList.toggle('dfEnabled', dfPaneVisible);
+    uDom.nodeFromId('panes').classList.toggle(
+        'dfEnabled',
+        dfPaneVisible === true
+    );
 
     elem = uDom.nodeFromId('firewallContainer');
-    elem.classList.toggle('minimized', popupData.firewallPaneMinimized);
-    elem.classList.toggle('colorBlind', popupData.colorBlindFriendly);
+    elem.classList.toggle(
+        'minimized',
+        popupData.firewallPaneMinimized === true
+    );
+    elem.classList.toggle(
+        'colorBlind',
+        popupData.colorBlindFriendly === true
+    );
 
     // Build dynamic filtering pane only if in use
     if ( dfPaneVisible ) {
@@ -489,14 +522,13 @@ var renderPopup = function() {
 //   Use tooltip for ARIA purpose.
 
 var renderTooltips = function(selector) {
-    var elem, text;
-    for ( var entry of tooltipTargetSelectors ) {
+    for ( let entry of tooltipTargetSelectors ) {
         if ( selector !== undefined && entry[0] !== selector ) { continue; }
-        text = vAPI.i18n(
+        let text = vAPI.i18n(
             entry[1].i18n +
             (uDom.nodeFromSelector(entry[1].state) === null ? '1' : '2')
         );
-        elem = uDom.nodeFromSelector(entry[0]);
+        let elem = uDom.nodeFromSelector(entry[0]);
         elem.setAttribute('aria-label', text);
         elem.setAttribute('data-tip', text);
         if ( selector !== undefined ) {
@@ -508,7 +540,6 @@ var renderTooltips = function(selector) {
 
 var tooltipTargetSelectors = new Map([
     [
-        // Patch 2018-02-12: Change tooltip anchor
         '#switch .fa',
         {
             state: 'body.off',
@@ -542,7 +573,14 @@ var tooltipTargetSelectors = new Map([
             state: '#no-remote-fonts.on',
             i18n: 'popupTipNoRemoteFonts'
         }
-    ]
+    ],
+    [
+        '#no-scripting',
+        {
+            state: '#no-scripting.on',
+            i18n: 'popupTipNoScripting'
+        }
+    ],
 ]);
 
 /******************************************************************************/
@@ -630,10 +668,17 @@ var onPopupMessage = function(data) {
     if ( data.tabId !== popupData.tabId ) { return; }
 
     switch ( data.what ) {
-    case 'cosmeticallyFilteredElementCountChanged':
-        var v = data.count || '';
+    case 'domSurveyFinalReport':
+        let count = data.affectedElementCount || '';
         uDom.nodeFromSelector('#no-cosmetic-filtering > span.badge')
-            .textContent = typeof v === 'number' ? v.toLocaleString() : v;
+            .textContent = typeof count === 'number' ?
+                count.toLocaleString() :
+                count;
+        count = data.scriptCount || '';
+        uDom.nodeFromSelector('#no-scripting > span.badge')
+            .textContent = typeof count === 'number' ?
+                count.toLocaleString() :
+                count;
         break;
     }
 };
@@ -654,26 +699,8 @@ var toggleNetFilteringSwitch = function(ev) {
             tabId: popupData.tabId
         }
     );
-    
-    // Patch 2018-02-12: Change tooltip anchor
     renderTooltips('#switch .fa');
-    
     hashFromPopupData();
-};
-
-/******************************************************************************/
-
-// Patch 2018-02-01: Add force enable scroll
-var forceEnableScroll = function() {
-    messaging.send(
-        'popupPanel',
-        {
-            what: 'injectForceScrollCSS',
-            tabId: popupData.tabId
-        }
-    );
-
-    vAPI.closePopup();
 };
 
 /******************************************************************************/
@@ -698,6 +725,20 @@ var gotoPick = function() {
         'popupPanel',
         {
             what: 'launchElementPicker',
+            tabId: popupData.tabId
+        }
+    );
+
+    vAPI.closePopup();
+};
+
+/******************************************************************************/
+
+var nanoForceEnableScroll = function() {
+    messaging.send(
+        'popupPanel',
+        {
+            what: 'nanoInjectForceScrollCSS',
             tabId: popupData.tabId
         }
     );
@@ -780,14 +821,13 @@ var mouseleaveCellHandler = function() {
 
 var setFirewallRule = function(src, des, type, action, persist) {
     // This can happen on pages where uBlock does not work
-    if ( typeof popupData.pageHostname !== 'string' || popupData.pageHostname === '' ) {
+    if (
+        typeof popupData.pageHostname !== 'string' ||
+        popupData.pageHostname === ''
+    ) {
         return;
     }
-    var onFirewallRuleChanged = function(response) {
-        cachePopupData(response);
-        updateAllFirewallCells();
-        hashFromPopupData();
-    };
+
     messaging.send(
         'popupPanel',
         {
@@ -800,14 +840,18 @@ var setFirewallRule = function(src, des, type, action, persist) {
             action: action,
             persist: persist
         },
-        onFirewallRuleChanged
+        response => {
+            cachePopupData(response);
+            updateAllFirewallCells();
+            hashFromPopupData();
+        }
     );
 };
 
 /******************************************************************************/
 
 var unsetFirewallRuleHandler = function(ev) {
-    var cell = uDom(this);
+    let cell = uDom(ev.target);
     setFirewallRule(
         cell.attr('data-src') === '/' ? '*' : popupData.pageHostname,
         cell.attr('data-des'),
@@ -821,13 +865,11 @@ var unsetFirewallRuleHandler = function(ev) {
 /******************************************************************************/
 
 var setFirewallRuleHandler = function(ev) {
-    var hotspot = uDom(this);
-    var cell = hotspot.ancestors('[data-src]');
-    if ( cell.length === 0 ) {
-        return;
-    }
-    var action = 0;
-    var hotspotId = hotspot.attr('id');
+    let hotspot = uDom(ev.target);
+    let cell = hotspot.ancestors('[data-src]');
+    if ( cell.length === 0 ) { return; }
+    let action = 0;
+    let hotspotId = hotspot.attr('id');
     if ( hotspotId === 'dynaAllow' ) {
         action = 2;
     } else if ( hotspotId === 'dynaNoop' ) {
@@ -891,9 +933,9 @@ var toggleMinimize = function(ev) {
         return;
     }
 
-    popupData.firewallPaneMinimized = uDom.nodeFromId('firewallContainer')
-                                          .classList
-                                          .toggle('minimized');
+    popupData.firewallPaneMinimized =
+        uDom.nodeFromId('firewallContainer').classList.toggle('minimized');
+
     messaging.send(
         'popupPanel',
         {
@@ -922,11 +964,6 @@ var saveFirewallRules = function() {
 /******************************************************************************/
 
 var revertFirewallRules = function() {
-    var onFirewallRuleChanged = function(response) {
-        cachePopupData(response);
-        updateAllFirewallCells();
-        hashFromPopupData();
-    };
     messaging.send(
         'popupPanel',
         {
@@ -935,7 +972,12 @@ var revertFirewallRules = function() {
             desHostnames: popupData.hostnameDict,
             tabId: popupData.tabId
         },
-        onFirewallRuleChanged
+        response => {
+            cachePopupData(response);
+            updateAllFirewallCells();
+            updateHnSwitches();
+            hashFromPopupData();
+        }
     );
     uDom.nodeFromId('firewallContainer').classList.remove('dirty');
 };
@@ -943,8 +985,8 @@ var revertFirewallRules = function() {
 /******************************************************************************/
 
 var toggleHostnameSwitch = function(ev) {
-    var target = ev.currentTarget;
-    var switchName = target.getAttribute('id');
+    let target = ev.currentTarget;
+    let switchName = target.getAttribute('id');
     if ( !switchName ) { return; }
     target.classList.toggle('on');
     messaging.send(
@@ -954,11 +996,16 @@ var toggleHostnameSwitch = function(ev) {
             name: switchName,
             hostname: popupData.pageHostname,
             state: target.classList.contains('on'),
-            tabId: popupData.tabId
+            tabId: popupData.tabId,
+            persist: popupData.dfEnabled === false || ev.ctrlKey || ev.metaKey
+        },
+        response => {
+            cachePopupData(response);
+            updateAllFirewallCells();
+            hashFromPopupData();
         }
     );
     renderTooltips('#' + switchName);
-    hashFromPopupData();
 };
 
 /******************************************************************************/
@@ -1093,19 +1140,11 @@ var onHideTooltip = function() {
     getPopupData(tabId);
 })();
 
-// Patch 2018-02-12: Change tooltip anchor
 uDom('#switch .fa').on('click', toggleNetFilteringSwitch);
-
 uDom('#gotoZap').on('click', gotoZap);
-
-// Patch 2018-02-01: Add force enable scroll
-uDom('#forceEnableScroll').on('click', forceEnableScroll);
-
 uDom('#gotoPick').on('click', gotoPick);
-
-// Patch 2018-02-10: Move openeing firewall pane to a explicit button
+uDom('#nanoForceEnableScroll').on('click', nanoForceEnableScroll);
 uDom('#nanoFirewallPaneToggle').on('click', toggleFirewallPane);
-
 uDom('#refresh').on('click', reloadTab);
 uDom('.hnSwitch').on('click', toggleHostnameSwitch);
 uDom('#saveRules').on('click', saveFirewallRules);
@@ -1119,12 +1158,10 @@ uDom('a[href]').on('click', gotoURL);
 
 /******************************************************************************/
 
-})();
-
+if ( typeof elib !== 'undefined' && !location.search ) {
+    elib.unbreak_popup('.fa { vertical-align: middle; }');
+}
 
 /******************************************************************************/
 
-// Patch 2018-04-18: Fix popup page for edge
-if ( typeof elib === "object" && !location.search ) {
-    elib.unbreak_popup();
-}
+})();

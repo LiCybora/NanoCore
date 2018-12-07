@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -33,55 +33,46 @@ if ( vAPI.webextFlavor === undefined ) {
 
 /******************************************************************************/
 
-var µBlock = (function() { // jshint ignore:line
+const µBlock = (function() { // jshint ignore:line
 
-    var oneSecond = 1000,
-        oneMinute = 60 * oneSecond;
+    const oneSecond = 1000,
+          oneMinute = 60 * oneSecond;
 
-    // Patch 2018-01-21: Update default values
-    var hiddenSettingsDefault = {
-        assetFetchTimeout: 60,
+    const hiddenSettingsDefault = {
+        assetFetchTimeout: 30,
         autoUpdateAssetFetchPeriod: 300,
         autoUpdatePeriod: 4,
+        benchmarkingPane: false,
+        cacheStorageCompression: true,
+        cacheControlForFirefox1376932: 'no-cache, no-store, must-revalidate',
         debugScriptlets: false,
+        disableWebAssembly: false,
         ignoreRedirectFilters: false,
         ignoreScriptInjectFilters: false,
         manualUpdateAssetFetchPeriod: 1,
+        nanoIgnoreThirdPartyWhitelist: false,
+        nanoMakeThirdPartyFiltersPrivileged: false,
+        nanoMakeUserFiltersPrivileged: false,
         popupFontSize: 'unset',
+        requestJournalProcessPeriod: 1000,
+        strictBlockingBypassDuration: 120,
         suspendTabsUntilReady: false,
-        userResourcesLocation: 'unset',
-        
-        // Patch 2017-12-25: Add more advanced settings
-        _nanoDisableHTMLFiltering: false,
-        _nanoDisconnectFrom_jspenguincom: false,
-        _nanoIgnoreThirdPartyWhitelist: false,
-        _nanoIgnorePerformanceAuditing: false,
-        _nanoMakeUserFiltersPrivileged: false
+        userResourcesLocation: 'unset'
     };
 
-    var whitelistDefault = [
+    const whitelistDefault = [
         'about-scheme',
         'chrome-extension-scheme',
         'chrome-scheme',
         'moz-extension-scheme',
-        
-        // Patch 2018-04-18: Whitelist Edge extension pages by default
         'ms-browser-extension-scheme',
-        
         'opera-scheme',
         'vivaldi-scheme',
         'wyciwyg-scheme',   // Firefox's "What-You-Cache-Is-What-You-Get"
     ];
-    // https://github.com/gorhill/uBlock/issues/3693#issuecomment-379782428
-    if ( vAPI.webextFlavor.soup.has('webext') === false ) {
-        whitelistDefault.push('behind-the-scene');
-    }
 
     return {
         firstInstall: false,
-
-        onBeforeStartQueue: [],
-        onStartCompletedQueue: [],
 
         userSettings: {
             advancedUserEnabled: false,
@@ -97,28 +88,25 @@ var µBlock = (function() { // jshint ignore:line
             hyperlinkAuditingDisabled: true,
             ignoreGenericCosmeticFilters: false,
             largeMediaSize: 50,
+            nanoEditorSoftWrap: false,
+            nanoViewerSoftWrap: true,
             parseAllABPHideFilters: true,
             prefetchingDisabled: true,
             requestLogMaxEntries: 1000,
             showIconBadge: true,
             tooltipsDisabled: false,
-            webrtcIPAddressHidden: false,
-            
-            // Patch 2017-12-19: Add UI configuration
-            nanoDashboardAllowSelection: true,
-            nanoEditorWordSoftWrap: false,
-            nanoViewerWordSoftWrap: true
+            webrtcIPAddressHidden: false
         },
 
         hiddenSettingsDefault: hiddenSettingsDefault,
         hiddenSettings: (function() {
-            var out = Object.assign({}, hiddenSettingsDefault),
+            let out = Object.assign({}, hiddenSettingsDefault),
                 json = vAPI.localStorage.getItem('immediateHiddenSettings');
             if ( typeof json === 'string' ) {
                 try {
-                    var o = JSON.parse(json);
+                    let o = JSON.parse(json);
                     if ( o instanceof Object ) {
-                        for ( var k in o ) {
+                        for ( let k in o ) {
                             if ( out.hasOwnProperty(k) ) {
                                 out[k] = o[k];
                             }
@@ -136,7 +124,7 @@ var µBlock = (function() { // jshint ignore:line
         // Features detection.
         privacySettingsSupported: vAPI.browserSettings instanceof Object,
         cloudStorageSupported: vAPI.cloud instanceof Object,
-        canFilterResponseBody: vAPI.net.canFilterResponseBody === true,
+        canFilterResponseData: typeof browser.webRequest.filterResponseData === 'function',
         canInjectScriptletsNow: vAPI.webextFlavor.soup.has('chromium'),
 
         // https://github.com/chrisaljoudi/uBlock/issues/180
@@ -154,8 +142,8 @@ var µBlock = (function() { // jshint ignore:line
 
         // Read-only
         systemSettings: {
-            compiledMagic: 3,   // Increase when compiled format changes
-            selfieMagic: 3      // Increase when selfie format changes
+            compiledMagic: 6,   // Increase when compiled format changes
+            selfieMagic: 7      // Increase when selfie format changes
         },
 
         restoreBackupSettings: {
@@ -165,14 +153,15 @@ var µBlock = (function() { // jshint ignore:line
             lastBackupTime: 0
         },
 
+        commandShortcuts: new Map(),
+
         // Allows to fully customize uBO's assets, typically set through admin
         // settings. The content of 'assets.json' will also tell which filter
         // lists to enable by default when uBO is first installed.
         assetsBootstrapLocation: 'assets/assets.json',
 
         userFiltersPath: 'user-filters',
-        // Patch 2017-12-25: Add a special asset key for partial user filters
-        nanoPartialUserFiltersKey: 'nano-partial-user-filters',
+        nanoPartialUserFiltersPath: 'nano-partial-user-filters',
         pslAssetKey: 'public_suffix_list.dat',
 
         selectedFilterLists: [],
@@ -208,18 +197,6 @@ var µBlock = (function() { // jshint ignore:line
 
 /******************************************************************************/
 
-// Patch 2017-12-07: Make debugging less painful
-var nano = µBlock;
-
-/******************************************************************************/
-
-// Patch 2018-01-25: Add a flag to disable HTML filtering.
-// Reading hidden settings is currently synchronous, must update this logic if
-// hidden settings handling have changed.
-// If the new logic is asynchronous, then must test the effect of the potential
-// race condition
-if ( nano.hiddenSettings._nanoDisableHTMLFiltering ) {
-    nano.canFilterResponseBody = false;
-}
+window.__ublock__ = µBlock;
 
 /******************************************************************************/

@@ -1,14 +1,14 @@
 {
   "extName": {
-    "message": "uBlock Origin",
+    "message": "Nano",
     "description": "extension name."
   },
   "extShortDesc": {
     "message": "Cuối cùng, đã có một công cụ chặn quảng cáo hiệu quả, tiêu tốn ít CPU và bộ nhớ.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
-    "message": "uBlock₀ — Bảng điều khiển",
+    "message": "Nano — Bảng điều khiển",
     "description": "English: uBlock₀ — Dashboard"
   },
   "settingsPageName": {
@@ -16,7 +16,7 @@
     "description": "appears as tab name in dashboard"
   },
   "3pPageName": {
-    "message": "Bộ lọc",
+    "message": "Danh sách bộ lọc",
     "description": "appears as tab name in dashboard"
   },
   "1pPageName": {
@@ -31,28 +31,36 @@
     "message": "Danh sách trắng",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Phím tắt",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
-    "message": "uBlock₀ — Nhật ký các yêu cầu",
+    "message": "Nano — Nhật ký các yêu cầu",
     "description": "Title for the logger window"
   },
   "aboutPageName": {
     "message": "Giới thiệu",
     "description": "appears as tab name in dashboard"
   },
+  "assetViewerPageName": {
+    "message": "Nano - Trình xem nội dung",
+    "description": "Title for the asset viewer page"
+  },
   "advancedSettingsPageName": {
     "message": "Cài đặt nâng cao",
     "description": "Title for the advanced settings page"
   },
   "popupPowerSwitchInfo": {
-    "message": "Nhấp chuột: vô hiệu\/kích hoạt uBlock₀ cho trang này.\nCtrl + nhấp chuột: chỉ vô hiệu uBlock₀ trên trang này.",
-    "description": "English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
+    "message": "Nhấp chuột: vô hiệu/kích hoạt Nano cho trang này.\nCtrl + nhấp chuột: chỉ vô hiệu Nano trên trang này.",
+    "description": "English: Click: disable/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
   },
   "popupPowerSwitchInfo1": {
-    "message": "Nhấp chuột để tắt uBlock₀ đối với toàn bộ tên miền này (site). \n\nCtrl + nhấp chuột để tắt uBlock₀ chỉ tại trang này (page).",
+    "message": "Nhấp chuột để vô hiệu Nano cho trang này. \n\nCtrl + nhấp chuột để tắt Nano chỉ trên trang này.",
     "description": "Message to be read by screen readers"
   },
   "popupPowerSwitchInfo2": {
-    "message": "Nhấp để bật uBlock₀ trên trang này.",
+    "message": "Nhấp để bật Nano trên trang này.",
     "description": "Message to be read by screen readers"
   },
   "popupBlockedRequestPrompt": {
@@ -92,7 +100,7 @@
     "description": "Tooltip used for the logger icon in the panel"
   },
   "popupTipNoPopups": {
-    "message": "Bật\/tắt chặn popup của trang này",
+    "message": "Bật/tắt chặn popup của trang này",
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoPopups1": {
@@ -112,19 +120,19 @@
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoLargeMedia2": {
-    "message": "Nhấp để hủy chặn các thành phần đa phương tiện lớn trên trang này",
+    "message": "Nhấp để ngừng chặn các thành phần đa phương tiện kích thước lớn trên trang này",
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoCosmeticFiltering": {
-    "message": "Bật\/tắt bộ lọc phần tử trên trang này",
+    "message": "Bật/tắt bộ lọc phần tử trên trang này",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering1": {
-    "message": "Nhấn để tắt bộ lọc phần tử trên trang này",
+    "message": "Nhấn để tắt bộ lọc phần tử ẩn trên trang này",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering2": {
-    "message": "Nhấn để bật bộ lọc phần tử trên trang này",
+    "message": "Nhấn để bật bộ lọc phần tử ẩn trên trang này",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoRemoteFonts": {
@@ -138,6 +146,14 @@
   "popupTipNoRemoteFonts2": {
     "message": "Nhấp để hủy chặn font từ xa trên trang này",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "Nhấp để vô hiệu hóa javascript trên trang này",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Nhấp để ngừng vô hiệu hóa JavaScript trên trang này",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "Quy tắc chung: cột này dành cho quy tắc áp dụng cho mọi trang.",
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "css\/hình ảnh bên thứ ba",
+    "message": "css/hình ảnh bên thứ ba",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -252,7 +268,7 @@
     "description": ""
   },
   "settingsAdvancedUserPrompt": {
-    "message": "Tôi là một người dùng có kinh nghiệm (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Advanced-user-features'>Yêu cầu đọc qua<\/a>)",
+    "message": "Tôi là một người dùng có kinh nghiệm (<a href='https://github.com/gorhill/uBlock/wiki/Advanced-user-features'>Yêu cầu đọc qua</a>)",
     "description": ""
   },
   "settingsAdvancedUserSettings": {
@@ -291,9 +307,13 @@
     "message": "Chặn font từ xa",
     "description": ""
   },
+  "settingsNoScriptingPrompt": {
+    "message": "Vô hiệu hóa JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
+  },
   "settingsNoCSPReportsPrompt": {
     "message": "Chặn các báo cáo CSP",
-    "description": "background information: https:\/\/github.com\/gorhill\/uBlock\/issues\/3150"
+    "description": "background information: https://github.com/gorhill/uBlock/issues/3150"
   },
   "settingsStorageUsed": {
     "message": "Bộ nhớ đã dùng: {{value}} byte",
@@ -332,7 +352,7 @@
     "description": "English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo": {
-    "message": "<p>Tuỳ chọn này kích hoạt phân tích và áp dụng <a href=\"https:\/\/adblockplus.org\/en\/faq_internal#elemhide\">các bộ lọc &ldquo;ẩn phần tử&rdquo; tương thích với Adblock Plus<\/a>. Những bộ lọc này dùng để ẩn phần tử trong một trang web được xem là gây phiền hà đến thị giác và không thể chặn bởi bộ lọc dựa địa chỉ trang web.<\/p><p>Kích hoạt tính năng này sẽ tăng mức sử dụng bộ nhớ của uBlock₀.<\/p>",
+    "message": "<p>Tuỳ chọn này kích hoạt phân tích và áp dụng <a href=\"https://adblockplus.org/en/faq_internal#elemhide\">các bộ lọc &ldquo;ẩn phần tử&rdquo; tương thích với Adblock Plus</a>. Những bộ lọc này dùng để ẩn phần tử trong một trang web được xem là gây phiền hà đến thị giác và không thể chặn bởi bộ lọc dựa địa chỉ trang web.</p><p>Kích hoạt tính năng này sẽ tăng mức sử dụng bộ nhớ của Nano.</p>",
     "description": "Describes the purpose of the 'Parse and enforce cosmetic filters' feature."
   },
   "3pIgnoreGenericCosmeticFilters": {
@@ -340,7 +360,7 @@
     "description": "This will cause uBO to ignore all generic cosmetic filters."
   },
   "3pIgnoreGenericCosmeticFiltersInfo": {
-    "message": "<p>Bộ lọc phần tử ẩn chung là là những bộ lọc phần tử ẩn áp dụng cho tất cả các website.<p>Mặc dù được xử lý hiệu quả bởi uBlock₀, các bộ lọc phần tử ẩn chung vẫn chiếm dụng bộ nhớ và CPU quá mức trên một số trang web, đặc biệt là các trang lớn và lâu năm.<p>Kích hoạt tuỳ chọn này sẽ loại bỏ sử dụng bộ nhớ và CPU quá mức thêm vào trang web nhờ khả năng xử lý các bộ lọc phần tử ẩn chung và cũng làm giảm sử dụng bộ nhớ của uBlock₀.<p>Chúng tôi khuyến cáo bạn nên kích hoạt tuỳ chọn này trên các thiết bị không quá mạnh.",
+    "message": "<p>Bộ lọc phần tử ẩn chung là là những bộ lọc phần tử ẩn áp dụng cho tất cả các website.<p>Mặc dù được xử lý hiệu quả bởi Nano, các bộ lọc phần tử ẩn chung vẫn chiếm dụng bộ nhớ và CPU quá mức trên một số trang web, đặc biệt là các trang lớn và lâu năm.<p>Kích hoạt tuỳ chọn này sẽ loại bỏ sử dụng bộ nhớ và CPU quá mức thêm vào trang web nhờ khả năng xử lý các bộ lọc phần tử ẩn chung và cũng làm giảm sử dụng bộ nhớ của Nano.<p>Chúng tôi khuyến cáo bạn nên kích hoạt tuỳ chọn này trên các thiết bị không quá mạnh.",
     "description": "Describes the purpose of the 'Ignore generic cosmetic filters' feature."
   },
   "3pListsOfBlockedHostsHeader": {
@@ -352,7 +372,7 @@
     "description": "English: Apply changes"
   },
   "3pGroupDefault": {
-    "message": "Trên máy",
+    "message": "Dựng sẵn",
     "description": "Header for the uBlock filters section in 'Filter lists pane'"
   },
   "3pGroupAds": {
@@ -388,7 +408,7 @@
     "description": "The label for the checkbox used to import external filter lists"
   },
   "3pExternalListsHint": {
-    "message": "Một URL cho mỗi dòng. Dòng bắt đầu với &lsquo;!&rsquo;sẽ bị bỏ qua. Các URL không hợp lệ sẽ được bỏ qua âm thầm.",
+    "message": "Một URL cho mỗi dòng. Các URL không hợp lệ sẽ được bỏ qua âm thầm.",
     "description": "Short information about how to use the textarea to import external filter lists by URL"
   },
   "3pExternalListObsolete": {
@@ -396,7 +416,7 @@
     "description": "used as a tooltip for the out-of-date icon beside a list"
   },
   "3pLastUpdate": {
-    "message": "Cập nhật mới: {{ago}}.\nClick để cập nhập.",
+    "message": "Cập nhật lần cuối: {{ago}}.\nNhấn để cập nhật ngay.",
     "description": "used as a tooltip for the clock icon beside a list"
   },
   "3pUpdating": {
@@ -408,7 +428,7 @@
     "description": "used as a tooltip for error icon beside a list"
   },
   "1pFormatHint": {
-    "message": "Một bộ lọc trên mỗi dòng. Một bộ lọc có thể là một tên máy chủ đơn giản, hoặc một bộ lọc Adblock Plus tương thích. Những dòng bắt đầu với &lsquo;!&rsquo; sẽ bị bỏ qua.",
+    "message": "Một bộ lọc trên mỗi dòng. Một bộ lọc có thể là một tên máy chủ đơn thuần, hoặc một bộ lọc tương thích với Adblock Plus. Những dòng bắt đầu với <code>!</code> sẽ bị bỏ qua.",
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
@@ -420,7 +440,7 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "my-ublock-static-filters_{{datetime}}.txt",
+    "message": "my-nano-static-filters_{{datetime}}.txt",
     "description": "English: my-ublock-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
@@ -464,7 +484,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "my-ublock-dynamic-rules_{{datetime}}.txt",
+    "message": "my-nano-dynamic-rules_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -472,11 +492,11 @@
     "description": "English: List of your dynamic filtering rules."
   },
   "rulesFormatHint": {
-    "message": "Quy tắc cú pháp: <code>nguồn đích loại hành động<\/code> (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Dynamic-filtering:-rule-syntax'>tài liệu đầy đủ<\/a>).",
+    "message": "Quy tắc cú pháp: <code>nguồn đích loại hành động</code> (<a href='https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-rule-syntax'>tài liệu đầy đủ</a>).",
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "Danh sách tên các máy chủ mà uBlock₀ sẽ bị chặn. Một mục nhập trên mỗi dòng. Tên máy chủ không hợp lệ sẽ được tự động bỏ qua.",
+    "message": "Danh sách tên các máy chủ mà Nano sẽ bị chặn. Một mục nhập trên mỗi dòng. Tên máy chủ không hợp lệ sẽ được tự động bỏ qua.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -488,7 +508,7 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "my-ublock-whitelist_{{datetime}}.txt",
+    "message": "my-nano-whitelist_{{datetime}}.txt",
     "description": "English: my-ublock-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
@@ -584,16 +604,20 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Bộ lọc tĩnh {{filter}} phát hiện trong:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Bộ lọc tĩnh <code>{{filter}}</code> phát hiện trong:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Bộ lọc tĩnh <code>{{filter}}</code> không thể tìm thấy trong bất kỳ danh sách bộ lọc hiện được bật nào",
+    "description": "Message to show when a filter cannot be found in any filter lists"
   },
   "aboutChangelog": {
     "message": "Thay đổi",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "Wiki",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Hỗ trợ",
@@ -611,12 +635,16 @@
     "message": "Những người đóng góp",
     "description": "English: Contributors"
   },
+  "aboutDependencies": {
+    "message": "External dependencies (tương thích-GPLv3):",
+    "description": "Shown in the About pane"
+  },
   "aboutBackupDataButton": {
     "message": "Sao lưu vào tập tin...",
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "my-ublock-backup_{{datetime}}.txt",
+    "message": "my-nano-backup_{{datetime}}.txt",
     "description": "English: my-ublock-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
@@ -628,7 +656,7 @@
     "description": "English: Reset to default settings..."
   },
   "aboutRestoreDataConfirm": {
-    "message": "Các thiết lập của bạn sẽ bị ghi đè bởi dữ liệu đã lưu vào lúc {{time}}, và uBlock₀ sẽ khởi động lại. \n\nGhi đè các thiết lập hiện tại bằng dữ liệu đã lưu?",
+    "message": "Các thiết lập của bạn sẽ bị ghi đè bởi dữ liệu đã lưu vào lúc {{time}}, và Nano sẽ khởi động lại. \n\nGhi đè các thiết lập hiện tại bằng dữ liệu đã lưu?",
     "description": "Message asking user to confirm restore"
   },
   "aboutRestoreDataError": {
@@ -636,7 +664,7 @@
     "description": "Message to display when an error occurred during restore"
   },
   "aboutResetDataConfirm": {
-    "message": "Các thiết lập sẽ bị xóa và uBlock₀ sẽ khởi động lại. \n\nThiết lập uBlock₀ về cấu hình ban đầu?",
+    "message": "Các thiết lập sẽ bị xóa và Nano sẽ khởi động lại. \n\nThiết lập Nano về cấu hình ban đầu?",
     "description": "Message asking user to confirm reset"
   },
   "errorCantConnectTo": {
@@ -644,7 +672,7 @@
     "description": "English: Network error: {{msg}}"
   },
   "subscriberConfirm": {
-    "message": "uBlock₀: Thêm URL dưới đây vào bộ lọc tuỳ biến của bạn?\n\nTên: \"{{title}}\"\nURL: {{url}}",
+    "message": "Nano: Thêm URL dưới đây vào bộ lọc tuỳ biến của bạn?\n\nTên: \"{{title}}\"\nURL: {{url}}",
     "description": "English: The message seen by the user to confirm subscription to a ABP filter list"
   },
   "elapsedOneMinuteAgo": {
@@ -673,11 +701,11 @@
   },
   "showDashboardButton": {
     "message": "Hiện bảng điều khiển",
-    "description": "Firefox\/Fennec-specific: Show Dashboard"
+    "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
     "message": "Hiện nhật ký",
-    "description": "Firefox\/Fennec-specific: Show Logger"
+    "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
     "message": "tắt",
@@ -693,7 +721,7 @@
   },
   "docblockedNoParamsPrompt": {
     "message": "không có thông số",
-    "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+    "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
   },
   "docblockedFoundIn": {
     "message": "Tìm thấy trong:",
@@ -748,7 +776,7 @@
     "description": "for generic 'Submit' buttons"
   },
   "genericApplyChanges": {
-    "message": "Lưu thay đổi",
+    "message": "Áp dụng các thay đổi",
     "description": "for generic 'Apply changes' buttons"
   },
   "genericRevert": {
@@ -763,8 +791,236 @@
     "message": "Tạm thời cho phép yếu tố đa phương tiện lớn",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
   },
-  "dummy": {
-    "message": "Đây là mục cuối",
-    "description": "so we dont need to deal with comma for last entry"
+  "shortcutCapturePlaceholder": {
+    "message": "Nhập phím tắt",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "nano_d_ui_group": {
+    "message": "User interface",
+    "description": "Group 'User interface' of settings tab"
+  },
+  "nano_d_line_wrap_e": {
+    "message": "Soft wrap long lines in filter editor",
+    "description": "English: Soft wrap long lines in filter editor"
+  },
+  "nano_d_line_wrap_v": {
+    "message": "Soft wrap long lines in filter viewer",
+    "description": "English: Soft wrap long lines in filter viewer"
+  },
+  "nano_d_recompile_filters": {
+    "message": "Force recompile filters",
+    "description": "Button in advanced settings to recompile filters"
+  },
+  "nano_d_resources_links": {
+    "message": "Nano comes with two sets of resources, <a href='https://github.com/gorhill/uBlock/wiki/Resources-Library'>uBlock Origin Resources</a> and <a href='https://github.com/NanoAdblocker/NanoFilters/blob/master/NanoFiltersSource/NanoResources.txt'>Nano Extra Resources</a>.",
+    "description": "Resources reference links"
+  },
+  "nano_d_ace_help": {
+    "message": "Nano Filter Editor is powered by Ace and most shortcut keys works the same.",
+    "description": "Explain the similarity between Nano Filter Editor and Ace in terms of shortcut keys"
+  },
+  "nano_d_unsaved_warning": {
+    "message": "Leave tab?\nChanges you made will not be saved.",
+    "description": "Unsaved change warning"
+  },
+  "nano_d_about_based_on": {
+    "message": "Based on uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "description": "English: Based on {{@data}}"
+  },
+  "nano_v_title": {
+    "message": "Nano — Filter Viewer",
+    "description": "Title of the filter viewer"
+  },
+  "nano_v_read_error": {
+    "message": "Could not load content, please refresh.",
+    "description": "Error when filter content could not be loaded"
+  },
+  "nano_p_cache_control": {
+    "message": "cache control",
+    "description": "The cache control strip name"
+  },
+  "nano_p_open_firewall_pane": {
+    "message": "Toggle the overview panel",
+    "description": "Tooltip for toggle firewall (sometimes called overview) panel button"
+  },
+  "nano_p_refresh_button": {
+    "message": "Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache.",
+    "description": "English: Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache."
+  },
+  "nano_p_force_scroll": {
+    "message": "(beta) Enter force scroll mode (will break layout)",
+    "description": "Tooltip for force scroll button"
+  },
+  "nano_p_bug_reporter": {
+    "message": "(beta) Open the bug reporter",
+    "description": "Tooltip for bug reporter button"
+  },
+  "nano_l_whitelist_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in whitelists"
+  },
+  "nano_l_whitelist_suspecious_re": {
+    "message": "This line is treated as a regular expression, is that intended?",
+    "description": "Warning when parsed as regular expression but is unlikely the intention of user"
+  },
+  "nano_l_whitelist_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in whitelists"
+  },
+  "nano_l_whitelist_invalid_hostname": {
+    "message": "This hostname is not valid.",
+    "description": "Error when hostname not valid"
+  },
+  "nano_l_whitelist_invalid_re": {
+    "message": "This regular expression has syntax errors.",
+    "description": "Error when regular expression has syntax errors"
+  },
+  "nano_l_whitelist_invalid_url": {
+    "message": "This URL is not valid.",
+    "description": "Error when a URL not valid"
+  },
+  "nano_l_filter_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in filter rules"
+  },
+  "nano_l_filter_script_snippet_double_exception": {
+    "message": "Nano discarded a negated domain because it cannot be used in a script snippet exception rule.",
+    "description": "Warning when negated domain used with script snippet exception"
+  },
+  "nano_l_filter_converted_to_exception": {
+    "message": "Nano converted this rule to an exception rule because it only contain negated domains.",
+    "description": "Warning when a rule is convered to exception because all negated domains"
+  },
+  "nano_l_filter_negated_html_filtering": {
+    "message": "Negated domain is not yet supported for HTML filtering.",
+    "description": "Warning when negated domain used with HTML filtering"
+  },
+  "nano_l_filter_discarded_non_negatable_type": {
+    "message": "Nano discarded the type option '{{type}}' because it cannot be negated.",
+    "description": "English: Nano discarded the type option '{{type}}' because it cannot be negated."
+  },
+  "nano_l_filter_expanded_mp4_option": {
+    "message": "Nano replaced the option 'mp4' with 'media,redirect=noopmp4-1s'.",
+    "description": "Warning when 'mp4' is replaced"
+  },
+  "nano_l_filter_unsupported_type_ignored": {
+    "message": "Nano discarded type options that are not yet supported.",
+    "description": "Warning when unsupported type options discarded but not entire rule"
+  },
+  "nano_l_filter_resource_not_found": {
+    "message": "The resource '{{res}}' could not be found, is it spelled correctly?",
+    "description": "Warning when resource not found"
+  },
+  "nano_l_filter_comment_bracket": {
+    "message": "Using '[' to denote comment is deprecated, use '!' instead.",
+    "description": "Deprecation when '[' used for comments"
+  },
+  "nano_l_filter_inline_comment": {
+    "message": "Inline comments are deprecated.",
+    "description": "Deprecation when inline comments"
+  },
+  "nano_l_filter_script_contains": {
+    "message": "'##script:contains(...)' is deprecated, use '##^script:has-text(...)' instead.",
+    "description": "Deprecation when 'script:contains' is used"
+  },
+  "nano_l_filter_mp4_option": {
+    "message": "The use of the option 'mp4' is deprecated, write out the full options instead.",
+    "description": "Deprecation when 'mp4'"
+  },
+  "nano_l_filter_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in filter rules"
+  },
+  "nano_l_filter_ag_js_injection": {
+    "message": "Raw JavaScript injection is not accepted due to security concerns.",
+    "description": "Error when raw JavaScript injection"
+  },
+  "nano_l_filter_bad_selector": {
+    "message": "The selector in this rule has syntax errors.",
+    "description": "Error when selector has syntax errors"
+  },
+  "nano_l_filter_too_expensive": {
+    "message": "This rule cannot be generic.",
+    "description": "Error when expensive rule is generic"
+  },
+  "nano_l_filter_style_injection_syntax_error": {
+    "message": "This CSS injection rule has syntax errors.",
+    "description": "Error when CSS injection has syntax errors"
+  },
+  "nano_l_filter_assets_access_violation": {
+    "message": "Unprivileged filters may not reference privileged resources.",
+    "description": "Error when unprivileged filter references a privileged resources"
+  },
+  "nano_l_filter_localhost_entry": {
+    "message": "This host file entry is discarded because it is localhost declaration.",
+    "description": "Error when localhost declaration"
+  },
+  "nano_l_filter_ag_element_remove": {
+    "message": "Element remove rules with AdGuard syntax are not yet supported, use '##^' instead.",
+    "description": "Error when AdGuard style element remove rule"
+  },
+  "nano_l_filter_negated_generichide": {
+    "message": "The options 'generichide', 'ghide', and 'elemhide' cannot be negated.",
+    "description": "Error when 'generichide' is negated"
+  },
+  "nano_l_filter_bad_domain_option_arguments": {
+    "message": "The option 'domain=...' has invalid arguments.",
+    "description": "Error when 'domain=' has invalid arguments"
+  },
+  "nano_l_filter_bad_csp_option_arguments": {
+    "message": "The option 'csp=...' has invalid arguments.",
+    "description": "Error when 'csp=' has invalid arguments"
+  },
+  "nano_l_filter_unknown_option": {
+    "message": "The option '{{option}}' is not recognized.",
+    "description": "English: The option '{{option}}' is not recognized."
+  },
+  "nano_l_filter_only_unsupported_type": {
+    "message": "A type option is not yet supported.",
+    "description": "Error when unsupported type option used and entire rule discarded"
+  },
+  "nano_l_filter_bad_re": {
+    "message": "This network rule has regular expression syntax errors.",
+    "description": "Error when network has regular expression syntax errors"
+  },
+  "nano_l_filter_intervention_smed79": {
+    "message": "The domain anchor may not be immediately followed by '^'.",
+    "description": "Error when the bad rule from SMed79 is discarded"
+  },
+  "nano_r_no_type": {
+    "message": "Nano discarded the option 'redirect=...' because it requires a type option.",
+    "description": "Warning when 'redirect=' has no type"
+  },
+  "nano_r_too_many_types": {
+    "message": "Nano discarded the option 'redirect=...' because it has too many type options.",
+    "description": "Warning when 'redirect=' has too many types"
+  },
+  "nano_r_no_resource_token": {
+    "message": "Nano discarded the option 'redirect=...' because it has no arguments.",
+    "description": "Warning when 'redirect=' has no arguments"
+  },
+  "nano_r_no_supported_type": {
+    "message": "Nano discarded the option 'redirect=...' because it has no supported type option.",
+    "description": "Warning when 'redirect=' has no supported type"
+  },
+  "nano_r_negated_domain": {
+    "message": "Nano discarded a negated domain because it cannot be used with the option 'redirect=...'.",
+    "description": "Warning when negated domain used with 'redirect='"
+  },
+  "nano_r_no_destination": {
+    "message": "Nano discarded the option 'redirect=...' because it has no valid destination domain.",
+    "description": "Warning when 'redirect=' has no destination"
+  },
+  "nano_r_redirect_in_exception": {
+    "message": "The option 'redirect=...' cannot be used in exception rules.",
+    "description": "Error when 'redirect=' used in exception"
+  },
+  "nano_r_does_not_match_re": {
+    "message": "Nano discarded the option 'redirect=...' because this network rule does not match this regular expression: {{regexp}}",
+    "description": "Warning when 'redirect=' failed initial test, use '{{regexp}}' to denote the tester if needed"
+  },
+  "nano_b_cosmetic_filter_passed_through": {
+    "message": "This rule is rejected for now. More information: https://github.com/NanoAdblocker/NanoCore/issues/77",
+    "description": "https://github.com/NanoAdblocker/NanoCore/issues/77"
   }
 }

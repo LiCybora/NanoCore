@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -387,31 +387,25 @@ var netFilterFromUnion = (function() {
 // Extract the best possible net filter, i.e. as specific as possible.
 
 var netFilterFromElement = function(elem) {
-    if ( elem === null ) {
-        return 0;
-    }
-    if ( elem.nodeType !== 1 ) {
-        return 0;
-    }
-    var src = resourceURLFromElement(elem);
-    if ( src === '' ) {
-        return 0;
-    }
+    if ( elem === null ) { return 0; }
+    if ( elem.nodeType !== 1 ) { return 0; }
+    let src = resourceURLFromElement(elem);
+    if ( src === '' ) { return 0; }
 
     if ( candidateElements.indexOf(elem) === -1 ) {
         candidateElements.push(elem);
     }
 
-    var candidates = netFilterCandidates;
-    var len = candidates.length;
+    const candidates = netFilterCandidates;
+    const len = candidates.length;
 
     // Remove fragment
-    var pos = src.indexOf('#');
+    let pos = src.indexOf('#');
     if ( pos !== -1 ) {
         src = src.slice(0, pos);
     }
 
-    var filter = src.replace(/^https?:\/\//, '||');
+    const filter = src.replace(/^https?:\/\//, '||');
 
     if ( bestCandidateFilter === null ) {
         bestCandidateFilter = {
@@ -491,7 +485,7 @@ var cosmeticFilterFromElement = function(elem) {
     }
 
     // Tag name
-    let tagName = elem.localName;
+    const tagName = elem.localName;
 
     // Use attributes if still no selector found.
     // https://github.com/gorhill/uBlock/issues/1901
@@ -512,7 +506,18 @@ var cosmeticFilterFromElement = function(elem) {
         case 'img':
             v = elem.getAttribute('src');
             if ( v && v.length !== 0 ) {
-                attributes.push({ k: 'src', v: v.trim().slice(0, 1024) });
+                v = v.trim();
+                if ( v.startsWith('data:') ) {
+                    let pos = v.indexOf(',');
+                    if ( pos !== -1 ) {
+                        v = v.slice(0, pos + 1);
+                    }
+                } else if ( v.startsWith('blob:') ) {
+                    v = new URL(v.slice(5));
+                    v.pathname = '';
+                    v = 'blob:' + v.href;
+                }
+                attributes.push({ k: 'src', v: v.slice(0, 256) });
                 break;
             }
             v = elem.getAttribute('alt');
@@ -540,7 +545,7 @@ var cosmeticFilterFromElement = function(elem) {
     // https://github.com/uBlockOrigin/uBlock-issues/issues/17
     //   If selector is ambiguous at this point, add the element name to
     //   further narrow it down.
-    let parentNode = elem.parentNode;
+    const parentNode = elem.parentNode;
     if (
         selector === '' ||
         safeQuerySelectorAll(parentNode, cssScope + selector).length > 1
@@ -753,16 +758,18 @@ var filterToDOMInterface = (function() {
     // normalize all a[href] on the page, but for now I will wait and see, as I
     // prefer to refrain from tampering with the page content if I can avoid it.
     var fromPlainCosmeticFilter = function(filter) {
-        var elems;
+        let elems;
         try {
-            elems = document.querySelectorAll(filter);
+            elems = document.querySelectorAll(
+                filter + ':not(#' + pickerRoot.id + ')'
+            );
         }
         catch (e) {
             return;
         }
-        var out = [], iElem = elems.length;
-        while ( iElem-- ) {
-            out.push({ type: 'cosmetic', elem: elems[iElem]});
+        const out = [];
+        for ( const elem of elems ) {
+            out.push({ type: 'cosmetic', elem });
         }
         return out;
     };
@@ -1044,9 +1051,12 @@ var candidateFromFilterChoice = function(filterChoice) {
     //   TODO: should remove tag name too? ¯\_(ツ)_/¯
     if ( filterChoice.modifier ) {
         filter = filter.replace(/:nth-of-type\(\d+\)/, '');
-        if ( filter.indexOf('.') !== -1 ) {
-            if ( filter.charAt(2) === '#' ) {
-                filter = filter.replace(/#[^#.]+/, '');
+        // https://github.com/uBlockOrigin/uBlock-issues/issues/162
+        //   Mind escaped periods: they do not denote a class identifier.
+        if ( filter.charAt(2) === '#' ) {
+            let pos = filter.search(/[^\\]\./);
+            if ( pos !== -1 ) {
+                filter = '##' + filter.slice(pos + 1);
             }
         }
         return filter;
@@ -1057,8 +1067,10 @@ var candidateFromFilterChoice = function(filterChoice) {
     for ( ; slot < filters.length; slot++ ) {
         filter = filters[slot];
         // Remove all classes when an id exists.
+        // https://github.com/uBlockOrigin/uBlock-issues/issues/162
+        //   Mind escaped periods: they do not denote a class identifier.
         if ( filter.charAt(2) === '#' ) {
-            filter = filter.replace(/\..+$/, '');
+            filter = filter.replace(/([^\\])\..+$/, '$1');
         }
         selector = filter.slice(2) + joiner + selector;
         // Stop at any element with an id: these are unique in a web page
@@ -1490,8 +1502,8 @@ var stopPicker = function() {
 var startPicker = function(details) {
     pickerRoot.addEventListener('load', stopPicker);
 
-    var frameDoc = pickerRoot.contentDocument;
-    var parsedDom = (new DOMParser()).parseFromString(
+    const frameDoc = pickerRoot.contentDocument;
+    const parsedDom = (new DOMParser()).parseFromString(
         details.frameContent,
         'text/html'
     );
@@ -1499,6 +1511,17 @@ var startPicker = function(details) {
     // Provide an id users can use as anchor to personalize uBO's element
     // picker style properties.
     parsedDom.documentElement.id = 'ublock0-epicker';
+
+    // https://github.com/gorhill/uBlock/issues/2240
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/170
+    //   Remove the already declared inline style tag: we will create a new
+    //   one based on the removed one, and replace the old one.
+    let style = parsedDom.querySelector('style');
+    const styleText = style.textContent;
+    style.parentNode.removeChild(style);
+    style = frameDoc.createElement('style');
+    style.textContent = styleText;
+    parsedDom.head.appendChild(style);
 
     frameDoc.replaceChild(
         frameDoc.adoptNode(parsedDom.documentElement),
@@ -1528,7 +1551,7 @@ var startPicker = function(details) {
     pickerRoot.contentWindow.focus();
 
     // Restore net filter union data if it originate from the same URL.
-    var eprom = details.eprom || null;
+    const eprom = details.eprom || null;
     if ( eprom !== null && eprom.lastNetFilterSession === lastNetFilterSession ) {
         lastNetFilterHostname = eprom.lastNetFilterHostname || '';
         lastNetFilterUnion = eprom.lastNetFilterUnion || '';
@@ -1547,12 +1570,11 @@ var startPicker = function(details) {
     }
 
     // No mouse position available, use suggested target
-    var target = details.target || '';
-    var pos = target.indexOf('\t');
-    if ( pos === -1 ) {
-        return;
-    }
-    var srcAttrMap = {
+    const target = details.target || '';
+    const pos = target.indexOf('\t');
+    if ( pos === -1 ) { return; }
+
+    const srcAttrMap = {
         'a': 'href',
         'audio': 'src',
         'embed': 'src',
@@ -1560,22 +1582,19 @@ var startPicker = function(details) {
         'img': 'src',
         'video': 'src',
     };
-    var tagName = target.slice(0, pos);
-    var url = target.slice(pos + 1);
-    var attr = srcAttrMap[tagName];
-    if ( attr === undefined ) {
-        return;
-    }
-    var elems = document.querySelectorAll(tagName + '[' + attr + ']');
-    var i = elems.length;
-    var elem, src;
-    while ( i-- ) {
-        elem = elems[i];
-        src = elem[attr];
-        if ( typeof src !== 'string' || src === '' ) {
-            continue;
-        }
-        if ( src !== url ) {
+    const tagName = target.slice(0, pos);
+    const url = target.slice(pos + 1);
+    const attr = srcAttrMap[tagName];
+    if ( attr === undefined ) { return; }
+    const elems = document.getElementsByTagName(tagName);
+    for ( const elem of elems  ) {
+        if ( elem === pickerRoot ) { continue; }
+        const src = elem[attr];
+        if ( typeof src !== 'string' ) { continue; }
+        if (
+            (src !== url) &&
+            (src !== '' || url !== 'about:blank')
+        ) {
             continue;
         }
         elem.scrollIntoView({

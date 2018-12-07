@@ -1,14 +1,14 @@
 {
   "extName": {
-    "message": "uBlock₀",
+    "message": "Nano",
     "description": "extension name."
   },
   "extShortDesc": {
     "message": "Коначно, ефикасан блокатор. Ниски процесорски и меморијски захтеви.",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
-    "message": "uBlock₀ — Контролна табла",
+    "message": "Nano — Контролна табла",
     "description": "English: uBlock₀ — Dashboard"
   },
   "settingsPageName": {
@@ -31,21 +31,29 @@
     "message": "Дозвољени домени",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "Пречице",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
-    "message": "uBlock₀ — Евиденција",
+    "message": "Nano — Евиденција",
     "description": "Title for the logger window"
   },
   "aboutPageName": {
     "message": "О програму",
     "description": "appears as tab name in dashboard"
   },
+  "assetViewerPageName": {
+    "message": "Nano — Прегледач ресурса",
+    "description": "Title for the asset viewer page"
+  },
   "advancedSettingsPageName": {
     "message": "Напредна подешавања",
     "description": "Title for the advanced settings page"
   },
   "popupPowerSwitchInfo": {
-    "message": "Клик: онемогући\/омогући µBlock₀ за овај сајт.\n\nCtrl+клик: онемогући\/омогући µBlock₀ само за ову страницу.",
-    "description": "English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
+    "message": "Клик: онемогући/омогући µBlock₀ за овај сајт.\n\nCtrl+клик: онемогући/омогући µBlock₀ само за ову страницу.",
+    "description": "English: Click: disable/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
   },
   "popupPowerSwitchInfo1": {
     "message": "Кликните да бисте онемогућили µBlock₀ за овај сајт.\n\nCtrl+клик да бисте онемогућили µBlock₀ само на овој страници.",
@@ -92,7 +100,7 @@
     "description": "Tooltip used for the logger icon in the panel"
   },
   "popupTipNoPopups": {
-    "message": "Укључи\/искључи блокирање свих искачућих прозора за овај сајт",
+    "message": "Укључи/искључи блокирање свих искачућих прозора за овај сајт",
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoPopups1": {
@@ -104,7 +112,7 @@
     "description": "Tooltip for the no-popups per-site switch"
   },
   "popupTipNoLargeMedia": {
-    "message": "Укључи\/искључи блокирање великих мултимедијалних елемената за овај сајт",
+    "message": "Укључи/искључи блокирање великих мултимедијалних елемената за овај сајт",
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoLargeMedia1": {
@@ -116,7 +124,7 @@
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoCosmeticFiltering": {
-    "message": "Укључи\/искључи естетско филтрирање за овај сајт",
+    "message": "Укључи/искључи естетско филтрирање за овај сајт",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering1": {
@@ -128,7 +136,7 @@
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoRemoteFonts": {
-    "message": "Укључи\/искључи блокирање удаљених фонтова за овај сајт",
+    "message": "Укључи/искључи блокирање удаљених фонтова за овај сајт",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
   "popupTipNoRemoteFonts1": {
@@ -138,6 +146,14 @@
   "popupTipNoRemoteFonts2": {
     "message": "Кликните да бисте зауставили блокирање удаљених фонтова на овом сајту",
     "description": "Tooltip for the no-remote-fonts per-site switch"
+  },
+  "popupTipNoScripting1": {
+    "message": "Кликните да онемогућите JavaScript на овом сајту",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Кликните да JavaScript не буде више онемогућен на овом сајту",
+    "description": "Tooltip for the no-scripting per-site switch"
   },
   "popupTipGlobalRules": {
     "message": "Општа правила: ова колона је за правила која се примењују на свим сајтовима.",
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "Css\/слике трећих страна",
+    "message": "CSS/слике трећих страна",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -252,7 +268,7 @@
     "description": ""
   },
   "settingsAdvancedUserPrompt": {
-    "message": "Ја сам напредни корисник (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Advanced-user-features'>обавезна литература<\/a>)",
+    "message": "Ја сам напредни корисник (<a href='https://github.com/gorhill/uBlock/wiki/Advanced-user-features'>обавезна литература</a>)",
     "description": ""
   },
   "settingsAdvancedUserSettings": {
@@ -291,9 +307,13 @@
     "message": "Блокирај удаљене фонтове",
     "description": ""
   },
+  "settingsNoScriptingPrompt": {
+    "message": "Онемогући JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
+  },
   "settingsNoCSPReportsPrompt": {
     "message": "Блокирај CSP извештаје",
-    "description": "background information: https:\/\/github.com\/gorhill\/uBlock\/issues\/3150"
+    "description": "background information: https://github.com/gorhill/uBlock/issues/3150"
   },
   "settingsStorageUsed": {
     "message": "Искоришћеност складишта: {{value}} бајтова",
@@ -332,7 +352,7 @@
     "description": "English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo": {
-    "message": "<p>Ова опција омогућава рашчлањавање и спровођење <a href=\"https:\/\/adblockplus.org\/en\/faq_internal#elemhide\">Adblock Plus компатибилних филтера &ldquo;за сакривање елемената&rdquo; <\/a>. Ови филтери су углавном естетски, они служе за сакривање елемената на веб страници који се сматрају визуелном сметњом и који не могу бити блокирани од стране мрежних захтева базираних на филтрирању.<\/p><p>Омогућавањем ове функције повећава се количина меморије коју uBlock₀ користи.<\/p>",
+    "message": "<p>Ова опција омогућава рашчлањавање и спровођење <a href=\"https://adblockplus.org/en/faq_internal#elemhide\">Adblock Plus компатибилних филтера &ldquo;за сакривање елемената&rdquo; </a>. Ови филтери су углавном естетски, они служе за сакривање елемената на веб страници који се сматрају визуелном сметњом и који не могу бити блокирани од стране мрежних захтева базираних на филтрирању.</p><p>Омогућавањем ове функције повећава се количина меморије коју Nano користи.</p>",
     "description": "Describes the purpose of the 'Parse and enforce cosmetic filters' feature."
   },
   "3pIgnoreGenericCosmeticFilters": {
@@ -340,7 +360,7 @@
     "description": "This will cause uBO to ignore all generic cosmetic filters."
   },
   "3pIgnoreGenericCosmeticFiltersInfo": {
-    "message": "<p>Општи естетски филтери су они естетски филтери који су намењени за примену на свим сајтовима.<p>Иако uBlock₀ ефикасно рукује њима, општи естетски филтери могу довести до повећане потрошње меморије и оптерећења процесора на неким страницама, нарочито на оним великим. <p>Омогућавањем ове опције, елиминисаће се повећана потрошња меморије и оптерећење процесора на страницама као резултат руковања општим естетским филтерима, а такође и смањити меморијски отисак самог uBlock₀-а.<p>Препоручује се да се ова опција омогући на мање моћним уређајима.",
+    "message": "<p>Општи естетски филтери су они естетски филтери који су намењени за примену на свим сајтовима.<p>Иако Nano ефикасно рукује њима, општи естетски филтери могу довести до повећане потрошње меморије и оптерећења процесора на неким страницама, нарочито на оним великим. <p>Омогућавањем ове опције, елиминисаће се повећана потрошња меморије и оптерећење процесора на страницама као резултат руковања општим естетским филтерима, а такође и смањити меморијски отисак самог Nano-а.<p>Препоручује се да се ова опција омогући на мање моћним уређајима.",
     "description": "Describes the purpose of the 'Ignore generic cosmetic filters' feature."
   },
   "3pListsOfBlockedHostsHeader": {
@@ -408,7 +428,7 @@
     "description": "used as a tooltip for error icon beside a list"
   },
   "1pFormatHint": {
-    "message": "Један филтер по реду. Филтер може бити назив хоста или филтер компатибилан са Adblock Plus форматом. Редови са префиксом <code>!<\/code> ће бити игнорисани.",
+    "message": "Један филтер по реду. Филтер може бити назив хоста или филтер компатибилан са Adblock Plus форматом. Редови са префиксом <code>!</code> ће бити игнорисани.",
     "description": "Short information about how to create custom filters"
   },
   "1pImport": {
@@ -420,7 +440,7 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "моји-ublock-филтери_{{datetime}}.txt",
+    "message": "моји-nano-филтери_{{datetime}}.txt",
     "description": "English: my-ublock-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
@@ -464,7 +484,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "моја-ublock-динамичка-правила_{{datetime}}.txt",
+    "message": "моја-nano-динамичка-правила_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -472,11 +492,11 @@
     "description": "English: List of your dynamic filtering rules."
   },
   "rulesFormatHint": {
-    "message": "Правила синтаксе: <code>извор одредиште тип акција<\/code>(<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Dynamic-filtering:-rule-syntax'>сва документација<\/a>).",
+    "message": "Правила синтаксе: <code>извор одредиште тип акција</code>(<a href='https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-rule-syntax'>сва документација</a>).",
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "Смернице дозвољених домена диктирају на којим веб страницама би uBlock Origin требало бити онемогућен. Један унос по реду. Неисправне смернице ће бити тихо занемарене.",
+    "message": "Смернице дозвољених домена диктирају на којим веб страницама би Nano требало бити онемогућен. Један унос по реду. Неисправне смернице ће бити тихо занемарене.",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -488,7 +508,7 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "моја-ublock-листа_дозвољених_домена{{datetime}}.txt",
+    "message": "моја-nano-листа_дозвољених_домена{{datetime}}.txt",
     "description": "English: my-ublock-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
@@ -584,16 +604,20 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "Статички филтер {{filter}} пронађен у:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "Статички филтер <code>{{filter}}</code> пронађен у:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Статички филтер <code>{{filter}}</code> није пронађен нити у једној тренутно омогућеној листи филтера",
+    "description": "Message to show when a filter cannot be found in any filter lists"
   },
   "aboutChangelog": {
-    "message": "Евиденција промена",
-    "description": "English: Change log"
+    "message": "Списак измена",
+    "description": ""
   },
   "aboutWiki": {
     "message": "Вики",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "Подршка",
@@ -611,12 +635,16 @@
     "message": "Сарадници",
     "description": "English: Contributors"
   },
+  "aboutDependencies": {
+    "message": "Спољне зависности (компатибилно са GPLv3):",
+    "description": "Shown in the About pane"
+  },
   "aboutBackupDataButton": {
     "message": "Сачувај резервну копију у датотеку",
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "ublock-backup_{{datetime}}.txt",
+    "message": "nano-backup_{{datetime}}.txt",
     "description": "English: my-ublock-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
@@ -628,7 +656,7 @@
     "description": "English: Reset to default settings..."
   },
   "aboutRestoreDataConfirm": {
-    "message": "Сва ваша подешавања ће бити прегажена резервном копијом података сачуваним {{time}} и uBlock₀ ће се поново покренути.\n\nПрегазити сва постојећа подешавања резервном копијом података?",
+    "message": "Сва ваша подешавања ће бити прегажена резервном копијом података сачуваним {{time}} и Nano ће се поново покренути.\n\nПрегазити сва постојећа подешавања резервном копијом података?",
     "description": "Message asking user to confirm restore"
   },
   "aboutRestoreDataError": {
@@ -644,7 +672,7 @@
     "description": "English: Network error: {{msg}}"
   },
   "subscriberConfirm": {
-    "message": "uBlock₀: Додати следећу УРЛ адресу у вашу прилагођену листу филтера?\n\nНазив: \"{{title}}\"\nУРЛ: {{url}}",
+    "message": "Nano: Додати следећу УРЛ адресу у вашу прилагођену листу филтера?\n\nНазив: \"{{title}}\"\nУРЛ: {{url}}",
     "description": "English: The message seen by the user to confirm subscription to a ABP filter list"
   },
   "elapsedOneMinuteAgo": {
@@ -660,7 +688,7 @@
     "description": "English: an hour ago"
   },
   "elapsedManyHoursAgo": {
-    "message": "пре {{value}} сата\/и",
+    "message": "пре {{value}} сата/и",
     "description": "English: {{value}} hours ago"
   },
   "elapsedOneDayAgo": {
@@ -673,18 +701,18 @@
   },
   "showDashboardButton": {
     "message": "Прикажи контролну таблу",
-    "description": "Firefox\/Fennec-specific: Show Dashboard"
+    "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
     "message": "Прикажи евиденцију мрежних захтева",
-    "description": "Firefox\/Fennec-specific: Show Logger"
+    "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
     "message": "искључен",
     "description": "Firefox-specific: appears as 'uBlock₀ (off)'"
   },
   "docblockedPrompt1": {
-    "message": "uBlock Origin је спречио учитавање следеће странице:",
+    "message": "Nano је спречио учитавање следеће странице:",
     "description": "English: uBlock₀ has prevented the following page from loading:"
   },
   "docblockedPrompt2": {
@@ -693,7 +721,7 @@
   },
   "docblockedNoParamsPrompt": {
     "message": "без параметара",
-    "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+    "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
   },
   "docblockedFoundIn": {
     "message": "Пронађен у:",
@@ -763,8 +791,236 @@
     "message": "Привремено дозволи велике мултимедијалне елементе",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
   },
-  "dummy": {
-    "message": "This entry must be the last one",
-    "description": "so we dont need to deal with comma for last entry"
+  "shortcutCapturePlaceholder": {
+    "message": "Укуцајте пречицу",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "nano_d_ui_group": {
+    "message": "User interface",
+    "description": "Group 'User interface' of settings tab"
+  },
+  "nano_d_line_wrap_e": {
+    "message": "Soft wrap long lines in filter editor",
+    "description": "English: Soft wrap long lines in filter editor"
+  },
+  "nano_d_line_wrap_v": {
+    "message": "Soft wrap long lines in filter viewer",
+    "description": "English: Soft wrap long lines in filter viewer"
+  },
+  "nano_d_recompile_filters": {
+    "message": "Force recompile filters",
+    "description": "Button in advanced settings to recompile filters"
+  },
+  "nano_d_resources_links": {
+    "message": "Nano comes with two sets of resources, <a href='https://github.com/gorhill/uBlock/wiki/Resources-Library'>uBlock Origin Resources</a> and <a href='https://github.com/NanoAdblocker/NanoFilters/blob/master/NanoFiltersSource/NanoResources.txt'>Nano Extra Resources</a>.",
+    "description": "Resources reference links"
+  },
+  "nano_d_ace_help": {
+    "message": "Nano Filter Editor is powered by Ace and most shortcut keys works the same.",
+    "description": "Explain the similarity between Nano Filter Editor and Ace in terms of shortcut keys"
+  },
+  "nano_d_unsaved_warning": {
+    "message": "Leave tab?\nChanges you made will not be saved.",
+    "description": "Unsaved change warning"
+  },
+  "nano_d_about_based_on": {
+    "message": "Based on uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "description": "English: Based on {{@data}}"
+  },
+  "nano_v_title": {
+    "message": "Nano — Filter Viewer",
+    "description": "Title of the filter viewer"
+  },
+  "nano_v_read_error": {
+    "message": "Could not load content, please refresh.",
+    "description": "Error when filter content could not be loaded"
+  },
+  "nano_p_cache_control": {
+    "message": "cache control",
+    "description": "The cache control strip name"
+  },
+  "nano_p_open_firewall_pane": {
+    "message": "Toggle the overview panel",
+    "description": "Tooltip for toggle firewall (sometimes called overview) panel button"
+  },
+  "nano_p_refresh_button": {
+    "message": "Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache.",
+    "description": "English: Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache."
+  },
+  "nano_p_force_scroll": {
+    "message": "(beta) Enter force scroll mode (will break layout)",
+    "description": "Tooltip for force scroll button"
+  },
+  "nano_p_bug_reporter": {
+    "message": "(beta) Open the bug reporter",
+    "description": "Tooltip for bug reporter button"
+  },
+  "nano_l_whitelist_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in whitelists"
+  },
+  "nano_l_whitelist_suspecious_re": {
+    "message": "This line is treated as a regular expression, is that intended?",
+    "description": "Warning when parsed as regular expression but is unlikely the intention of user"
+  },
+  "nano_l_whitelist_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in whitelists"
+  },
+  "nano_l_whitelist_invalid_hostname": {
+    "message": "This hostname is not valid.",
+    "description": "Error when hostname not valid"
+  },
+  "nano_l_whitelist_invalid_re": {
+    "message": "This regular expression has syntax errors.",
+    "description": "Error when regular expression has syntax errors"
+  },
+  "nano_l_whitelist_invalid_url": {
+    "message": "This URL is not valid.",
+    "description": "Error when a URL not valid"
+  },
+  "nano_l_filter_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in filter rules"
+  },
+  "nano_l_filter_script_snippet_double_exception": {
+    "message": "Nano discarded a negated domain because it cannot be used in a script snippet exception rule.",
+    "description": "Warning when negated domain used with script snippet exception"
+  },
+  "nano_l_filter_converted_to_exception": {
+    "message": "Nano converted this rule to an exception rule because it only contain negated domains.",
+    "description": "Warning when a rule is convered to exception because all negated domains"
+  },
+  "nano_l_filter_negated_html_filtering": {
+    "message": "Negated domain is not yet supported for HTML filtering.",
+    "description": "Warning when negated domain used with HTML filtering"
+  },
+  "nano_l_filter_discarded_non_negatable_type": {
+    "message": "Nano discarded the type option '{{type}}' because it cannot be negated.",
+    "description": "English: Nano discarded the type option '{{type}}' because it cannot be negated."
+  },
+  "nano_l_filter_expanded_mp4_option": {
+    "message": "Nano replaced the option 'mp4' with 'media,redirect=noopmp4-1s'.",
+    "description": "Warning when 'mp4' is replaced"
+  },
+  "nano_l_filter_unsupported_type_ignored": {
+    "message": "Nano discarded type options that are not yet supported.",
+    "description": "Warning when unsupported type options discarded but not entire rule"
+  },
+  "nano_l_filter_resource_not_found": {
+    "message": "The resource '{{res}}' could not be found, is it spelled correctly?",
+    "description": "Warning when resource not found"
+  },
+  "nano_l_filter_comment_bracket": {
+    "message": "Using '[' to denote comment is deprecated, use '!' instead.",
+    "description": "Deprecation when '[' used for comments"
+  },
+  "nano_l_filter_inline_comment": {
+    "message": "Inline comments are deprecated.",
+    "description": "Deprecation when inline comments"
+  },
+  "nano_l_filter_script_contains": {
+    "message": "'##script:contains(...)' is deprecated, use '##^script:has-text(...)' instead.",
+    "description": "Deprecation when 'script:contains' is used"
+  },
+  "nano_l_filter_mp4_option": {
+    "message": "The use of the option 'mp4' is deprecated, write out the full options instead.",
+    "description": "Deprecation when 'mp4'"
+  },
+  "nano_l_filter_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in filter rules"
+  },
+  "nano_l_filter_ag_js_injection": {
+    "message": "Raw JavaScript injection is not accepted due to security concerns.",
+    "description": "Error when raw JavaScript injection"
+  },
+  "nano_l_filter_bad_selector": {
+    "message": "The selector in this rule has syntax errors.",
+    "description": "Error when selector has syntax errors"
+  },
+  "nano_l_filter_too_expensive": {
+    "message": "This rule cannot be generic.",
+    "description": "Error when expensive rule is generic"
+  },
+  "nano_l_filter_style_injection_syntax_error": {
+    "message": "This CSS injection rule has syntax errors.",
+    "description": "Error when CSS injection has syntax errors"
+  },
+  "nano_l_filter_assets_access_violation": {
+    "message": "Unprivileged filters may not reference privileged resources.",
+    "description": "Error when unprivileged filter references a privileged resources"
+  },
+  "nano_l_filter_localhost_entry": {
+    "message": "This host file entry is discarded because it is localhost declaration.",
+    "description": "Error when localhost declaration"
+  },
+  "nano_l_filter_ag_element_remove": {
+    "message": "Element remove rules with AdGuard syntax are not yet supported, use '##^' instead.",
+    "description": "Error when AdGuard style element remove rule"
+  },
+  "nano_l_filter_negated_generichide": {
+    "message": "The options 'generichide', 'ghide', and 'elemhide' cannot be negated.",
+    "description": "Error when 'generichide' is negated"
+  },
+  "nano_l_filter_bad_domain_option_arguments": {
+    "message": "The option 'domain=...' has invalid arguments.",
+    "description": "Error when 'domain=' has invalid arguments"
+  },
+  "nano_l_filter_bad_csp_option_arguments": {
+    "message": "The option 'csp=...' has invalid arguments.",
+    "description": "Error when 'csp=' has invalid arguments"
+  },
+  "nano_l_filter_unknown_option": {
+    "message": "The option '{{option}}' is not recognized.",
+    "description": "English: The option '{{option}}' is not recognized."
+  },
+  "nano_l_filter_only_unsupported_type": {
+    "message": "A type option is not yet supported.",
+    "description": "Error when unsupported type option used and entire rule discarded"
+  },
+  "nano_l_filter_bad_re": {
+    "message": "This network rule has regular expression syntax errors.",
+    "description": "Error when network has regular expression syntax errors"
+  },
+  "nano_l_filter_intervention_smed79": {
+    "message": "The domain anchor may not be immediately followed by '^'.",
+    "description": "Error when the bad rule from SMed79 is discarded"
+  },
+  "nano_r_no_type": {
+    "message": "Nano discarded the option 'redirect=...' because it requires a type option.",
+    "description": "Warning when 'redirect=' has no type"
+  },
+  "nano_r_too_many_types": {
+    "message": "Nano discarded the option 'redirect=...' because it has too many type options.",
+    "description": "Warning when 'redirect=' has too many types"
+  },
+  "nano_r_no_resource_token": {
+    "message": "Nano discarded the option 'redirect=...' because it has no arguments.",
+    "description": "Warning when 'redirect=' has no arguments"
+  },
+  "nano_r_no_supported_type": {
+    "message": "Nano discarded the option 'redirect=...' because it has no supported type option.",
+    "description": "Warning when 'redirect=' has no supported type"
+  },
+  "nano_r_negated_domain": {
+    "message": "Nano discarded a negated domain because it cannot be used with the option 'redirect=...'.",
+    "description": "Warning when negated domain used with 'redirect='"
+  },
+  "nano_r_no_destination": {
+    "message": "Nano discarded the option 'redirect=...' because it has no valid destination domain.",
+    "description": "Warning when 'redirect=' has no destination"
+  },
+  "nano_r_redirect_in_exception": {
+    "message": "The option 'redirect=...' cannot be used in exception rules.",
+    "description": "Error when 'redirect=' used in exception"
+  },
+  "nano_r_does_not_match_re": {
+    "message": "Nano discarded the option 'redirect=...' because this network rule does not match this regular expression: {{regexp}}",
+    "description": "Warning when 'redirect=' failed initial test, use '{{regexp}}' to denote the tester if needed"
+  },
+  "nano_b_cosmetic_filter_passed_through": {
+    "message": "This rule is rejected for now. More information: https://github.com/NanoAdblocker/NanoCore/issues/77",
+    "description": "https://github.com/NanoAdblocker/NanoCore/issues/77"
   }
 }

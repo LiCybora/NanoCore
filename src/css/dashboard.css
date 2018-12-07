@@ -73,6 +73,13 @@ iframe {
     width: 100%;
     }
 
+body:not(.canUpdateShortcuts) .tabButton[href="#shortcuts.html"] {
+    display: none;
+    }
+body:not(.canBenchmark) .tabButton[href="#benchmarks.html"] {
+    display: none;
+    }
+
 @media (max-width: 640px) {
     #dashboard-nav {
         position: relative;

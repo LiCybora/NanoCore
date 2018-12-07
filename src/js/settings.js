@@ -186,8 +186,7 @@ var synchronizeDOM = function() {
         'advancedUser',
         uDom.nodeFromId('advanced-user-enabled').checked === true
     );
-    
-    // Patch 2018-05-09: Duct tape Edge's broken layout engine
+
     if ( typeof elib !== 'undefined' ) {
         var elem = document.querySelector('a[href="advanced-settings.html"]');
         if ( document.body.classList.contains('advancedUser') ) {

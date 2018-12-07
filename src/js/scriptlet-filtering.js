@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2017-2018 Raymond Hill
+    Copyright (C) 2017-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -184,10 +184,6 @@
                 content = patchScriptlet(content, args);
                 if ( !content ) { return; }
             }
-            // Patch 2018-03-06: Prevent one bad script snippet from crashing
-            // everything
-            // Notes 2018-03-06: https://stackoverflow.com/a/19728876/6598117
-            // This shouldn't cause performance overhead
             content =
                 'try {\n' +
                     content.replace('{{nano}}', '') + '\n' +
@@ -222,7 +218,7 @@
             'cosmetic',
             {
                 source: 'cosmetic',
-                raw: (isException ? '#@#' : '##') + 'script:inject(' + token + ')'
+                raw: (isException ? '#@#' : '##') + '+js(' + token + ')'
             },
             'dom',
             details.url,
@@ -250,62 +246,50 @@
 
         if ( parsed.hostnames.length === 0 ) {
             if ( parsed.exception ) {
-                writer.push([ 32, '!', '', parsed.suffix ]);
+                writer.push([ 32, 0 | 0b0001, '', parsed.suffix ]);
             } else {
-                // Patch 2017-12-27: Show an appropriate error message
-                if ( nano.compileFlags.firstParty ) {
-                    nano.filterLinter.dispatchError(vAPI.i18n('filterLinterRejectedTooExpensive'));
-                }
+                nano.flinte('nano_l_filter_too_expensive');
             }
             return;
         }
-        
-        // Patch 2018-05-02: Reject rule if unprivileged filter references
-        // privileged resources
-        var injectArgs = parsed.suffix.slice(14, -1);
-        if ( !nano.compileFlags.isPrivileged && injectArgs.startsWith(nano.privilegedAssetsPrefix) ) {
-            if ( nano.compileFlags.firstParty ) {
-                nano.filterLinter.dispatchError(vAPI.i18n('filterLinterRejectedAssetsAccessViolation'));
-            }
-            // console.log('rejected', parsed.suffix);
+
+        var nanoInjectArgs = parsed.suffix.slice(4, -1);
+        if (
+            !nano.cf.is_privileged &&
+            nanoInjectArgs.startsWith(nano.privileged_assets_previx)
+        ) {
+            nano.flinte('nano_l_filter_assets_access_violation');
             return;
         }
+        nano.fl.lint(nano.flintable.ResScriptInject, nanoInjectArgs);
 
         // https://github.com/gorhill/uBlock/issues/3375
         //   Ignore instances of exception filter with negated hostnames,
         //   because there is no way to create an exception to an exception.
-        // Notes 2018-01-03: Script snippet rules with only negated domains is
-        // equivalent to an exception rule but without negated domains
 
-        var µburi = µb.URI;
-
-        for ( var hostname of parsed.hostnames ) {
-            var negated = hostname.charCodeAt(0) === 0x7E /* '~' */;
+        for ( let hn of parsed.hostnames ) {
+            let negated = hn.charCodeAt(0) === 0x7E /* '~' */;
             if ( negated ) {
-                hostname = hostname.slice(1);
+                hn = hn.slice(1);
             }
-            var hash = µburi.domainFromHostname(hostname);
+            let hash = µb.staticExtFilteringEngine.compileHostnameToHash(hn);
             if ( parsed.exception ) {
                 if ( negated ) {
-                    // Patch 2018-01-03: Show an appropriate warning message
-                    if ( nano.compileFlags.firstParty ) {
-                        nano.filterLinter.dispatchWarning(vAPI.i18n('filterLinterWarningScriptSnippetDoubleException'));
-                    }
-                    
+                    nano.flintw('nano_l_filter_script_snippet_double_exception');
                     continue;
                 }
-                hash = '!' + hash;
+                hash |= 0b0001;
             } else if ( negated ) {
-                hash = '!' + hash;
+                hash |= 0b0001;
             }
-            writer.push([ 32, hash, hostname, parsed.suffix ]);
+            writer.push([ 32, hash, hn, parsed.suffix ]);
         }
     };
 
     // 01234567890123456789
-    // script:inject(token[, arg[, ...]])
-    //               ^                 ^
-    //              14                 -1
+    // +js(token[, arg[, ...]])
+    //     ^                 ^
+    //     4                -1
 
     api.fromCompiledContent = function(reader) {
         // 1001 = scriptlet injection
@@ -313,17 +297,17 @@
 
         while ( reader.next() ) {
             acceptedCount += 1;
-            var fingerprint = reader.fingerprint();
+            let fingerprint = reader.fingerprint();
             if ( duplicates.has(fingerprint) ) {
                 discardedCount += 1;
                 continue;
             }
             duplicates.add(fingerprint);
-            var args = reader.args();
+            let args = reader.args();
             if ( args.length < 4 ) { continue; }
             scriptletDB.add(
                 args[1],
-                { hostname: args[2], token: args[3].slice(14, -1) }
+                { hostname: args[2], token: args[3].slice(4, -1) }
             );
         }
     };
@@ -332,10 +316,10 @@
         if ( scriptletDB.size === 0 ) { return; }
         if ( µb.hiddenSettings.ignoreScriptInjectFilters ) { return; }
 
-        var reng = µb.redirectEngine;
+        let reng = µb.redirectEngine;
         if ( !reng ) { return; }
 
-        var hostname = request.hostname;
+        let hostname = request.hostname;
 
         // https://github.com/gorhill/uBlock/issues/2835
         //   Do not inject scriptlets if the site is under an `allow` rule.
@@ -351,7 +335,7 @@
 
         // https://github.com/gorhill/uBlock/issues/1954
         // Implicit
-        var hn = hostname;
+        let hn = hostname;
         for (;;) {
             lookupScriptlet(hn + '.js', reng, scriptletsRegister);
             if ( hn === domain ) { break; }
@@ -365,11 +349,15 @@
 
         // Explicit
         let entries = [];
-        if ( domain !== '' ) {
-            scriptletDB.retrieve(domain, hostname, entries);
-            scriptletDB.retrieve(entity, entity, entries);
+        let domainHash = µb.staticExtFilteringEngine.makeHash(domain);
+        if ( domainHash !== 0 ) {
+            scriptletDB.retrieve(domainHash, hostname, entries);
         }
-        scriptletDB.retrieve('', hostname, entries);
+        let entityHash = µb.staticExtFilteringEngine.makeHash(entity);
+        if ( entityHash !== 0 ) {
+            scriptletDB.retrieve(entityHash, entity, entries);
+        }
+        scriptletDB.retrieve(0, hostname, entries);
         for ( let entry of entries ) {
             lookupScriptlet(entry.token, reng, scriptletsRegister);
         }
@@ -378,11 +366,13 @@
 
         // Collect exception filters.
         entries = [];
-        if ( domain !== '' ) {
-            scriptletDB.retrieve('!' + domain, hostname, entries);
-            scriptletDB.retrieve('!' + entity, entity, entries);
+        if ( domainHash !== 0 ) {
+            scriptletDB.retrieve(domainHash | 0b0001, hostname, entries);
         }
-        scriptletDB.retrieve('!', hostname, entries);
+        if ( entityHash !== 0 ) {
+            scriptletDB.retrieve(entityHash | 0b0001, entity, entries);
+        }
+        scriptletDB.retrieve(0 | 0b0001, hostname, entries);
         for ( let entry of entries ) {
             exceptionsRegister.add(entry.token);
         }

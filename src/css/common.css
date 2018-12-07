@@ -13,7 +13,6 @@
     user-select: none;
       -moz-user-select: none;
       -webkit-user-select: none;
-    vertical-align: middle;
     }
 body {
     background-color: white;
@@ -26,8 +25,6 @@ code {
     }
 textarea {
     font-size: 90%;
-
-    /* Patch 2017-12-27: Fix text spacing for some user agents */
     font-family: monospace;
     }
 /* I designed the button with: http://charliepark.org/bootstrap_buttons/ */

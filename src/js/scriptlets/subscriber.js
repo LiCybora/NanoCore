@@ -111,7 +111,6 @@ var onMaybeAbpLinkClicked = function(ev) {
 
 setTimeout(function() {
     if (
-        // Patch 2018-03-02: Accept `ubo:subscribe` links.
         document.querySelector('link[rel="canonical"][href="https://filterlists.com/"]') !== null ||
         document.querySelector('a[href^="abp:"],a[href^="ubo:"],a[href^="https://subscribe.adblockplus.org/?"]') !== null
     ) {

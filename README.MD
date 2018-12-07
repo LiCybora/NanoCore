@@ -4,33 +4,29 @@ Just another adblocker on Firefox
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
-This repository contains the legacy code of Nano Adblocker for Firefox 
-(Unofficial), the new code can be found in the
+This repository contains the built code of Nano Adblocker for Firefox 
+(Unofficial), the code of the builder can be found in the
 [Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
 
 ### WARNING: This is NOT official Firefox port to Nano Adblocker!
 
 Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore). 
-As this is unofficial port, report issues here instead of upstream or you may 
-not get help.
 
 ## Announcement
 
 ### Warning: If you find this on AMO, that IS NOT MINE.
 
-
 Due to unavailable for Nano Defender on AMO, there is no plan to put Nano 
-Adblocker for Firefox on AMO. **The one in AMO is neither supported by me nor 
-original author!**
+Adblocker for Firefox on AMO. **If you see any in AMO, that is NOT mine and
+I give no support to that.**
 
-**Installing from unofficial source is strongly NOT recommend,** including this 
-repo. But if you think this repo is good for you, feel free to use it, just 
-remind that report issue to right person.
+**Important: This is unofficial source and NOT supported by original author. 
+You must report issues other than filters here or you may not get help.**
 
 ## Installation
 
 You need Firefox version 52 or above to install this extension, but recommend 
-58 or above for working with Nano Defender.
+60 or above for working with Nano Defender.
 
 Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
@@ -38,7 +34,7 @@ Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
 Click .xpi file to download and install from link below.
 
-### [Get it for Firefox (Unofficial, Signed, Unlisted, Experimental)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
+### [Get it for Firefox (Unofficial, Signed, Unlisted)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
 Note: Firefox Sync will **NOT** sync this addon among devices due to unlisted 
 from AMO.
@@ -119,9 +115,3 @@ Available since 1.0.0.0
 - Added a few more filters to filters manager
 - Made cache control button to be always shown
 - Added force scroll mode (to be used with element zapper)
-
-There are also a few changes specifically for Edge:
-- Mapped `fetch` requests to `xhr`
-- Fixed the popup panel in logger
-- Fixed advanced settings button in dashboard
-- Fixed issues with InPrivate mode

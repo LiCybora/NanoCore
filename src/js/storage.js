@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -29,47 +29,58 @@
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
-    var getBytesInUseHandler = function(bytesInUse) {
+    let bytesInUse;
+    let countdown = 0;
+
+    let process = count => {
+        if ( typeof count === 'number' ) {
+            if ( bytesInUse === undefined ) {
+                bytesInUse = 0;
+            }
+            bytesInUse += count;
+        }
+        countdown -= 1;
+        if ( countdown > 0 ) { return; }
         µBlock.storageUsed = bytesInUse;
         callback(bytesInUse);
     };
+
     // Not all platforms implement this method.
     if ( vAPI.storage.getBytesInUse instanceof Function ) {
-        vAPI.storage.getBytesInUse(null, getBytesInUseHandler);
-    } else {
+        countdown += 1;
+        vAPI.storage.getBytesInUse(null, process);
+    }
+    if (
+        this.cacheStorage !== vAPI.storage &&
+        this.cacheStorage.getBytesInUse instanceof Function
+    ) {
+        countdown += 1;
+        this.cacheStorage.getBytesInUse(null, process);
+    }
+    if ( countdown === 0 ) {
         callback();
     }
 };
 
 /******************************************************************************/
 
-µBlock.keyvalSetOne = function(key, val, callback) {
-    var bin = {};
-    bin[key] = val;
-    vAPI.storage.set(bin, callback || this.noopFunc);
-};
-
-/******************************************************************************/
-
 µBlock.saveLocalSettings = (function() {
-    var saveAfter = 4 * 60 * 1000;
+    let saveAfter = 4 * 60 * 1000;
 
-    var save = function() {
-        this.localSettingsLastSaved = Date.now();
-        vAPI.storage.set(this.localSettings);
-    };
-
-    var onTimeout = function() {
-        var µb = µBlock;
+    let onTimeout = ( ) => {
+        let µb = µBlock;
         if ( µb.localSettingsLastModified > µb.localSettingsLastSaved ) {
-            save.call(µb);
+            µb.saveLocalSettings();
         }
         vAPI.setTimeout(onTimeout, saveAfter);
     };
 
     vAPI.setTimeout(onTimeout, saveAfter);
 
-    return save;
+    return function(callback) {
+        this.localSettingsLastSaved = Date.now();
+        vAPI.storage.set(this.localSettings, callback);
+    };
 })();
 
 /******************************************************************************/
@@ -81,48 +92,25 @@
 /******************************************************************************/
 
 µBlock.loadHiddenSettings = function() {
-    var onLoaded = function(bin) {
+    vAPI.storage.get('hiddenSettings', bin => {
         if ( bin instanceof Object === false ) { return; }
-        var µb = µBlock,
-            hs = bin.hiddenSettings;
-        // Remove following condition once 1.15.12+ is widespread.
-        if (
-            hs instanceof Object === false &&
-            typeof bin.hiddenSettingsString === 'string'
-        ) {
-            vAPI.storage.remove('hiddenSettingsString');
-            hs = µBlock.hiddenSettingsFromString(bin.hiddenSettingsString);
-        }
+        let hs = bin.hiddenSettings;
         if ( hs instanceof Object ) {
-            var hsDefault = µb.hiddenSettingsDefault;
-            for ( var key in hsDefault ) {
+            let hsDefault = this.hiddenSettingsDefault;
+            for ( let key in hsDefault ) {
                 if (
                     hsDefault.hasOwnProperty(key) &&
                     hs.hasOwnProperty(key) &&
                     typeof hs[key] === typeof hsDefault[key]
                 ) {
-                    µb.hiddenSettings[key] = hs[key];
+                    this.hiddenSettings[key] = hs[key];
                 }
-            }
-            // To remove once 1.15.26 is widespread. The reason is to ensure
-            // the change in the following commit is taken into account:
-            // https://github.com/gorhill/uBlock/commit/8071321e9104
-            if ( hs.manualUpdateAssetFetchPeriod === 2000 ) {
-                µb.hiddenSettings.manualUpdateAssetFetchPeriod =
-                    µb.hiddenSettingsDefault.manualUpdateAssetFetchPeriod;
-                hs.manualUpdateAssetFetchPeriod = undefined;
-                µb.saveHiddenSettings();
             }
         }
         if ( vAPI.localStorage.getItem('immediateHiddenSettings') === null ) {
-            µb.saveImmediateHiddenSettings();
+            this.saveImmediateHiddenSettings();
         }
-    };
-
-    vAPI.storage.get(
-        [ 'hiddenSettings', 'hiddenSettingsString'],
-        onLoaded
-    );
+    });
 };
 
 // Note: Save only the settings which values differ from the default ones.
@@ -130,8 +118,8 @@
 // which were not modified by the user.
 
 µBlock.saveHiddenSettings = function(callback) {
-    var bin = { hiddenSettings: {} };
-    for ( var prop in this.hiddenSettings ) {
+    let bin = { hiddenSettings: {} };
+    for ( let prop in this.hiddenSettings ) {
         if (
             this.hiddenSettings.hasOwnProperty(prop) &&
             this.hiddenSettings[prop] !== this.hiddenSettingsDefault[prop]
@@ -198,12 +186,9 @@
     vAPI.localStorage.setItem(
         'immediateHiddenSettings',
         JSON.stringify({
+               disableWebAssembly: this.hiddenSettings.disableWebAssembly,
             suspendTabsUntilReady: this.hiddenSettings.suspendTabsUntilReady,
-            userResourcesLocation: this.hiddenSettings.userResourcesLocation,
-            
-            // Patch 2018-02-22: Mark extended advanced settings as required
-            // immediately when needed
-            _nanoDisableHTMLFiltering: this.hiddenSettings._nanoDisableHTMLFiltering
+            userResourcesLocation: this.hiddenSettings.userResourcesLocation
         })
     );
 };
@@ -214,25 +199,33 @@
 /******************************************************************************/
 
 µBlock.savePermanentFirewallRules = function() {
-    this.keyvalSetOne('dynamicFilteringString', this.permanentFirewall.toString());
+    vAPI.storage.set({
+        dynamicFilteringString: this.permanentFirewall.toString()
+    });
 };
 
 /******************************************************************************/
 
 µBlock.savePermanentURLFilteringRules = function() {
-    this.keyvalSetOne('urlFilteringString', this.permanentURLFiltering.toString());
+    vAPI.storage.set({
+        urlFilteringString: this.permanentURLFiltering.toString()
+    });
 };
 
 /******************************************************************************/
 
 µBlock.saveHostnameSwitches = function() {
-    this.keyvalSetOne('hostnameSwitchesString', this.hnSwitches.toString());
+    vAPI.storage.set({
+        hostnameSwitchesString: this.permanentSwitches.toString()
+    });
 };
 
 /******************************************************************************/
 
 µBlock.saveWhitelist = function() {
-    this.keyvalSetOne('netWhitelist', this.stringFromWhitelist(this.netWhitelist));
+    vAPI.storage.set({
+        netWhitelist: this.stringFromWhitelist(this.netWhitelist)
+    });
     this.netWhitelistModifyTime = Date.now();
 };
 
@@ -254,11 +247,6 @@
                 µb.saveSelectedFilterLists(
                     µb.autoSelectRegionalFilterLists(availableLists)
                 );
-                
-                // Patch 2017-12-16: Fix potential race condition on slow devices
-                //console.log(nano.selectedFilterLists);
-                nano.selectedFilterListsLoaded = true;
-                
                 callback();
             });
             return;
@@ -267,11 +255,6 @@
         // https://github.com/gorhill/uBlock/issues/3383
         vAPI.storage.remove('remoteBlacklists');
         µb.selectedFilterLists = bin.selectedFilterLists;
-        
-        // Patch 2017-12-16: Fix potential race condition on slow devices
-        //console.log(nano.selectedFilterLists);
-        nano.selectedFilterListsLoaded = true;
-        
         callback();
     });
 };
@@ -413,8 +396,7 @@
     if ( content !== '' ) {
         content += '\n';
     } else {
-        // Patch 2018-01-21: Reset linter when saving empty user filters
-        nano.filterLinter.clearResult();
+        nano.fl.clear_result();
     }
     this.assets.put(this.userFiltersPath, content, callback);
     this.removeCompiledFilterList(this.userFiltersPath);
@@ -432,19 +414,7 @@
     var µb = this;
 
     var onSaved = function() {
-        // Notes 2017-12-25: When filters are added though a wizard, those lines
-        // are the only lines that are compiled
-        //
-        // The last meaningful line of already compiled user filters plus 2 will
-        // be the first meaningful line of incoming filters fragment, which
-        // means 1 empty line in between, this will allow us to lint only the
-        // fragment and still keep line numbers in sync
-        //
-        // The old compiled data is removed when nano.saveUserFilters is called
-        // which will cause the user filters to be recompiled on next start
-        //
-        // Patch 2017-12-25: Pass in a special flag as asset key
-        var compiledFilters = µb.compileFilters(filters, nano.nanoPartialUserFiltersKey),
+        var compiledFilters = µb.compileFilters(filters, µb.nanoPartialUserFiltersPath),
             snfe = µb.staticNetFilteringEngine,
             cfe = µb.cosmeticFilteringEngine,
             acceptedCount = snfe.acceptedCount + cfe.acceptedCount,
@@ -639,9 +609,7 @@
 
 µBlock.loadFilterLists = function(callback) {
     // Callers are expected to check this first.
-    if ( this.loadingFilterLists ) {
-        return;
-    }
+    if ( this.loadingFilterLists ) { return; }
     this.loadingFilterLists = true;
 
     var µb = this,
@@ -738,7 +706,6 @@
 
     var onCompiledListLoaded2 = function(details) {
         if ( details.content === '' ) {
-            // Patch 2017-12-25: Pass asset key over
             details.content = µb.compileFilters(rawContent, assetKey);
             µb.assets.put(compiledPath, details.content);
         }
@@ -779,51 +746,48 @@
 //   Lower minimum update period to 1 day.
 
 µBlock.extractFilterListMetadata = function(assetKey, raw) {
-    var listEntry = this.availableFilterLists[assetKey];
+    let listEntry = this.availableFilterLists[assetKey];
     if ( listEntry === undefined ) { return; }
     // Metadata expected to be found at the top of content.
-    var head = raw.slice(0, 1024),
-        matches, v;
+    let head = raw.slice(0, 1024);
     // https://github.com/gorhill/uBlock/issues/313
     // Always try to fetch the name if this is an external filter list.
     if ( listEntry.title === '' || listEntry.group === 'custom' ) {
-        matches = head.match(/(?:^|\n)(?:!|# )[\t ]*Title[\t ]*:([^\n]+)/i);
+        let matches = head.match(/(?:^|\n)(?:!|# )[\t ]*Title[\t ]*:([^\n]+)/i);
         if ( matches !== null ) {
             // https://bugs.chromium.org/p/v8/issues/detail?id=2869
-            // JSON.stringify/JSON.parse is to work around String.slice()
-            // potentially causing the whole raw filter list to be held in
-            // memory just because we cut out the title as a substring.
-            listEntry.title = JSON.parse(JSON.stringify(matches[1].trim()));
+            //   orphanizeString is to work around String.slice()
+            //   potentially causing the whole raw filter list to be held in
+            //   memory just because we cut out the title as a substring.
+            listEntry.title = this.orphanizeString(matches[1].trim());
         }
     }
     // Extract update frequency information
-    // Patch 2017-12-19: Add an upper cap of 60 days
-    // Patch 2018-03-05: When a filter list loses explicit header, reset the
-    // update period
-    matches = head.match(/(?:^|\n)(?:!|# )[\t ]*Expires[\t ]*:[\t ]*(\d+)[\t ]*(h)?/i);
+    let matches = head.match(/(?:^|\n)(?:!|# )[\t ]*Expires[\t ]*:[\t ]*(\d+)[\t ]*(h)?/i);
+    let v;
     if ( matches !== null ) {
         v = parseInt(matches[1], 10);
         if ( matches[2] !== undefined ) {
             v = Math.ceil(v / 24);
         }
     }
-    
+
     if ( typeof v !== 'number' ) {
-        if ( typeof listEntry.updateAfterDefault === 'number' ) {
-            v = listEntry.updateAfterDefault;
+        if ( typeof listEntry.nanoUpdateAfterDefault === 'number' ) {
+            v = listEntry.nanoUpdateAfterDefault;
         } else {
-            // Notes 2018-03-05: This must be updated if the default update
-            // interval is changed
+            // IMPORTANT! Must update this value if default update period is
+            // changed
             v = 3;
         }
     }
-    
+
     if ( v < 1 ) {
         v = 1;
     } else if ( v > 60 ) {
         v = 60;
     }
-    
+
     if ( v !== listEntry.updateAfter ) {
         this.assets.registerAssetSource(assetKey, { updateAfter: v });
     }
@@ -842,78 +806,44 @@
 
 /******************************************************************************/
 
-// Patch 2017-12-25: Accept asset key for processing compile flags and linting
-µBlock.compileFilters = function(rawText, assetKey) {
-    // Notes 2017-12-25: Some assertion really will not slow things down, maybe
-    // 50 checks per day, I will be really surprised if it even takes a
-    // cumulative 1 ms per week
-    //
-    // However, this will alert me right away when gorhill changed stuff that
-    // will break Nano
-    //
-    // The asset key is either the key of assets.json entry, the update URL
-    // of the filter, or special keys for user filters
-    console.assert(typeof assetKey === 'string' && assetKey.length);
-    
-    // Patch 2017-12-27: Update compile flags, the flags is a global object,
-    // filter compilation is synchronous, so this is safe
-    nano.compileFlags.firstParty = assetKey === nano.userFiltersPath || assetKey === nano.nanoPartialUserFiltersKey;
-    nano.compileFlags.isPartial = assetKey === nano.nanoPartialUserFiltersKey;
-    nano.compileFlags.isPrivileged = nano.privilegedFiltersAssetKeys.has(assetKey);
-    nano.compileFlags.keepSlowFilters = nano.userSettings.advancedUserEnabled && nano.hiddenSettings._nanoIgnorePerformanceAuditing;
-    nano.compileFlags.strip3pWhitelist = nano.userSettings.advancedUserEnabled && nano.hiddenSettings._nanoIgnoreThirdPartyWhitelist;
-    if (
-        nano.compileFlags.firstParty &&
-        nano.userSettings.advancedUserEnabled && nano.hiddenSettings._nanoMakeUserFiltersPrivileged
-    ) {
-        nano.compileFlags.isPrivileged = true;
+µBlock.compileFilters = function(rawText, nanoKey) {
+    let writer = new this.CompiledLineIO.Writer();
+
+    nano.cf.update(nanoKey);
+    if ( nanoKey === nano.ub.userFiltersPath ) {
+        nano.fl.reset();
+        nano.fl.changed = true;
+    } else if ( nanoKey === nano.ub.nanoPartialUserFiltersPath ) {
+        nano.fl.line++;
     }
-    
-    // Notes 2017-12-25: The linter is a global singleton, filter compilation
-    // is synchronous, so this is safe
-    // Patch 2017-12-27: Initialize linter and synchronize line number
-    if ( assetKey === nano.userFiltersPath ) {
-        nano.filterLinter.reset();
-        nano.filterLinter.changed = true;
-    } else if (assetKey === nano.nanoPartialUserFiltersKey ) {
-        nano.filterLinter.lastLine++;
-    }
-    
-    var writer = new this.CompiledLineWriter();
 
     // Useful references:
     //    https://adblockplus.org/en/filter-cheatsheet
     //    https://adblockplus.org/en/filters
-    var staticNetFilteringEngine = this.staticNetFilteringEngine,
+    let staticNetFilteringEngine = this.staticNetFilteringEngine,
         staticExtFilteringEngine = this.staticExtFilteringEngine,
         reIsWhitespaceChar = /\s/,
         reMaybeLocalIp = /^[\d:f]/,
         reIsLocalhostRedirect = /\s+(?:0\.0\.0\.0|broadcasthost|localhost|local|ip6-\w+)\b/,
         reLocalIp = /^(?:0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)/,
-        line, c, pos,
         lineIter = new this.LineIterator(this.processDirectives(rawText));
 
     while ( lineIter.eot() === false ) {
-        // Patch 2017-12-27: Update linter line number
-        if ( nano.compileFlags.firstParty ) {
-            nano.filterLinter.lastLine++;
+        if ( nano.cf.first_party ) {
+            nano.fl.line++;
         }
 
         // rhill 2014-04-18: The trim is important here, as without it there
         // could be a lingering `\r` which would cause problems in the
         // following parsing code.
-        line = lineIter.next().trim();
+        let line = lineIter.next().trim();
         if ( line.length === 0 ) { continue; }
 
         // Strip comments
-        c = line.charAt(0);
-        // Patch 2017-12-27: Deprecate '[' for comment unless it is header
+        let c = line.charAt(0);
         if ( c === '!' ) { continue; }
         if ( c === '[' ) {
-            if ( nano.compileFlags.firstParty && nano.filterLinter.lastLine !== 0 ) {
-                nano.filterLinter.dispatchWarning(vAPI.i18n('filterLinterDeprecatedCommentBracket'));
-            }
-            
+            nano.flintw('nano_l_filter_comment_bracket');
             continue;
         }
 
@@ -924,7 +854,6 @@
         // Whatever else is next can be assumed to not be a cosmetic filter
 
         // Most comments start in first column
-        // Notes 2018-01-03: Ambiguous comments will not reach this point
         if ( c === '#' ) { continue; }
 
         // Catch comments somewhere on the line
@@ -934,16 +863,10 @@
         // Don't remove:
         //   ...#blah blah blah
         // because some ABP filters uses the `#` character (URL fragment)
-        // Notes 2017-12-25: This is common in hosts files, however, it is bad
-        // style for other filters
-        pos = line.indexOf('#');
+        let pos = line.indexOf('#');
         if ( pos !== -1 && reIsWhitespaceChar.test(line.charAt(pos - 1)) ) {
-            // Patch 2017-12-27: Deprecate inline comments for user filters
-            if ( nano.compileFlags.firstParty ) {
-                nano.filterLinter.dispatchWarning(vAPI.i18n('filterLinterDeprecatedInlineComment'));
-            }
-            
             line = line.slice(0, pos).trim();
+            nano.flintw('nano_l_filter_inline_comment');
         }
 
         // https://github.com/gorhill/httpswitchboard/issues/15
@@ -954,36 +877,25 @@
             // 127.0.0.1 localhost
             // 255.255.255.255 broadcasthost
             if ( reIsLocalhostRedirect.test(line) ) {
-                // Patch 2017-12-27: Show an appropriate error message
-                if ( nano.compileFlags.firstParty ) {
-                    nano.filterLinter.dispatchError(vAPI.i18n('filterLinterDiscardedLocalhostHostEntry'));
-                }
-                
+                nano.flinte('nano_l_filter_localhost_entry');
                 continue;
             }
             line = line.replace(reLocalIp, '').trim();
         }
 
         if ( line.length === 0 ) {
-            // Patch 2017-12-27: Show an appropriate error message
-            if ( nano.compileFlags.firstParty ) {
-                nano.filterLinter.dispatchError(vAPI.i18n('filterLinterDiscardedLocalhostHostEntry'));
-            }
-        
+            nano.flinte('nano_l_filter_localhost_entry');
             continue;
         }
 
         staticNetFilteringEngine.compile(line, writer);
     }
 
-    // Patch 2017-12-27: Store linting result
-    if ( nano.compileFlags.firstParty ) {
-        nano.filterLinter.saveResult();
+    if ( nano.cf.first_party ) {
+        nano.fl.cache_result();
     }
-    // Patch 2017-12-28: Must reset flags when finished as the compiler may be
-    // used for side tasks like validating epicker entry
-    nano.clearCompileFlags();
-    
+    nano.cf.reset();
+
     return writer.toString();
 };
 
@@ -995,7 +907,7 @@
 
 µBlock.applyCompiledFilters = function(rawText, firstparty) {
     if ( rawText === '' ) { return; }
-    var reader = new this.CompiledLineReader(rawText);
+    let reader = new this.CompiledLineIO.Reader(rawText);
     this.staticNetFilteringEngine.fromCompiledContent(reader);
     this.staticExtFilteringEngine.fromCompiledContent(reader, {
         skipGenericCosmetic: this.userSettings.ignoreGenericCosmeticFilters,
@@ -1058,8 +970,7 @@
 
 /******************************************************************************/
 
-// Patch 2018-02-22: Distinguish between two set of resources
-µBlock.loadRedirectResources = function(updatedContent, isNano) {
+µBlock.loadRedirectResources = function(updatedContent, nanoIsExtended) {
     var µb = this,
         content = '';
 
@@ -1073,11 +984,27 @@
         }
         onDone();
     };
-    
-    // Patch 2017-12-09: Add nano-resources
-    // Must load after ublock-resources so we can override their resources if
-    // needed
-    var onNanoResourcesLoaded = function(details) {
+
+    var nanoHasChange =
+        typeof updatedContent === 'string' && updatedContent.length !== 0;
+
+    var nanoFetchResourceByKey = function(key, callback) {
+        if ( !nanoHasChange ) {
+            µb.assets.get(key, callback);
+            return;
+        }
+        if ( key === 'ublock-resources' && !nanoIsExtended ) {
+            callback({ content: updatedContent });
+            return;
+        }
+        if ( key === 'nano-resources' && nanoIsExtended ) {
+            callback({ content: updatedContent });
+            return;
+        }
+        µb.assets.get(key, callback);
+    };
+
+    var nanoOnExtendedResourcesLoaded = function(details) {
         if ( details.content !== '' ) {
             content += '\n\n' + details.content;
         }
@@ -1087,79 +1014,54 @@
         µb.assets.fetchText(µb.hiddenSettings.userResourcesLocation, onUserResourcesLoaded);
     };
 
-    var onResourcesLoaded = function(details) {
+    var nanoOnResourcesLoaded = function(details) {
         if ( details.content !== '' ) {
             content = details.content;
         }
-        fetchResourceByKey('nano-resources', onNanoResourcesLoaded);
+        nanoFetchResourceByKey('nano-resources', nanoOnExtendedResourcesLoaded);
     };
-
-    // Patch 2018-02-22: Distinguish between two set of resources
-    var hasChangedData = typeof updatedContent === 'string' && updatedContent.length !== 0;
-    var fetchResourceByKey = function(key, callback) {
-        if ( !hasChangedData ) {
-            nano.assets.get(key, callback);
-            return;
-        }
-        if ( key === 'ublock-resources' && !isNano ) {
-            callback({ content: updatedContent });
-            return;
-        }
-        if (key === 'nano-resources' && isNano ) {
-            callback({ content: updatedContent });
-            return;
-        }
-        nano.assets.get(key, callback);
-    };
-    
-    if ( hasChangedData ) {
-        fetchResourceByKey('ublock-resources', onResourcesLoaded);
-        return;
-    }
 
     var onSelfieReady = function(success) {
         if ( success !== true ) {
-            fetchResourceByKey('ublock-resources', onResourcesLoaded);
+            nanoFetchResourceByKey('ublock-resources', nanoOnResourcesLoaded);
         }
     };
+
+    if ( nanoHasChange ) {
+        nanoFetchResourceByKey('ublock-resources', nanoOnResourcesLoaded);
+        return;
+    }
 
     µb.redirectEngine.resourcesFromSelfie(onSelfieReady);
 };
 
 /******************************************************************************/
 
-µBlock.loadPublicSuffixList = function(callback) {
-    var µb = this,
-        assetKey = µb.pslAssetKey,
-        compiledAssetKey = 'compiled/' + assetKey;
-
-    if ( typeof callback !== 'function' ) {
-        callback = this.noopFunc;
-    }
-    var onRawListLoaded = function(details) {
-        if ( details.content !== '' ) {
-            µb.compilePublicSuffixList(details.content);
-        }
-        callback();
-    };
-
-    var onCompiledListLoaded = function(details) {
-        var selfie;
+µBlock.loadPublicSuffixList = function() {
+    return new Promise(resolve => {
+    // start of executor
+    this.assets.get('compiled/' + this.pslAssetKey, details => {
+        let selfie;
         try {
             selfie = JSON.parse(details.content);
         } catch (ex) {
         }
         if (
-            selfie === undefined ||
-            publicSuffixList.fromSelfie(selfie) === false
+            selfie instanceof Object &&
+            publicSuffixList.fromSelfie(selfie)
         ) {
-            µb.assets.get(assetKey, onRawListLoaded);
+            resolve();
             return;
         }
-        callback();
-    };
-
-    this.assets.get(compiledAssetKey, onCompiledListLoaded);
+        this.assets.get(this.pslAssetKey, details => {
+            if ( details.content !== '' ) {
+                this.compilePublicSuffixList(details.content);
+            }
+            resolve();
+        });
+    });
+    // end of executor
+    });
 };
 
 /******************************************************************************/
@@ -1188,30 +1090,39 @@
 
     let create = function() {
         timer = null;
-        let selfie = {
+        let selfie = JSON.stringify({
             magic: µb.systemSettings.selfieMagic,
-            availableFilterLists: JSON.stringify(µb.availableFilterLists),
-            staticNetFilteringEngine: JSON.stringify(µb.staticNetFilteringEngine.toSelfie()),
-            redirectEngine: JSON.stringify(µb.redirectEngine.toSelfie()),
-            staticExtFilteringEngine: JSON.stringify(µb.staticExtFilteringEngine.toSelfie())
-        };
-        vAPI.cacheStorage.set({ selfie: selfie });
+            availableFilterLists: µb.availableFilterLists,
+            staticNetFilteringEngine: µb.staticNetFilteringEngine.toSelfie(),
+            redirectEngine: µb.redirectEngine.toSelfie(),
+            staticExtFilteringEngine: µb.staticExtFilteringEngine.toSelfie()
+        });
+        µb.cacheStorage.set({ selfie: selfie });
     };
 
     let load = function(callback) {
-        vAPI.cacheStorage.get('selfie', function(bin) {
+        µb.cacheStorage.get('selfie', function(bin) {
             if (
                 bin instanceof Object === false ||
-                bin.selfie instanceof Object === false ||
-                bin.selfie.magic !== µb.systemSettings.selfieMagic ||
-                bin.selfie.redirectEngine === undefined
+                typeof bin.selfie !== 'string'
             ) {
                 return callback(false);
             }
-            µb.availableFilterLists = JSON.parse(bin.selfie.availableFilterLists);
-            µb.staticNetFilteringEngine.fromSelfie(JSON.parse(bin.selfie.staticNetFilteringEngine));
-            µb.redirectEngine.fromSelfie(JSON.parse(bin.selfie.redirectEngine));
-            µb.staticExtFilteringEngine.fromSelfie(JSON.parse(bin.selfie.staticExtFilteringEngine));
+            let selfie;
+            try {
+                selfie = JSON.parse(bin.selfie);
+            } catch(ex) {
+            }
+            if (
+                selfie instanceof Object === false ||
+                selfie.magic !== µb.systemSettings.selfieMagic
+            ) {
+                return callback(false);
+            }
+            µb.availableFilterLists = selfie.availableFilterLists;
+            µb.staticNetFilteringEngine.fromSelfie(selfie.staticNetFilteringEngine);
+            µb.redirectEngine.fromSelfie(selfie.redirectEngine);
+            µb.staticExtFilteringEngine.fromSelfie(selfie.staticExtFilteringEngine);
             callback(true);
         });
     };
@@ -1221,7 +1132,7 @@
             clearTimeout(timer);
             timer = null;
         }
-        vAPI.cacheStorage.remove('selfie');
+        µb.cacheStorage.remove('selfie');
         timer = vAPI.setTimeout(create, µb.selfieAfter);
     };
 
@@ -1378,7 +1289,6 @@
             timer = undefined;
             next = 0;
             var µb = µBlock;
-            // Patch 2018-01-21: Update default value
             µb.assets.updateStart({
                 delay: µb.hiddenSettings.autoUpdateAssetFetchPeriod * 1000 || 300000
             });
@@ -1400,8 +1310,10 @@
             }
         }
         // https://github.com/gorhill/uBlock/issues/2594
-        // Patch 2018-02-22: Add Nano Resources
-        if ( details.assetKey === 'ublock-resources' || details.assetKey === 'nano-resources' ) {
+        if (
+                details.assetKey === 'ublock-resources' ||
+                details.assetKey === 'nano-resources'
+        ) {
             if (
                 this.hiddenSettings.ignoreRedirectFilters === true &&
                 this.hiddenSettings.ignoreScriptInjectFilters === true
@@ -1422,7 +1334,6 @@
                         details.assetKey,
                         details.content
                     );
-                    // Patch 2017-12-25: Pass asset key over
                     this.assets.put(
                         'compiled/' + details.assetKey,
                         this.compileFilters(details.content, details.assetKey)
@@ -1441,7 +1352,6 @@
                 this.loadRedirectResources(details.content);
             }
         } else if ( details.assetKey === 'nano-resources' ) {
-            // Patch 2018-02-22: Add Nano Resources
             this.redirectEngine.invalidateResourcesSelfie();
             if ( cached ) {
                 this.loadRedirectResources(details.content, true);
@@ -1451,7 +1361,6 @@
             what: 'assetUpdated',
             key: details.assetKey,
             cached: cached
-            
         });
         // https://github.com/gorhill/uBlock/issues/2585
         // Whenever an asset is overwritten, the current selfie is quite
@@ -1476,7 +1385,6 @@
             this.loadFilterLists();
         }
         if ( this.userSettings.autoUpdate ) {
-            // Patch 2018-01-21: Update default value
             this.scheduleAssetUpdater(this.hiddenSettings.autoUpdatePeriod * 3600000 || 10800000);
         } else {
             this.scheduleAssetUpdater(0);

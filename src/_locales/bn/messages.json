@@ -1,14 +1,14 @@
 {
   "extName": {
-    "message": "uBlock Origin",
+    "message": "Nano",
     "description": "extension name."
   },
   "extShortDesc": {
     "message": "অবশেষে, একটি কার্যকর বিজ্ঞাপন প্রতিরোধক। সিপিইউ এবং মেমরি সহায়ক।",
-    "description": "this will be in the chrome web store: must be 132 characters or less"
+    "description": "this will be in the Chrome web store: must be 132 characters or less"
   },
   "dashboardName": {
-    "message": "uBlock₀ — ড্যাশবোর্ড",
+    "message": "Nano — ড্যাশবোর্ড",
     "description": "English: uBlock₀ — Dashboard"
   },
   "settingsPageName": {
@@ -31,28 +31,36 @@
     "message": "সাদাতালিকা",
     "description": "appears as tab name in dashboard"
   },
+  "shortcutsPageName": {
+    "message": "সংক্ষিপ্ত",
+    "description": "appears as tab name in dashboard"
+  },
   "statsPageName": {
-    "message": "uBlock₀ — ঘটনাবলী",
+    "message": "Nano — ঘটনাবলী",
     "description": "Title for the logger window"
   },
   "aboutPageName": {
     "message": "সম্পর্কে",
     "description": "appears as tab name in dashboard"
   },
+  "assetViewerPageName": {
+    "message": "Nano — Asset viewer",
+    "description": "Title for the asset viewer page"
+  },
   "advancedSettingsPageName": {
     "message": "উন্নত সেটিংস",
     "description": "Title for the advanced settings page"
   },
   "popupPowerSwitchInfo": {
-    "message": "ক্লিক: এই সাইটের জন্য uBlock₀ নিষ্ক্রিয়\/সক্রিয় করবে।\n\nCtrl+ক্লিক: শুধু এই পাতার জন্য uBlock₀ নিষ্ক্রিয় করবে।",
-    "description": "English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
+    "message": "ক্লিক: এই সাইটের জন্য Nano নিষ্ক্রিয়/সক্রিয় করবে।\n\nCtrl+ক্লিক: শুধু এই পাতার জন্য Nano নিষ্ক্রিয় করবে।",
+    "description": "English: Click: disable/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
   },
   "popupPowerSwitchInfo1": {
-    "message": "এই সাইটের জন্য uBlock₀ নিষ্ক্রিয় করতে ক্লিক করুন।\n\nCtrl+ক্লিক করলে শুধু এই পাতার জন্য uBlock₀ নিষ্ক্রিয় হবে।",
+    "message": "এই সাইটের জন্য Nano নিষ্ক্রিয় করতে ক্লিক করুন।\n\nCtrl+ক্লিক করলে শুধু এই পাতার জন্য Nano নিষ্ক্রিয় হবে।",
     "description": "Message to be read by screen readers"
   },
   "popupPowerSwitchInfo2": {
-    "message": "এই সাইটের জন্য uBlock₀ সক্রিয় করতে ক্লিক করুন।",
+    "message": "এই সাইটের জন্য Nano সক্রিয় করতে ক্লিক করুন।",
     "description": "Message to be read by screen readers"
   },
   "popupBlockedRequestPrompt": {
@@ -139,6 +147,14 @@
     "message": "এই সাইটে রিমোট ফন্ট আর অবরুদ্ধ না করতে ক্লিক করুন",
     "description": "Tooltip for the no-remote-fonts per-site switch"
   },
+  "popupTipNoScripting1": {
+    "message": "Click to disable JavaScript on this site",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
+  "popupTipNoScripting2": {
+    "message": "Click to no longer disable JavaScript on this site",
+    "description": "Tooltip for the no-scripting per-site switch"
+  },
   "popupTipGlobalRules": {
     "message": "সার্বজনীন নিয়ম: এই কলামটি সেইসব নিয়মের জন্য যা সকল সাইটের উপর প্রযোজ্য।",
     "description": "Tooltip when hovering the top-most cell of the global-rules column."
@@ -168,7 +184,7 @@
     "description": ""
   },
   "popup3pPassiveRulePrompt": {
-    "message": "৩য়-দলের css\/চিত্র",
+    "message": "৩য়-দলের css/চিত্র",
     "description": ""
   },
   "popupInlineScriptRulePrompt": {
@@ -252,7 +268,7 @@
     "description": ""
   },
   "settingsAdvancedUserPrompt": {
-    "message": "আমি একজন উন্নত ব্যবহারকারী (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Advanced-user-features'>পড়া আবশ্যক<\/a>)",
+    "message": "আমি একজন উন্নত ব্যবহারকারী (<a href='https://github.com/gorhill/uBlock/wiki/Advanced-user-features'>পড়া আবশ্যক</a>)",
     "description": ""
   },
   "settingsAdvancedUserSettings": {
@@ -264,7 +280,7 @@
     "description": "English: "
   },
   "settingsHyperlinkAuditingDisabledPrompt": {
-    "message": "হাইপারলিঙ্ক নিরীক্ষণ\/বাতিঘর নিষ্ক্রিয় করুন",
+    "message": "হাইপারলিঙ্ক নিরীক্ষণ/বাতিঘর নিষ্ক্রিয় করুন",
     "description": "English: "
   },
   "settingsWebRTCIPAddressHiddenPrompt": {
@@ -291,9 +307,13 @@
     "message": "রিমোট ফন্ট অবরুদ্ধ করুন",
     "description": ""
   },
+  "settingsNoScriptingPrompt": {
+    "message": "Disable JavaScript",
+    "description": "The default state for the per-site no-scripting switch"
+  },
   "settingsNoCSPReportsPrompt": {
     "message": "CSP প্রতিবেদন অবরুদ্ধ করুন",
-    "description": "background information: https:\/\/github.com\/gorhill\/uBlock\/issues\/3150"
+    "description": "background information: https://github.com/gorhill/uBlock/issues/3150"
   },
   "settingsStorageUsed": {
     "message": "সংগ্রহস্থল ব্যবহার: {{value}} বাইট",
@@ -332,7 +352,7 @@
     "description": "English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo": {
-    "message": "<p>এই অপশনটি <a href=\"https:\/\/adblockplus.org\/en\/faq_internal#elemhide\">অ্যাডব্লক-প্লাসের সামঞ্জস্যপূর্ণ &ldquo;উপাদান আড়াল করার&rdquo; ফিল্টারকে<\/a> সক্রিয় করবে। এই ফিল্টারগুলি মূলত প্রসাধনী, তাদের একটি ওয়েব পাতায় উপাদান আড়াল করতে প্রয়োজন হয় যাকে চাক্ষুষ উত্পাত বলিয়া গণ্য করা হয়, এবং যাদের নেট অনুরোধ ভিত্তিক ফিল্টারিং ইঞ্জিন দ্বারা অবরুদ্ধ করা যায় না।<\/p><p>এই বৈশিষ্ট্য সক্রিয় করলে uBlock₀-এর মেমরির পদচিহ্ন বৃদ্ধি পাবে।<\/p>",
+    "message": "<p>এই অপশনটি <a href=\"https://adblockplus.org/en/faq_internal#elemhide\">অ্যাডব্লক-প্লাসের সামঞ্জস্যপূর্ণ &ldquo;উপাদান আড়াল করার&rdquo; ফিল্টারকে</a> সক্রিয় করবে। এই ফিল্টারগুলি মূলত প্রসাধনী, তাদের একটি ওয়েব পাতায় উপাদান আড়াল করতে প্রয়োজন হয় যাকে চাক্ষুষ উত্পাত বলিয়া গণ্য করা হয়, এবং যাদের নেট অনুরোধ ভিত্তিক ফিল্টারিং ইঞ্জিন দ্বারা অবরুদ্ধ করা যায় না।</p><p>এই বৈশিষ্ট্য সক্রিয় করলে Nano-এর মেমরির পদচিহ্ন বৃদ্ধি পাবে।</p>",
     "description": "Describes the purpose of the 'Parse and enforce cosmetic filters' feature."
   },
   "3pIgnoreGenericCosmeticFilters": {
@@ -340,7 +360,7 @@
     "description": "This will cause uBO to ignore all generic cosmetic filters."
   },
   "3pIgnoreGenericCosmeticFiltersInfo": {
-    "message": "<p>জেনেরিক প্রসাধনী ছাঁকনি হচ্ছে সেইসব প্রসাধনী ছাঁকনি যা সব ওয়েবসাইটে প্রয়োগের জন্য অভিপ্রেত।<p>যদিও তা uBlock₀ দ্বারা দক্ষতার সঙ্গে পরিচালনা করে, কিন্তু জেনেরিক প্রসাধন ফিল্টার এখনও কিছু ওয়েব পাতার পরিমাপযোগ্য মেমরি ও CPU-র অত্যাধিক চাপ সৃষ্টিতে অবদান রাখতে পারে, বিশেষ করে বড় এবং দীর্ঘ একটিতে।<p>এই অপশন সক্রিয় করলে জেনেরিক প্রসাধনী ছাঁকনি পরিচালিত হবে যা ওয়েব পাতার পরিমাপযোগ্য মেমরি ও CPU-র অত্যাধিক চাপ সৃষ্টি দূর করবে এবং uBlock₀ নিজেই মেমরি পদাঙ্ক অর্ধ করবে।<p>এটা কম শক্তিশালী ডিভাইসে এই অপশনটি সক্রিয় করার জন্য সুপারিশ করা হচ্ছে।",
+    "message": "<p>জেনেরিক প্রসাধনী ছাঁকনি হচ্ছে সেইসব প্রসাধনী ছাঁকনি যা সব ওয়েবসাইটে প্রয়োগের জন্য অভিপ্রেত।<p>যদিও তা Nano দ্বারা দক্ষতার সঙ্গে পরিচালনা করে, কিন্তু জেনেরিক প্রসাধন ফিল্টার এখনও কিছু ওয়েব পাতার পরিমাপযোগ্য মেমরি ও CPU-র অত্যাধিক চাপ সৃষ্টিতে অবদান রাখতে পারে, বিশেষ করে বড় এবং দীর্ঘ একটিতে।<p>এই অপশন সক্রিয় করলে জেনেরিক প্রসাধনী ছাঁকনি পরিচালিত হবে যা ওয়েব পাতার পরিমাপযোগ্য মেমরি ও CPU-র অত্যাধিক চাপ সৃষ্টি দূর করবে এবং Nano নিজেই মেমরি পদাঙ্ক অর্ধ করবে।<p>এটা কম শক্তিশালী ডিভাইসে এই অপশনটি সক্রিয় করার জন্য সুপারিশ করা হচ্ছে।",
     "description": "Describes the purpose of the 'Ignore generic cosmetic filters' feature."
   },
   "3pListsOfBlockedHostsHeader": {
@@ -420,7 +440,7 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "amar-ublock-static-filters_{{datetime}}.txt",
+    "message": "amar-nano-static-filters_{{datetime}}.txt",
     "description": "English: my-ublock-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
@@ -464,7 +484,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "amar-ublock-dynamic-niyom_{{datetime}}.txt",
+    "message": "amar-nano-dynamic-niyom_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -472,11 +492,11 @@
     "description": "English: List of your dynamic filtering rules."
   },
   "rulesFormatHint": {
-    "message": "শব্দবিন্যাসের নিয়ম: <code>source destination type action<\/code> (<a href='https:\/\/github.com\/gorhill\/uBlock\/wiki\/Dynamic-filtering:-rule-syntax'>সম্পূর্ণ নথিপত্র<\/a>)।",
+    "message": "শব্দবিন্যাসের নিয়ম: <code>source destination type action</code> (<a href='https://github.com/gorhill/uBlock/wiki/Dynamic-filtering:-rule-syntax'>সম্পূর্ণ নথিপত্র</a>)।",
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt": {
-    "message": "আপনার হোস্টের তালিকা যাদের জন্য uBlock₀ নিষ্ক্রিয় করা হবে। লাইন প্রতি একটি ভুক্তি। অবৈধ হোস্ট নাম নিশব্দে উপেক্ষা করা হবে।",
+    "message": "আপনার হোস্টের তালিকা যাদের জন্য Nano নিষ্ক্রিয় করা হবে। লাইন প্রতি একটি ভুক্তি। অবৈধ হোস্ট নাম নিশব্দে উপেক্ষা করা হবে।",
     "description": "English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport": {
@@ -488,7 +508,7 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "amar-ublock-whitelist_{{datetime}}.txt",
+    "message": "amar-nano-whitelist_{{datetime}}.txt",
     "description": "English: my-ublock-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
@@ -584,16 +604,20 @@
     "description": "Used in the static filtering wizard"
   },
   "loggerStaticFilteringFinderSentence1": {
-    "message": "স্থির ফিল্টার {{filter}} পাওয়া গেছে:",
-    "description": "Below this sentence, the filter lists in which the filter was found"
+    "message": "স্থির ফিল্টার <code>{{filter}}</code> পাওয়া গেছে:",
+    "description": "Below this sentence, the filter list(s) in which the filter was found"
+  },
+  "loggerStaticFilteringFinderSentence2": {
+    "message": "Static filter <code>{{filter}}</code> could not be found in any of the currently enabled filter lists",
+    "description": "Message to show when a filter cannot be found in any filter lists"
   },
   "aboutChangelog": {
     "message": "পরিবর্তন লগ",
-    "description": "English: Change log"
+    "description": ""
   },
   "aboutWiki": {
     "message": "উইকি",
-    "description": "English: project' wiki on Github"
+    "description": "English: project' wiki on GitHub"
   },
   "aboutSupport": {
     "message": "সমর্থন",
@@ -611,12 +635,16 @@
     "message": "অবদানকারী",
     "description": "English: Contributors"
   },
+  "aboutDependencies": {
+    "message": "External dependencies (GPLv3-compatible):",
+    "description": "Shown in the About pane"
+  },
   "aboutBackupDataButton": {
     "message": "ফাইলে ব্যাকআপ",
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "amar-ublock-backup_{{datetime}}.txt",
+    "message": "amar-nano-backup_{{datetime}}.txt",
     "description": "English: my-ublock-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
@@ -628,7 +656,7 @@
     "description": "English: Reset to default settings..."
   },
   "aboutRestoreDataConfirm": {
-    "message": "{{time}}-এর ডেটা ব্যাকআপ ব্যবহার করে আপনার সেটিংস পুনঃলিখিত হবে, এবং uBlock₀ পুনরায় চালু হবে।\n\nডেটা ব্যাকআপ ব্যবহার করে সমস্ত বিদ্যমান সেটিংস পুনঃলিখবেন?",
+    "message": "{{time}}-এর ডেটা ব্যাকআপ ব্যবহার করে আপনার সেটিংস পুনঃলিখিত হবে, এবং Nano পুনরায় চালু হবে।\n\nডেটা ব্যাকআপ ব্যবহার করে সমস্ত বিদ্যমান সেটিংস পুনঃলিখবেন?",
     "description": "Message asking user to confirm restore"
   },
   "aboutRestoreDataError": {
@@ -636,7 +664,7 @@
     "description": "Message to display when an error occurred during restore"
   },
   "aboutResetDataConfirm": {
-    "message": "আপনার সব সেটিংস বাতিল করা হবে, এবং uBlock₀ পুনরায় চালু হবে।\n\nuBlock₀ সেটিংস পুনঃস্থাপন করবেন?",
+    "message": "আপনার সব সেটিংস বাতিল করা হবে, এবং Nano পুনরায় চালু হবে।\n\nNano সেটিংস পুনঃস্থাপন করবেন?",
     "description": "Message asking user to confirm reset"
   },
   "errorCantConnectTo": {
@@ -644,7 +672,7 @@
     "description": "English: Network error: {{msg}}"
   },
   "subscriberConfirm": {
-    "message": "uBlock₀: আপনার নিজস্ব ফিল্টার তালিকায় নিম্নলিখিত URL যোগ করবেন?\n\nশিরোনাম: \"{{title}}\"\nURL: {{url}}",
+    "message": "Nano: আপনার নিজস্ব ফিল্টার তালিকায় নিম্নলিখিত URL যোগ করবেন?\n\nশিরোনাম: \"{{title}}\"\nURL: {{url}}",
     "description": "English: The message seen by the user to confirm subscription to a ABP filter list"
   },
   "elapsedOneMinuteAgo": {
@@ -673,11 +701,11 @@
   },
   "showDashboardButton": {
     "message": "ড্যাশবোর্ড দেখুন",
-    "description": "Firefox\/Fennec-specific: Show Dashboard"
+    "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
     "message": "লগার দেখান",
-    "description": "Firefox\/Fennec-specific: Show Logger"
+    "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
     "message": "বন্ধ",
@@ -693,7 +721,7 @@
   },
   "docblockedNoParamsPrompt": {
     "message": "প্যারামিটার বিহীন",
-    "description": "label to be used for the parameter-less URL: https:\/\/cloud.githubusercontent.com\/assets\/585534\/9832014\/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
+    "description": "label to be used for the parameter-less URL: https://cloud.githubusercontent.com/assets/585534/9832014/bfb1b8f0-593b-11e5-8a27-fba472a5529a.png"
   },
   "docblockedFoundIn": {
     "message": "যা এতে পাওয়া গেছে:",
@@ -763,8 +791,236 @@
     "message": "সাময়িকভাবে বৃহৎ মিডিয়া উপাদান মঞ্জুরি দিন",
     "description": "A context menu entry, present when large media elements have been blocked on the current site"
   },
-  "dummy": {
-    "message": "This entry must be the last one",
-    "description": "so we dont need to deal with comma for last entry"
+  "shortcutCapturePlaceholder": {
+    "message": "Type a shortcut",
+    "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "nano_d_ui_group": {
+    "message": "User interface",
+    "description": "Group 'User interface' of settings tab"
+  },
+  "nano_d_line_wrap_e": {
+    "message": "Soft wrap long lines in filter editor",
+    "description": "English: Soft wrap long lines in filter editor"
+  },
+  "nano_d_line_wrap_v": {
+    "message": "Soft wrap long lines in filter viewer",
+    "description": "English: Soft wrap long lines in filter viewer"
+  },
+  "nano_d_recompile_filters": {
+    "message": "Force recompile filters",
+    "description": "Button in advanced settings to recompile filters"
+  },
+  "nano_d_resources_links": {
+    "message": "Nano comes with two sets of resources, <a href='https://github.com/gorhill/uBlock/wiki/Resources-Library'>uBlock Origin Resources</a> and <a href='https://github.com/NanoAdblocker/NanoFilters/blob/master/NanoFiltersSource/NanoResources.txt'>Nano Extra Resources</a>.",
+    "description": "Resources reference links"
+  },
+  "nano_d_ace_help": {
+    "message": "Nano Filter Editor is powered by Ace and most shortcut keys works the same.",
+    "description": "Explain the similarity between Nano Filter Editor and Ace in terms of shortcut keys"
+  },
+  "nano_d_unsaved_warning": {
+    "message": "Leave tab?\nChanges you made will not be saved.",
+    "description": "Unsaved change warning"
+  },
+  "nano_d_about_based_on": {
+    "message": "Based on uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "description": "English: Based on {{@data}}"
+  },
+  "nano_v_title": {
+    "message": "Nano — Filter Viewer",
+    "description": "Title of the filter viewer"
+  },
+  "nano_v_read_error": {
+    "message": "Could not load content, please refresh.",
+    "description": "Error when filter content could not be loaded"
+  },
+  "nano_p_cache_control": {
+    "message": "cache control",
+    "description": "The cache control strip name"
+  },
+  "nano_p_open_firewall_pane": {
+    "message": "Toggle the overview panel",
+    "description": "Tooltip for toggle firewall (sometimes called overview) panel button"
+  },
+  "nano_p_refresh_button": {
+    "message": "Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache.",
+    "description": "English: Click to refresh this page.\n\nCtrl+click to refresh this page while bypassing cache."
+  },
+  "nano_p_force_scroll": {
+    "message": "(beta) Enter force scroll mode (will break layout)",
+    "description": "Tooltip for force scroll button"
+  },
+  "nano_p_bug_reporter": {
+    "message": "(beta) Open the bug reporter",
+    "description": "Tooltip for bug reporter button"
+  },
+  "nano_l_whitelist_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in whitelists"
+  },
+  "nano_l_whitelist_suspecious_re": {
+    "message": "This line is treated as a regular expression, is that intended?",
+    "description": "Warning when parsed as regular expression but is unlikely the intention of user"
+  },
+  "nano_l_whitelist_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in whitelists"
+  },
+  "nano_l_whitelist_invalid_hostname": {
+    "message": "This hostname is not valid.",
+    "description": "Error when hostname not valid"
+  },
+  "nano_l_whitelist_invalid_re": {
+    "message": "This regular expression has syntax errors.",
+    "description": "Error when regular expression has syntax errors"
+  },
+  "nano_l_whitelist_invalid_url": {
+    "message": "This URL is not valid.",
+    "description": "Error when a URL not valid"
+  },
+  "nano_l_filter_aborted_w": {
+    "message": "Nano did not scan the rest of the lines for warnings because there are too many warnings.",
+    "description": "Warning when too many warnings in filter rules"
+  },
+  "nano_l_filter_script_snippet_double_exception": {
+    "message": "Nano discarded a negated domain because it cannot be used in a script snippet exception rule.",
+    "description": "Warning when negated domain used with script snippet exception"
+  },
+  "nano_l_filter_converted_to_exception": {
+    "message": "Nano converted this rule to an exception rule because it only contain negated domains.",
+    "description": "Warning when a rule is convered to exception because all negated domains"
+  },
+  "nano_l_filter_negated_html_filtering": {
+    "message": "Negated domain is not yet supported for HTML filtering.",
+    "description": "Warning when negated domain used with HTML filtering"
+  },
+  "nano_l_filter_discarded_non_negatable_type": {
+    "message": "Nano discarded the type option '{{type}}' because it cannot be negated.",
+    "description": "English: Nano discarded the type option '{{type}}' because it cannot be negated."
+  },
+  "nano_l_filter_expanded_mp4_option": {
+    "message": "Nano replaced the option 'mp4' with 'media,redirect=noopmp4-1s'.",
+    "description": "Warning when 'mp4' is replaced"
+  },
+  "nano_l_filter_unsupported_type_ignored": {
+    "message": "Nano discarded type options that are not yet supported.",
+    "description": "Warning when unsupported type options discarded but not entire rule"
+  },
+  "nano_l_filter_resource_not_found": {
+    "message": "The resource '{{res}}' could not be found, is it spelled correctly?",
+    "description": "Warning when resource not found"
+  },
+  "nano_l_filter_comment_bracket": {
+    "message": "Using '[' to denote comment is deprecated, use '!' instead.",
+    "description": "Deprecation when '[' used for comments"
+  },
+  "nano_l_filter_inline_comment": {
+    "message": "Inline comments are deprecated.",
+    "description": "Deprecation when inline comments"
+  },
+  "nano_l_filter_script_contains": {
+    "message": "'##script:contains(...)' is deprecated, use '##^script:has-text(...)' instead.",
+    "description": "Deprecation when 'script:contains' is used"
+  },
+  "nano_l_filter_mp4_option": {
+    "message": "The use of the option 'mp4' is deprecated, write out the full options instead.",
+    "description": "Deprecation when 'mp4'"
+  },
+  "nano_l_filter_aborted_e": {
+    "message": "Nano did not scan the rest of the lines for errors because there are too many errors.",
+    "description": "Error when too many errors in filter rules"
+  },
+  "nano_l_filter_ag_js_injection": {
+    "message": "Raw JavaScript injection is not accepted due to security concerns.",
+    "description": "Error when raw JavaScript injection"
+  },
+  "nano_l_filter_bad_selector": {
+    "message": "The selector in this rule has syntax errors.",
+    "description": "Error when selector has syntax errors"
+  },
+  "nano_l_filter_too_expensive": {
+    "message": "This rule cannot be generic.",
+    "description": "Error when expensive rule is generic"
+  },
+  "nano_l_filter_style_injection_syntax_error": {
+    "message": "This CSS injection rule has syntax errors.",
+    "description": "Error when CSS injection has syntax errors"
+  },
+  "nano_l_filter_assets_access_violation": {
+    "message": "Unprivileged filters may not reference privileged resources.",
+    "description": "Error when unprivileged filter references a privileged resources"
+  },
+  "nano_l_filter_localhost_entry": {
+    "message": "This host file entry is discarded because it is localhost declaration.",
+    "description": "Error when localhost declaration"
+  },
+  "nano_l_filter_ag_element_remove": {
+    "message": "Element remove rules with AdGuard syntax are not yet supported, use '##^' instead.",
+    "description": "Error when AdGuard style element remove rule"
+  },
+  "nano_l_filter_negated_generichide": {
+    "message": "The options 'generichide', 'ghide', and 'elemhide' cannot be negated.",
+    "description": "Error when 'generichide' is negated"
+  },
+  "nano_l_filter_bad_domain_option_arguments": {
+    "message": "The option 'domain=...' has invalid arguments.",
+    "description": "Error when 'domain=' has invalid arguments"
+  },
+  "nano_l_filter_bad_csp_option_arguments": {
+    "message": "The option 'csp=...' has invalid arguments.",
+    "description": "Error when 'csp=' has invalid arguments"
+  },
+  "nano_l_filter_unknown_option": {
+    "message": "The option '{{option}}' is not recognized.",
+    "description": "English: The option '{{option}}' is not recognized."
+  },
+  "nano_l_filter_only_unsupported_type": {
+    "message": "A type option is not yet supported.",
+    "description": "Error when unsupported type option used and entire rule discarded"
+  },
+  "nano_l_filter_bad_re": {
+    "message": "This network rule has regular expression syntax errors.",
+    "description": "Error when network has regular expression syntax errors"
+  },
+  "nano_l_filter_intervention_smed79": {
+    "message": "The domain anchor may not be immediately followed by '^'.",
+    "description": "Error when the bad rule from SMed79 is discarded"
+  },
+  "nano_r_no_type": {
+    "message": "Nano discarded the option 'redirect=...' because it requires a type option.",
+    "description": "Warning when 'redirect=' has no type"
+  },
+  "nano_r_too_many_types": {
+    "message": "Nano discarded the option 'redirect=...' because it has too many type options.",
+    "description": "Warning when 'redirect=' has too many types"
+  },
+  "nano_r_no_resource_token": {
+    "message": "Nano discarded the option 'redirect=...' because it has no arguments.",
+    "description": "Warning when 'redirect=' has no arguments"
+  },
+  "nano_r_no_supported_type": {
+    "message": "Nano discarded the option 'redirect=...' because it has no supported type option.",
+    "description": "Warning when 'redirect=' has no supported type"
+  },
+  "nano_r_negated_domain": {
+    "message": "Nano discarded a negated domain because it cannot be used with the option 'redirect=...'.",
+    "description": "Warning when negated domain used with 'redirect='"
+  },
+  "nano_r_no_destination": {
+    "message": "Nano discarded the option 'redirect=...' because it has no valid destination domain.",
+    "description": "Warning when 'redirect=' has no destination"
+  },
+  "nano_r_redirect_in_exception": {
+    "message": "The option 'redirect=...' cannot be used in exception rules.",
+    "description": "Error when 'redirect=' used in exception"
+  },
+  "nano_r_does_not_match_re": {
+    "message": "Nano discarded the option 'redirect=...' because this network rule does not match this regular expression: {{regexp}}",
+    "description": "Warning when 'redirect=' failed initial test, use '{{regexp}}' to denote the tester if needed"
+  },
+  "nano_b_cosmetic_filter_passed_through": {
+    "message": "This rule is rejected for now. More information: https://github.com/NanoAdblocker/NanoCore/issues/77",
+    "description": "https://github.com/NanoAdblocker/NanoCore/issues/77"
   }
 }

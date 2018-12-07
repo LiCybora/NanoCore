@@ -16,12 +16,6 @@ h2 {
     background-color: #eee;
     border: 0;
     color: #666;
-    
-    /* Patch 2018-02-10: Add explicit button for openeing firewall */
-    /*
-    cursor: pointer;
-    */
-    
     font-size: 100%;
     font-weight: normal;
     padding: 0.2em;
@@ -105,25 +99,19 @@ p {
 #switch .fa {
     color: #0046ff;
     cursor: pointer;
-    
-    /* Patch 2018-02-10: Make switch button smaller */
     font-size: 600%;
-    
     margin: 0;
     }
 #switch .fa:hover {
-    /* Patch 2018-02-10: Adjust hover color */
     opacity: 0.8;
     }
 body.off #switch .fa {
     color: #ccc;
     }
 #basicTools, #basicTools2 {
-    /* Patch 2018-02-01: Make it two rows */
     margin: 0.8em 0 0.4em 0;
     }
 #basicTools {
-    /* Patch 2018-02-01: Make it two rows */
     margin-bottom: 1.2em;
     }
 .tool:first-child {
@@ -133,10 +121,7 @@ body.off #switch .fa {
     color: #aaa;
     cursor: pointer;
     visibility: hidden;
-    
-    /* Patch 2018-02-01: Adjust spacing for two rows basic tools */
     margin-left: 0.6em;
-    
     min-width: 1em;
     padding: 0 0.2em;
     unicode-bidi: embed;
@@ -163,28 +148,28 @@ body.off #switch .fa {
 #extraTools {
     background-color: #eee;
     border: 0;
-    color: #aaa;
+    color: #888;
     margin: 0.8em 0 0 0;
-    padding: 4px 0;
+    padding: 4px 0 4px 0.8em;
     text-align: center;
     }
 #extraTools > span {
     cursor: pointer;
     font-size: 1.2em;
-    margin: 0 0.4em;
+    margin: 0 0.8em 0 0;
     position: relative;
     }
 #extraTools > span > span.badge {
     color: #222;
-    bottom: -1px;
+    bottom: -2px;
     font: x-small sans-serif;
     position: absolute;
     }
 body[dir="ltr"] #extraTools > span > span.badge {
-    left: 100%;
+    /* left: 100%; */
     }
 body[dir="rtl"] #extraTools > span > span.badge {
-    right: 100%;
+    /* right: 100%; */
     }
 #extraTools > span > span:last-of-type {
     color: #e00;
@@ -206,19 +191,18 @@ body[dir="rtl"] #extraTools > span > span.badge {
     color: #333;
     }
 
-/* Patch 2018-02-10: Add explicit button for openeing firewall */
 #nanoCacheControlStrip {
     font-size: 2em;
     margin: 0px;
     }
 #nanoCacheControlStrip .tool {
     margin-left: 0px;
-}
+    }
 body.dirty #refresh {
     color: red;
     }
-body #refresh:hover {
-    color: #444;;
+body.dirty #refresh:hover {
+    color: #444;
     }
 
 #tooltip {
@@ -248,11 +232,6 @@ body[dir="rtl"] #tooltip {
     direction: rtl;
     }
 #tooltip.show {
-    /* Patch 2018-02-01: Disable tooltip animation, it is too long */
-    /*
-    transition: opacity 0.15s 0.5s;
-    -webkit-transition: opacity 0.15s 0.5s;
-    */
     visibility: visible;
     opacity: 1;
     }

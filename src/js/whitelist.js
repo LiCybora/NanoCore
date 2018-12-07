@@ -25,6 +25,10 @@
 
 /******************************************************************************/
 
+window.nano_has_unsaved_changes = false;
+
+/******************************************************************************/
+
 (function() {
 
 /******************************************************************************/
@@ -90,6 +94,7 @@ var whitelistChanged = function() {
     uDom.nodeFromId('whitelistApply').disabled = !changed || bad;
     uDom.nodeFromId('whitelistRevert').disabled = !changed;
     CodeMirror.commands.save = changed && !bad ? applyChanges : noopFunc;
+    nano_has_unsaved_changes = changed;
 };
 
 cmEditor.on('changes', whitelistChanged);
