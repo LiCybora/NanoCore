@@ -23,6 +23,10 @@ I give no support to that.**
 **Important: This is unofficial source and NOT supported by original author. 
 You must report issues other than filters here or you may not get help.**
 
+Note: This unofficial port will not necessarily follow the official update 
+frequency (except fixing issue). Instead, it will follow the uBO stable release 
+updates. 
+
 ## Installation
 
 You need Firefox version 52 or above to install this extension, but recommend 
