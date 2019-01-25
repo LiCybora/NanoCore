@@ -300,7 +300,7 @@
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
-    "message": "Блокирај мултимедијалне елементе веће од {{input:number}} kB",
+    "message": "Блокирај мултимедијалне елементе веће од {{input}} kB",
     "description": ""
   },
   "settingsNoRemoteFontsPrompt": {
@@ -543,13 +543,109 @@
     "message": "Тренутна картица",
     "description": "Appears in the logger's tab selector"
   },
-  "logFilterPrompt": {
-    "message": "филтрирај уносе дневника",
-    "description": "English: filter log entries"
+  "loggerReloadTip": {
+    "message": "Поновно учитавање садржаја картице",
+    "description": "Tooltip for the reload button in the logger page"
   },
-  "logMaxEntriesTip": {
-    "message": "Највише уноса дневника",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerDomInspectorTip": {
+    "message": "Укључи/искључи DOM инспектор",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Укључи/искључи искачући панел",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "Nano wiki: Евиденција",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Очисти евиденцију",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Паузирај евиденцвију (одбаци све долазне податке)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Настави евидентирање у дневнику",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Укључи/искључи филтрирање евиденције",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
+  "logFilterPrompt": {
+    "message": "филтрирај уносе евиденције",
+    "description": "Placeholder string for logger output filtering input field"
+  },
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Опције филтрирања евиденције",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Не",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "важно",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "блокирано",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "дозвољено",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "прве стране",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "треће стране",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Детаљи",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Филтер",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Листа филтера",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Правило",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Контекст",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Контекст корена",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Страна",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Тип",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "Правило URL адресе",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Контекст:",
@@ -559,12 +655,8 @@
     "message": "Тип:",
     "description": "Label for the type selector"
   },
-  "loggerURLFilteringHeader": {
-    "message": "Динамичко филтрирање УРЛ-а",
-    "description": "Small header to identify the dynamic URL filtering section"
-  },
   "loggerStaticFilteringHeader": {
-    "message": "Статичко филтрирање",
+    "message": "Статички филтер",
     "description": "Small header to identify the static filtering section"
   },
   "loggerStaticFilteringSentence": {
@@ -610,6 +702,62 @@
   "loggerStaticFilteringFinderSentence2": {
     "message": "Статички филтер <code>{{filter}}</code> није пронађен нити у једној тренутно омогућеној листи филтера",
     "description": "Message to show when a filter cannot be found in any filter lists"
+  },
+  "loggerSettingDiscardPrompt": {
+    "message": "Уноси у евиденцији који не испуњавају сва три услова испод биће аутоматски одбачени:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Задржи уносе из последњих {{input}} минута",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Задржи највише {{input}} учитавања страница по картици",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Задржи највише {{input}} уноса по картици",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Користи {{input}} линија по уносу у усправном проширеном режиму",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Сакриј колоне:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Време",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Филтер/правило",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Контекст",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Страна",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Листа",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Табела",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Обично",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
   },
   "aboutChangelog": {
     "message": "Списак измена",
@@ -704,7 +852,7 @@
     "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
-    "message": "Прикажи евиденцију мрежних захтева",
+    "message": "Прикажи евиденцију",
     "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
@@ -795,6 +943,14 @@
     "message": "Укуцајте пречицу",
     "description": "Placeholder string for input field used to capture a keyboard shortcut"
   },
+  "genericMergeViewScrollLock": {
+    "message": "Закључај/откључај померање",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Копирај у оставу",
+    "description": "Label for buttons used to copy something to the clipboard"
+  },
   "nano_d_ui_group": {
     "message": "User interface",
     "description": "Group 'User interface' of settings tab"
@@ -824,7 +980,7 @@
     "description": "Unsaved change warning"
   },
   "nano_d_about_based_on": {
-    "message": "Based on uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "message": "Based on uBlock Origin Version/1.18.0 Commit/3dac43e",
     "description": "English: Based on {{@data}}"
   },
   "nano_v_title": {

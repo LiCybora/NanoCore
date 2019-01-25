@@ -124,7 +124,7 @@
     "description": "Tooltip for the no-large-media per-site switch"
   },
   "popupTipNoCosmeticFiltering": {
-    "message": "Alihkan penyaringan tampilan untuk situs ini",
+    "message": "Aktif/Nonaktifkan filter tampilan untuk situs ini",
     "description": "Tooltip for the no-cosmetic-filtering per-site switch"
   },
   "popupTipNoCosmeticFiltering1": {
@@ -164,11 +164,11 @@
     "description": "Tooltip when hovering the top-most cell of the local-rules column."
   },
   "popupTipSaveRules": {
-    "message": "Klik untuk membuat ubahan Anda permanen.",
+    "message": "Klik untuk membuat ubahan anda permanen.",
     "description": "Tooltip when hovering over the padlock in the dynamic filtering pane."
   },
   "popupTipRevertRules": {
-    "message": "Klik untuk membatalkan ubahan Anda.",
+    "message": "Klik untuk membatalkan ubahan anda.",
     "description": "Tooltip when hovering over the eraser in the dynamic filtering pane."
   },
   "popupAnyRulePrompt": {
@@ -296,7 +296,7 @@
     "description": ""
   },
   "settingsNoCosmeticFilteringPrompt": {
-    "message": "Nonfungsikan filter tampilan",
+    "message": "Nonaktifkan filter tampilan",
     "description": ""
   },
   "settingsNoLargeMediaPrompt": {
@@ -336,7 +336,7 @@
     "description": "Appears aside each filter list in the _3rd-party filters_ pane"
   },
   "3pAutoUpdatePrompt1": {
-    "message": "Pembaruan otomatis daftar filter.",
+    "message": "Otomatis perbarui daftar filter",
     "description": "A checkbox in the _3rd-party filters_ pane"
   },
   "3pUpdateNow": {
@@ -348,7 +348,7 @@
     "description": "A button in the in the _3rd-party filters_ pane"
   },
   "3pParseAllABPHideFiltersPrompt1": {
-    "message": "Uraikan dan paksa jalankan filter tampilan.",
+    "message": "Urai dan paksa terapkan filter tampilan",
     "description": "English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo": {
@@ -543,13 +543,109 @@
     "message": "Tab saat ini",
     "description": "Appears in the logger's tab selector"
   },
-  "logFilterPrompt": {
-    "message": "saring entri catatan",
-    "description": "English: filter log entries"
+  "loggerReloadTip": {
+    "message": "Muat ulang konten tab",
+    "description": "Tooltip for the reload button in the logger page"
   },
-  "logMaxEntriesTip": {
-    "message": "Jumlah maximum entri catatan",
-    "description": "Tooltip informaing that the input field is to set the maximum number of entries in the log"
+  "loggerDomInspectorTip": {
+    "message": "Aktif/Nonaktifkan inspeksi DOM",
+    "description": "Tooltip for the DOM inspector button in the logger page"
+  },
+  "loggerPopupPanelTip": {
+    "message": "Aktif/Nonaktifkan panel popup",
+    "description": "Tooltip for the popup panel button in the logger page"
+  },
+  "loggerInfoTip": {
+    "message": "Nano wiki: Pencatat log",
+    "description": "Tooltip for the top-right info label in the logger page"
+  },
+  "loggerClearTip": {
+    "message": "Kosongkan pencatat log",
+    "description": "Tooltip for the eraser in the logger page; used to blank the content of the logger"
+  },
+  "loggerPauseTip": {
+    "message": "Jeda pencatat log (buang semua data yang masuk)",
+    "description": "Tooltip for the pause button in the logger page"
+  },
+  "loggerUnpauseTip": {
+    "message": "Lanjutkan pencatat log",
+    "description": "Tooltip for the play button in the logger page"
+  },
+  "loggerRowFiltererButtonTip": {
+    "message": "Aktif/Nonaktifkan filter pencatat log",
+    "description": "Tooltip for the row filterer button in the logger page"
+  },
+  "logFilterPrompt": {
+    "message": "filter konten pencatat log",
+    "description": "Placeholder string for logger output filtering input field"
+  },
+  "loggerRowFiltererBuiltinTip": {
+    "message": "Opsi filter pencatat log",
+    "description": "Tooltip for the button to bring up logger output filtering options"
+  },
+  "loggerRowFiltererBuiltinNot": {
+    "message": "Not",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinEventful": {
+    "message": "eventful",
+    "description": "A keyword in the built-in row filtering expression: all items corresponding to uBO doing something (blocked, allowed, redirected, etc.)"
+  },
+  "loggerRowFiltererBuiltinBlocked": {
+    "message": "diblokir",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltinAllowed": {
+    "message": "diizinkan",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin1p": {
+    "message": "Pihak ke-1",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerRowFiltererBuiltin3p": {
+    "message": "Pihak ke-3",
+    "description": "A keyword in the built-in row filtering expression"
+  },
+  "loggerEntryDetailsHeader": {
+    "message": "Detail",
+    "description": "Small header to identify the 'Details' pane for a specific logger entry"
+  },
+  "loggerEntryDetailsFilter": {
+    "message": "Filter",
+    "description": "Label to identify a filter field"
+  },
+  "loggerEntryDetailsFilterList": {
+    "message": "Daftar filter",
+    "description": "Label to identify a filter list field"
+  },
+  "loggerEntryDetailsRule": {
+    "message": "Aturan",
+    "description": "Label to identify a rule field"
+  },
+  "loggerEntryDetailsContext": {
+    "message": "Konteks",
+    "description": "Label to identify a context field (typically a hostname)"
+  },
+  "loggerEntryDetailsRootContext": {
+    "message": "Induk konteks",
+    "description": "Label to identify a root context field (typically a hostname)"
+  },
+  "loggerEntryDetailsPartyness": {
+    "message": "Partyness",
+    "description": "Label to identify a field providing partyness information"
+  },
+  "loggerEntryDetailsType": {
+    "message": "Jenis",
+    "description": "Label to identify the type of an entry"
+  },
+  "loggerEntryDetailsURL": {
+    "message": "URL",
+    "description": "Label to identify the URL of an entry"
+  },
+  "loggerURLFilteringHeader": {
+    "message": "Filter URL dinamis",
+    "description": "Small header to identify the dynamic URL filtering section"
   },
   "loggerURLFilteringContextLabel": {
     "message": "Konteks:",
@@ -559,12 +655,8 @@
     "message": "Jenis:",
     "description": "Label for the type selector"
   },
-  "loggerURLFilteringHeader": {
-    "message": "Penyaring URL Dinamis",
-    "description": "Small header to identify the dynamic URL filtering section"
-  },
   "loggerStaticFilteringHeader": {
-    "message": "Penyaringan statis",
+    "message": "Filter statis",
     "description": "Small header to identify the static filtering section"
   },
   "loggerStaticFilteringSentence": {
@@ -611,6 +703,62 @@
     "message": "Filter statis <code>{{filter}}</code> tidak dapat ditemukan di salah satu daftar filter yang aktif saat ini",
     "description": "Message to show when a filter cannot be found in any filter lists"
   },
+  "loggerSettingDiscardPrompt": {
+    "message": "Entri pencatat log yang tidak memenuhi ketiga kondisi di bawah ini akan secara otomatis dibuang:",
+    "description": "Logger setting: A sentence to describe the purpose of the settings below"
+  },
+  "loggerSettingPerEntryMaxAge": {
+    "message": "Pertahankan entri sejak {{input}} menit terakhir",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxLoads": {
+    "message": "Pertahankan maksimal {{input}} pemuatan laman per tab",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerTabMaxEntries": {
+    "message": "Pertahankan maksimal {{input}} entri per tab",
+    "description": "A logger setting"
+  },
+  "loggerSettingPerEntryLineCount": {
+    "message": "Gunakan {{input}} baris per entri dalam mode perluasan vertikal",
+    "description": "A logger setting"
+  },
+  "loggerSettingHideColumnsPrompt": {
+    "message": "Sembunyikan kolom:",
+    "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
+  },
+  "loggerSettingHideColumnTime": {
+    "message": "{{input}} Waktu",
+    "description": "A label for the time column"
+  },
+  "loggerSettingHideColumnFilter": {
+    "message": "{{input}} Filter/aturan",
+    "description": "A label for the filter or rule column"
+  },
+  "loggerSettingHideColumnContext": {
+    "message": "{{input}} Konteks",
+    "description": "A label for the context column"
+  },
+  "loggerSettingHideColumnPartyness": {
+    "message": "{{input}} Partyness",
+    "description": "A label for the partyness column"
+  },
+  "loggerExportFormatList": {
+    "message": "Daftar",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportFormatTable": {
+    "message": "Tabel",
+    "description": "Label for radio-button to pick export format"
+  },
+  "loggerExportEncodePlain": {
+    "message": "Plain",
+    "description": "Label for radio-button to pick export text format"
+  },
+  "loggerExportEncodeMarkdown": {
+    "message": "Markdown",
+    "description": "Label for radio-button to pick export text format"
+  },
   "aboutChangelog": {
     "message": "Catatan perubahan",
     "description": ""
@@ -636,7 +784,7 @@
     "description": "English: Contributors"
   },
   "aboutDependencies": {
-    "message": "Ketergantungan eksternal (GPLv3-compatible):",
+    "message": "Dependensi eksternal (kompatibel GPLv3):",
     "description": "Shown in the About pane"
   },
   "aboutBackupDataButton": {
@@ -704,7 +852,7 @@
     "description": "Firefox/Fennec-specific: Show Dashboard"
   },
   "showNetworkLogButton": {
-    "message": "Tampilkan Pencatat",
+    "message": "Tampilkan Pencatat Log",
     "description": "Firefox/Fennec-specific: Show Logger"
   },
   "fennecMenuItemBlockingOff": {
@@ -768,7 +916,7 @@
     "description": "used as a prompt for the user to provide a custom device name"
   },
   "advancedSettingsWarning": {
-    "message": "Peringatan! Ubah pengaturan lanjutan berikut dengan resiko Anda sendiri.",
+    "message": "Peringatan! Ubah pengaturan lanjutan berikut dengan resiko anda sendiri.",
     "description": "A warning to users at the top of 'Advanced settings' page"
   },
   "genericSubmit": {
@@ -794,6 +942,14 @@
   "shortcutCapturePlaceholder": {
     "message": "Ketik pintasan",
     "description": "Placeholder string for input field used to capture a keyboard shortcut"
+  },
+  "genericMergeViewScrollLock": {
+    "message": "Aktif/Nonaktifkan bilah gulir",
+    "description": "Tooltip for the button used to lock scrolling between the views in the 'My rules' pane"
+  },
+  "genericCopyToClipboard": {
+    "message": "Salin ke papan klip",
+    "description": "Label for buttons used to copy something to the clipboard"
   },
   "nano_d_ui_group": {
     "message": "User interface",
@@ -824,7 +980,7 @@
     "description": "Unsaved change warning"
   },
   "nano_d_about_based_on": {
-    "message": "Based on uBlock Origin Version/1.17.4 Commit/c3b0fd3",
+    "message": "Based on uBlock Origin Version/1.18.0 Commit/3dac43e",
     "description": "English: Based on {{@data}}"
   },
   "nano_v_title": {

@@ -40,19 +40,28 @@
 
 µBlock.cacheStorage = (function() {
 
-    // Firefox-specific: we use indexedDB because chrome.storage.local() has
-    // poor performance in Firefox. See:
+    const STORAGE_NAME = 'uBlock0CacheStorage';
+
     // https://bugzilla.mozilla.org/show_bug.cgi?id=1371255
-    if ( vAPI.webextFlavor.soup.has('firefox') === false ) {
+    //   Firefox-specific: we use indexedDB because chrome.storage.local() has
+    //   poor performance in Firefox.
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/328
+    //   Use IndexedDB for Chromium as well, to take advantage of LZ4
+    //   compression.
+    if (
+        vAPI.webextFlavor.soup.has('firefox') === false &&
+        vAPI.webextFlavor.soup.has('chromium') === false
+    ) {
+        // In case IndexedDB was used as cache storage, remove it.
+        indexedDB.deleteDatabase(STORAGE_NAME);
         return vAPI.cacheStorage;
     }
 
-    const STORAGE_NAME = 'uBlock0CacheStorage';
     let db;
     let pendingInitialization;
-    let dbByteLength;
+    let dbBytesInUse;
 
-    let get = function get(input, callback) {
+    const get = function get(input, callback) {
         if ( typeof callback !== 'function' ) { return; }
         if ( input === null ) {
             return getAllFromDb(callback);
@@ -69,23 +78,23 @@
         return getFromDb(toRead, output, callback);
     };
 
-    let set = function set(input, callback) {
+    const set = function set(input, callback) {
         putToDb(input, callback);
     };
 
-    let remove = function remove(key, callback) {
+    const remove = function remove(key, callback) {
         deleteFromDb(key, callback);
     };
 
-    let clear = function clear(callback) {
+    const clear = function clear(callback) {
         clearDb(callback);
     };
 
-    let getBytesInUse = function getBytesInUse(keys, callback) {
+    const getBytesInUse = function getBytesInUse(keys, callback) {
         getDbSize(callback);
     };
 
-    let api = {
+    const api = {
         get,
         set,
         remove,
@@ -94,7 +103,7 @@
         error: undefined
     };
 
-    let genericErrorHandler = function(ev) {
+    const genericErrorHandler = function(ev) {
         let error = ev.target && ev.target.error;
         if ( error && error.name === 'QuotaExceededError' ) {
             api.error = error.name;
@@ -102,15 +111,45 @@
         console.error('[%s]', STORAGE_NAME, error && error.name);
     };
 
-    function noopfn() {
-    }
+    const noopfn = function () {
+    };
 
-    let getDb = function getDb() {
-        if ( db instanceof IDBDatabase ) {
-            return Promise.resolve(db);
+    const disconnect = function() {
+        if ( dbTimer !== undefined ) {
+            clearTimeout(dbTimer);
+            dbTimer = undefined;
         }
+        if ( db instanceof IDBDatabase ) { 
+            db.close();
+            db = undefined;
+        }
+    };
+
+    let dbTimer;
+
+    const keepAlive = function() {
+        if ( dbTimer !== undefined ) {
+            clearTimeout(dbTimer);
+        }
+        dbTimer = vAPI.setTimeout(
+            ( ) => {
+                dbTimer = undefined;
+                disconnect();
+            },
+            Math.max(
+                µBlock.hiddenSettings.autoUpdateAssetFetchPeriod * 2 * 1000,
+                180000
+            )
+        );
+    };
+
+    const getDb = function getDb() {
         if ( db === null ) {
             return Promise.resolve(null);
+        }
+        keepAlive();
+        if ( db instanceof IDBDatabase ) {
+            return Promise.resolve(db);
         }
         if ( pendingInitialization !== undefined ) {
             return pendingInitialization;
@@ -165,7 +204,7 @@
         return pendingInitialization;
     };
 
-    let getFromDb = function(keys, keyvalStore, callback) {
+    const getFromDb = function(keys, keyvalStore, callback) {
         if ( typeof callback !== 'function' ) { return; }
         if ( keys.length === 0 ) { return callback(keyvalStore); }
         let promises = [];
@@ -202,7 +241,7 @@
         });
     };
 
-    let visitAllFromDb = function(visitFn) {
+    const visitAllFromDb = function(visitFn) {
         getDb().then(( ) => {
             if ( !db ) { return visitFn(); }
             let transaction = db.transaction(STORAGE_NAME);
@@ -221,7 +260,7 @@
         });
     };
 
-    let getAllFromDb = function(callback) {
+    const getAllFromDb = function(callback) {
         if ( typeof callback !== 'function' ) { return; }
         let promises = [];
         let keyvalStore = {};
@@ -245,18 +284,18 @@
         });
     };
 
-    let getDbSize = function(callback) {
+    const getDbSize = function(callback) {
         if ( typeof callback !== 'function' ) { return; }
-        if ( typeof dbByteLength === 'number' ) {
+        if ( typeof dbBytesInUse === 'number' ) {
             return Promise.resolve().then(( ) => {
-                callback(dbByteLength);
+                callback(dbBytesInUse);
             });
         }
-        let textEncoder = new TextEncoder();
+        const textEncoder = new TextEncoder();
         let totalByteLength = 0;
         visitAllFromDb(entry => {
             if ( entry === undefined ) {
-                dbByteLength = totalByteLength;
+                dbBytesInUse = totalByteLength;
                 return callback(totalByteLength);
             }
             let value = entry.value;
@@ -280,7 +319,7 @@
     //   https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/transaction
     //   https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore/put
 
-    let putToDb = function(keyvalStore, callback) {
+    const putToDb = function(keyvalStore, callback) {
         if ( typeof callback !== 'function' ) {
             callback = noopfn;
         }
@@ -305,7 +344,7 @@
         Promise.all(promises).then(( ) => {
             if ( !db ) { return callback(); }
             let finish = ( ) => {
-                dbByteLength = undefined;
+                dbBytesInUse = undefined;
                 if ( callback === undefined ) { return; }
                 let cb = callback;
                 callback = undefined;
@@ -326,7 +365,7 @@
         });
     };
 
-    let deleteFromDb = function(input, callback) {
+    const deleteFromDb = function(input, callback) {
         if ( typeof callback !== 'function' ) {
             callback = noopfn;
         }
@@ -335,7 +374,7 @@
         getDb().then(db => {
             if ( !db ) { return callback(); }
             let finish = ( ) => {
-                dbByteLength = undefined;
+                dbBytesInUse = undefined;
                 if ( callback === undefined ) { return; }
                 let cb = callback;
                 callback = undefined;
@@ -356,14 +395,16 @@
         });
     };
 
-    let clearDb = function(callback) {
+    const clearDb = function(callback) {
         if ( typeof callback !== 'function' ) {
             callback = noopfn;
         }
         getDb().then(db => {
             if ( !db ) { return callback(); }
             let finish = ( ) => {
-                dbByteLength = undefined;
+                disconnect();
+                indexedDB.deleteDatabase(STORAGE_NAME);
+                dbBytesInUse = 0;
                 if ( callback === undefined ) { return; }
                 let cb = callback;
                 callback = undefined;
@@ -382,6 +423,57 @@
 
     // prime the db so that it's ready asap for next access.
     getDb(noopfn);
+
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/328
+    //   Detect whether browser.storage.local was used as cache storage,
+    //   and if so, move cache-related entries to the new storage.
+    {
+        const srcStorage = vAPI.cacheStorage;
+        const desStorage = api;
+        srcStorage.get(
+            [ 'assetCacheRegistry', 'assetSourceRegistry' ],
+            bin => {
+                if (
+                    bin instanceof Object === false ||
+                    bin.assetSourceRegistry instanceof Object === false
+                ) {
+                    return;
+                }
+                desStorage.set(bin);
+                const toRemove = [
+                    'assetCacheRegistry',
+                    'assetSourceRegistry',
+                    'resourcesSelfie',
+                    'selfie'
+                ];
+                let toMigrate = 0;
+                const setEntry = function(assetKey, bin) {
+                    if (
+                        bin instanceof Object &&
+                        bin[assetKey] !== undefined
+                    ) {
+                        desStorage.set(bin);
+                    }
+                    toMigrate -= 1;
+                    if ( toMigrate === 0 ) {
+                        srcStorage.remove(toRemove);
+                    }
+                };
+                for ( const key in bin.assetCacheRegistry ) {
+                    if ( bin.assetCacheRegistry.hasOwnProperty(key) === false ) {
+                        continue;
+                    }
+                    const assetKey = 'cache/' + key;
+                    srcStorage.get(assetKey, setEntry.bind(null, assetKey));
+                    toMigrate += 1;
+                    toRemove.push(assetKey);
+                }
+                if ( toMigrate === 0 ) {
+                    srcStorage.remove(toRemove);
+                }
+            }
+        );
+    }
 
     return api;
 }());

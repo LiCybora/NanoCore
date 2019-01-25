@@ -275,21 +275,12 @@ vAPI.tabs = {};
 
 /******************************************************************************/
 
-// https://github.com/gorhill/uBlock/issues/3546
-//   Added a new flavor of behind-the-scene tab id: vAPI.anyTabId.
-//   vAPI.anyTabId will be used for network requests which can be filtered,
-//   because they comes with enough contextual information. It's just not
-//   possible to pinpoint exactly from which tab it comes from. For example,
-//   with Firefox/webext, the `documentUrl` property is available for every
-//   network requests.
-
 vAPI.isBehindTheSceneTabId = function(tabId) {
     return tabId < 0;
 };
 
 vAPI.unsetTabId = 0;
 vAPI.noTabId = -1;      // definitely not any existing tab
-vAPI.anyTabId = -2;     // one of the existing tab
 
 /******************************************************************************/
 
@@ -484,10 +475,35 @@ vAPI.tabs.open = function(details) {
         };
 
         // Open in a standalone window
+        //
         // https://github.com/uBlockOrigin/uBlock-issues/issues/168#issuecomment-413038191
         //   Not all platforms support browser.windows API.
-        if ( details.popup === true && chrome.windows instanceof Object ) {
-            chrome.windows.create({ url: details.url, type: 'popup' });
+        //
+        // For some reasons, some platforms do not honor the left,top
+        // position when specified. I found that further calling
+        // windows.update again with the same position _may_ help.
+        if ( details.popup === true && browser.windows instanceof Object ) {
+            const options = {
+                url: details.url,
+                type: 'popup',
+            };
+            if ( details.box instanceof Object ) {
+                Object.assign(options, details.box);
+            }
+            browser.windows.create(options, win => {
+                if ( win instanceof Object === false ) { return; }
+                if ( details.box instanceof Object === false ) { return; }
+                if (
+                    win.left === details.box.left &&
+                    win.top === details.box.top
+                ) {
+                    return;
+                }
+                browser.windows.update(win.id, {
+                    left: details.box.left,
+                    top: details.box.top
+                });
+            });
             return;
         }
 

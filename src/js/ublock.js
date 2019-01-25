@@ -407,6 +407,16 @@ var matchBucket = function(url, hostname, bucket, start) {
     this.epickerTarget = targetElement || '';
     this.epickerZap = zap || false;
 
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/40
+    //   The element picker needs this library
+    vAPI.tabs.injectScript(
+        tabId,
+        {
+            file: '/lib/diff/swatinem_diff.js',
+            runAt: 'document_end'
+        }
+    );
+
     // https://github.com/uBlockOrigin/uBlock-issues/issues/168
     //   Force activate the target tab once the element picker has been
     //   injected.
@@ -540,13 +550,19 @@ var matchBucket = function(url, hostname, bucket, start) {
 //   cosmetic filters.
 
 µBlock.logCosmeticFilters = function(tabId, frameId) {
-    if ( this.logger.isEnabled() ) {
-        vAPI.tabs.injectScript(tabId, {
-            file: '/js/scriptlets/cosmetic-logger.js',
-            frameId: frameId,
-            runAt: 'document_start'
-        });
-    }
+    vAPI.tabs.injectScript(tabId, {
+        file: '/js/scriptlets/cosmetic-logger.js',
+        frameId: frameId,
+        runAt: 'document_start'
+    });
+};
+
+µBlock.logInlineScript = function(tabId, frameId) {
+    vAPI.tabs.injectScript(tabId, {
+        frameId: frameId,
+        file: '/js/scriptlets/inlinescript-logger.js',
+        runAt: 'document_end'
+    });
 };
 
 /******************************************************************************/

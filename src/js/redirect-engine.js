@@ -95,14 +95,14 @@ const RedirectEntry = function() {
 // - https://stackoverflow.com/a/8056313
 // - https://bugzilla.mozilla.org/show_bug.cgi?id=998076
 
-RedirectEntry.prototype.toURL = function(details) {
+RedirectEntry.prototype.toURL = function(fctxt) {
     if (
         this.warURL !== undefined &&
-        details instanceof Object &&
-        details.requestType !== 'xmlhttprequest' &&
+        fctxt instanceof Object &&
+        fctxt.type !== 'xmlhttprequest' &&
         (
             suffersSpuriousRedirectConflicts === false ||
-            details.requestURL.startsWith('https:')
+            fctxt.url.startsWith('https:')
         )
     ) {
         return this.warURL + '?secret=' + vAPI.warSecret;
@@ -187,14 +187,14 @@ RedirectEngine.prototype.toBroaderHostname = function(hostname) {
 
 /******************************************************************************/
 
-RedirectEngine.prototype.lookup = function(context) {
-    var type = context.requestType;
+RedirectEngine.prototype.lookup = function(fctxt) {
+    const type = fctxt.type;
     if ( this.ruleTypes.has(type) === false ) { return; }
-    var src = context.pageHostname,
-        des = context.requestHostname,
-        desAll = this._desAll,
-        reqURL = context.requestURL;
-    var n = 0;
+    const desAll = this._desAll;
+    const reqURL = fctxt.url;
+    let src = fctxt.getDocHostname();
+    let des = fctxt.getHostname();
+    let n = 0;
     for (;;) {
         if ( this.ruleDestinations.has(des) ) {
             desAll[n] = des; n += 1;
@@ -203,11 +203,10 @@ RedirectEngine.prototype.lookup = function(context) {
         if ( des === '' ) { break; }
     }
     if ( n === 0 ) { return; }
-    var entries;
     for (;;) {
         if ( this.ruleSources.has(src) ) {
-            for ( var i = 0; i < n; i++ ) {
-                entries = this.rules.get(src + ' ' + desAll[i] + ' ' + type);
+            for ( let i = 0; i < n; i++ ) {
+                const entries = this.rules.get(src + ' ' + desAll[i] + ' ' + type);
                 if ( entries && this.lookupToken(entries, reqURL) ) {
                     return this.resourceNameRegister;
                 }
@@ -234,12 +233,12 @@ RedirectEngine.prototype.lookupToken = function(entries, reqURL) {
 
 /******************************************************************************/
 
-RedirectEngine.prototype.toURL = function(context) {
-    let token = this.lookup(context);
+RedirectEngine.prototype.toURL = function(fctxt) {
+    let token = this.lookup(fctxt);
     if ( token === undefined ) { return; }
     let entry = this.resources.get(token);
     if ( entry !== undefined ) {
-        return entry.toURL(context);
+        return entry.toURL(fctxt);
     }
 };
 
@@ -300,7 +299,7 @@ RedirectEngine.prototype.fromCompiledRule = function(line) {
 /******************************************************************************/
 
 RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
-    var matches = this.reFilterParser.exec(line);
+    const matches = this.reFilterParser.exec(line);
     if ( matches === null || matches.length !== 4 ) {
         nano.flintw(
             'nano_r_does_not_match_re',
@@ -308,16 +307,15 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
         );
         return;
     }
-    var µburi = µBlock.URI,
-        des = matches[1] || '',
-        pattern = (des + matches[2]).replace(/[.+?{}()|[\]\/\\]/g, '\\$&')
-                                    .replace(/\^/g, '[^\\w.%-]')
-                                    .replace(/\*/g, '.*?'),
-        type,
+
+    let des = matches[1] || '';
+    const pattern = (des + matches[2]).replace(/[.+?{}()|[\]\/\\]/g, '\\$&')
+                                      .replace(/\^/g, '[^\\w.%-]')
+                                      .replace(/\*/g, '.*?');
+    let type,
         redirect = '',
-        srcs = [],
-        options = matches[3].split(','), option;
-    while ( (option = options.pop()) ) {
+        srcs = [];
+    for ( const option of matches[3].split(',') ) {
         if ( option.startsWith('redirect=') ) {
             redirect = option.slice(9);
             continue;
@@ -327,16 +325,16 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
             continue;
         }
         if ( option === 'first-party' || option === '1p' ) {
-            srcs.push(µburi.domainFromHostnameNoCache(des) || des);
+            srcs.push(µBlock.URI.domainFromHostnameNoCache(des) || des);
             continue;
         }
         // One and only one type must be specified.
-        if ( option in this.supportedTypes ) {
+        if ( this.supportedTypes.has(option) ) {
             if ( type !== undefined ) {
                 nano.flintw('nano_r_too_many_types');
                 return;
             }
-            type = this.supportedTypes[option];
+            type = this.supportedTypes.get(option);
             continue;
         }
     }
@@ -347,7 +345,7 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
         return;
     }
 
-    // Need one single supported type.
+    // Need one single type -- not negated.
     if ( type === undefined ) {
         nano.flintw('nano_r_no_supported_type');
         return;
@@ -361,13 +359,9 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
         srcs.push('*');
     }
 
-    var out = [];
-    var i = srcs.length, src;
-    while ( i-- ) {
-        src = srcs[i];
-        if ( src === '' ) {
-            continue;
-        }
+    const out = [];
+    for ( const src of srcs ) {
+        if ( src === '' ) { continue; }
         if ( src.startsWith('~') ) {
             nano.flintw('nano_r_negated_domain');
             continue;
@@ -388,24 +382,21 @@ RedirectEngine.prototype.compileRuleFromStaticFilter = function(line) {
 
 RedirectEngine.prototype.reFilterParser = /^(?:\|\|([^\/:?#^*]+)|\*)([^$]+)\$([^$]+)$/;
 
-RedirectEngine.prototype.supportedTypes = (function() {
-    var types = Object.create(null);
-    types.font = 'font';
-    types.image = 'image';
-    types.media = 'media';
-    types.object = 'object';
-    types.script = 'script';
-    types.stylesheet = 'stylesheet';
-    types.subdocument = 'sub_frame';
-    types.xmlhttprequest = 'xmlhttprequest';
+RedirectEngine.prototype.supportedTypes = new Map([
+    [ 'css', 'stylesheet' ],
+    [ 'font', 'font' ],
+    [ 'image', 'image' ],
+    [ 'media', 'media' ],
+    [ 'object', 'object' ],
+    [ 'script', 'script' ],
+    [ 'stylesheet', 'stylesheet' ],
+    [ 'frame', 'sub_frame' ],
+    [ 'subdocument', 'sub_frame' ],
+    [ 'xhr', 'xmlhttprequest' ],
+    [ 'xmlhttprequest', 'xmlhttprequest' ],
 
-    types.css = 'stylesheet';
-    types.frame = 'sub_frame';
-    types.iframe = 'sub_frame';
-    types.xhr = 'xmlhttprequest';
-
-    return types;
-})();
+    [ 'iframe', 'sub_frame' ],
+]);
 
 /******************************************************************************/
 

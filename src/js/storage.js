@@ -408,37 +408,72 @@
 
 /******************************************************************************/
 
-µBlock.appendUserFilters = function(filters) {
+µBlock.appendUserFilters = function(filters, options) {
+    filters = filters.trim();
     if ( filters.length === 0 ) { return; }
 
-    var µb = this;
+    // https://github.com/uBlockOrigin/uBlock-issues/issues/372
+    //   Auto comment using user-defined template.
+    let comment = '';
+    if (
+        options instanceof Object &&
+        options.autoComment === true &&
+        this.hiddenSettings.autoCommentFilterTemplate.indexOf('{{') !== -1
+    ) {
+        const d = new Date();
+        comment =
+            '! ' +
+            this.hiddenSettings.autoCommentFilterTemplate
+                .replace('{{date}}', d.toLocaleDateString())
+                .replace('{{time}}', d.toLocaleTimeString())
+                .replace('{{origin}}', options.origin);
+    }
 
-    var onSaved = function() {
-        var compiledFilters = µb.compileFilters(filters, µb.nanoPartialUserFiltersPath),
-            snfe = µb.staticNetFilteringEngine,
-            cfe = µb.cosmeticFilteringEngine,
-            acceptedCount = snfe.acceptedCount + cfe.acceptedCount,
-            discardedCount = snfe.discardedCount + cfe.discardedCount;
-        µb.applyCompiledFilters(compiledFilters, true);
-        var entry = µb.availableFilterLists[µb.userFiltersPath],
-            deltaEntryCount = snfe.acceptedCount + cfe.acceptedCount - acceptedCount,
-            deltaEntryUsedCount = deltaEntryCount - (snfe.discardedCount + cfe.discardedCount - discardedCount);
+    const onSaved = ( ) => {
+        const compiledFilters = this.compileFilters(
+            filters,
+            { assetKey: this.userFiltersPath },
+            µb.nanoPartialUserFiltersPath
+        );
+        const snfe = this.staticNetFilteringEngine;
+        const cfe = this.cosmeticFilteringEngine;
+        const acceptedCount = snfe.acceptedCount + cfe.acceptedCount;
+        const discardedCount = snfe.discardedCount + cfe.discardedCount;
+        this.applyCompiledFilters(compiledFilters, true);
+        const entry = this.availableFilterLists[this.userFiltersPath];
+        const deltaEntryCount =
+            snfe.acceptedCount +
+            cfe.acceptedCount - acceptedCount;
+        const deltaEntryUsedCount =
+            deltaEntryCount -
+            (snfe.discardedCount + cfe.discardedCount - discardedCount);
         entry.entryCount += deltaEntryCount;
         entry.entryUsedCount += deltaEntryUsedCount;
-        vAPI.storage.set({ 'availableFilterLists': µb.availableFilterLists });
-        µb.staticNetFilteringEngine.freeze();
-        µb.redirectEngine.freeze();
-        µb.staticExtFilteringEngine.freeze();
-        µb.selfieManager.destroy();
+        vAPI.storage.set({ 'availableFilterLists': this.availableFilterLists });
+        this.staticNetFilteringEngine.freeze();
+        this.redirectEngine.freeze();
+        this.staticExtFilteringEngine.freeze();
+        this.selfieManager.destroy();
     };
 
-    var onLoaded = function(details) {
+    const onLoaded = details => {
         if ( details.error ) { return; }
+        // The comment, if any, will be applied if and only if it is different
+        // from the last comment found in the user filter list.
+        if ( comment !== '' ) {
+            const pos = details.content.lastIndexOf(comment);
+            if (
+                pos === -1 ||
+                details.content.indexOf('\n!', pos + 1) !== -1
+            ) {
+                filters = '\n' + comment + '\n' + filters;
+            }
+        }
         // https://github.com/chrisaljoudi/uBlock/issues/976
-        // If we reached this point, the filter quite probably needs to be
-        // added for sure: do not try to be too smart, trying to avoid
-        // duplicates at this point may lead to more issues.
-        µb.saveUserFilters(details.content.trim() + '\n\n' + filters.trim(), onSaved);
+        //   If we reached this point, the filter quite probably needs to be
+        //   added for sure: do not try to be too smart, trying to avoid
+        //   duplicates at this point may lead to more issues.
+        this.saveUserFilters(details.content.trim() + '\n' + filters, onSaved);
     };
 
     this.loadUserFilters(onLoaded);
@@ -612,15 +647,15 @@
     if ( this.loadingFilterLists ) { return; }
     this.loadingFilterLists = true;
 
-    var µb = this,
-        filterlistsCount = 0,
-        loadedListKeys = [];
+    const µb = µBlock;
+    const loadedListKeys = [];
+    let filterlistsCount = 0;
 
     if ( typeof callback !== 'function' ) {
         callback = this.noopFunc;
     }
 
-    var onDone = function() {
+    const onDone = function() {
         µb.staticNetFilteringEngine.freeze();
         µb.staticExtFilteringEngine.freeze();
         µb.redirectEngine.freeze();
@@ -636,17 +671,19 @@
         callback();
 
         µb.selfieManager.destroy();
+        µb.lz4Codec.relinquish();
+
         µb.loadingFilterLists = false;
     };
 
-    var applyCompiledFilters = function(assetKey, compiled) {
-        var snfe = µb.staticNetFilteringEngine,
-            sxfe = µb.staticExtFilteringEngine,
-            acceptedCount = snfe.acceptedCount + sxfe.acceptedCount,
+    const applyCompiledFilters = function(assetKey, compiled) {
+        const snfe = µb.staticNetFilteringEngine;
+        const sxfe = µb.staticExtFilteringEngine;
+        let acceptedCount = snfe.acceptedCount + sxfe.acceptedCount,
             discardedCount = snfe.discardedCount + sxfe.discardedCount;
         µb.applyCompiledFilters(compiled, assetKey === µb.userFiltersPath);
         if ( µb.availableFilterLists.hasOwnProperty(assetKey) ) {
-            var entry = µb.availableFilterLists[assetKey];
+            const entry = µb.availableFilterLists[assetKey];
             entry.entryCount = snfe.acceptedCount + sxfe.acceptedCount -
                 acceptedCount;
             entry.entryUsedCount = entry.entryCount -
@@ -655,7 +692,7 @@
         loadedListKeys.push(assetKey);
     };
 
-    var onCompiledListLoaded = function(details) {
+    const onCompiledListLoaded = function(details) {
         applyCompiledFilters(details.assetKey, details.content);
         filterlistsCount -= 1;
         if ( filterlistsCount === 0 ) {
@@ -663,7 +700,7 @@
         }
     };
 
-    var onFilterListsReady = function(lists) {
+    const onFilterListsReady = function(lists) {
         µb.availableFilterLists = lists;
 
         µb.redirectEngine.reset();
@@ -674,10 +711,10 @@
 
         // We need to build a complete list of assets to pull first: this is
         // because it *may* happens that some load operations are synchronous:
-        // This happens for assets which do not exist, or assets with no
+        // This happens for assets which do not exist, ot assets with no
         // content.
-        var toLoad = [];
-        for ( var assetKey in lists ) {
+        const toLoad = [];
+        for ( const assetKey in lists ) {
             if ( lists.hasOwnProperty(assetKey) === false ) { continue; }
             if ( lists[assetKey].off ) { continue; }
             toLoad.push(assetKey);
@@ -687,7 +724,7 @@
             return onDone();
         }
 
-        var i = toLoad.length;
+        let i = toLoad.length;
         while ( i-- ) {
             µb.getCompiledFilterList(toLoad[i], onCompiledListLoaded);
         }
@@ -706,7 +743,10 @@
 
     var onCompiledListLoaded2 = function(details) {
         if ( details.content === '' ) {
-            details.content = µb.compileFilters(rawContent, assetKey);
+            details.content = µb.compileFilters(
+                rawContent,
+                { assetKey: assetKey }
+            );
             µb.assets.put(compiledPath, details.content);
         }
         rawContent = undefined;
@@ -806,9 +846,18 @@
 
 /******************************************************************************/
 
-µBlock.compileFilters = function(rawText, nanoKey) {
+µBlock.compileFilters = function(rawText, details, nanoAssetKeyOverride) {
     let writer = new this.CompiledLineIO.Writer();
 
+    // Populate the writer with information potentially useful to the
+    // client compilers.
+    if ( details ) {
+        if ( details.assetKey ) {
+            writer.properties.set('assetKey', details.assetKey);
+        }
+    }
+
+    const nanoKey = nanoAssetKeyOverride || details.assetKey;
     nano.cf.update(nanoKey);
     if ( nanoKey === nano.ub.userFiltersPath ) {
         nano.fl.reset();
@@ -820,13 +869,13 @@
     // Useful references:
     //    https://adblockplus.org/en/filter-cheatsheet
     //    https://adblockplus.org/en/filters
-    let staticNetFilteringEngine = this.staticNetFilteringEngine,
-        staticExtFilteringEngine = this.staticExtFilteringEngine,
-        reIsWhitespaceChar = /\s/,
-        reMaybeLocalIp = /^[\d:f]/,
-        reIsLocalhostRedirect = /\s+(?:0\.0\.0\.0|broadcasthost|localhost|local|ip6-\w+)\b/,
-        reLocalIp = /^(?:0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)/,
-        lineIter = new this.LineIterator(this.processDirectives(rawText));
+    const staticNetFilteringEngine = this.staticNetFilteringEngine;
+    const staticExtFilteringEngine = this.staticExtFilteringEngine;
+    const reIsWhitespaceChar = /\s/;
+    const reMaybeLocalIp = /^[\d:f]/;
+    const reIsLocalhostRedirect = /\s+(?:0\.0\.0\.0|broadcasthost|localhost|local|ip6-\w+)\b/;
+    const reLocalIp = /^(?:0\.0\.0\.0|127\.0\.0\.1|::1|fe80::1%lo0)/;
+    const lineIter = new this.LineIterator(this.processDirectives(rawText));
 
     while ( lineIter.eot() === false ) {
         if ( nano.cf.first_party ) {
@@ -840,7 +889,7 @@
         if ( line.length === 0 ) { continue; }
 
         // Strip comments
-        let c = line.charAt(0);
+        const c = line.charAt(0);
         if ( c === '!' ) { continue; }
         if ( c === '[' ) {
             nano.flintw('nano_l_filter_comment_bracket');
@@ -863,7 +912,7 @@
         // Don't remove:
         //   ...#blah blah blah
         // because some ABP filters uses the `#` character (URL fragment)
-        let pos = line.indexOf('#');
+        const pos = line.indexOf('#');
         if ( pos !== -1 && reIsWhitespaceChar.test(line.charAt(pos - 1)) ) {
             line = line.slice(0, pos).trim();
             nano.flintw('nano_l_filter_inline_comment');
@@ -1098,6 +1147,7 @@
             staticExtFilteringEngine: µb.staticExtFilteringEngine.toSelfie()
         });
         µb.cacheStorage.set({ selfie: selfie });
+        µb.lz4Codec.relinquish();
     };
 
     let load = function(callback) {
@@ -1336,7 +1386,10 @@
                     );
                     this.assets.put(
                         'compiled/' + details.assetKey,
-                        this.compileFilters(details.content, details.assetKey)
+                        this.compileFilters(
+                            details.content,
+                            { assetKey: details.assetKey }
+                        )
                     );
                 }
             } else {

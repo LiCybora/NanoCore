@@ -49,7 +49,7 @@ nano.load_settings = () => {
         "dashboard",
         {
             what: "userSettings",
-            name: "nanoEditorSoftWrap"
+            name: "nanoEditorSoftWrap",
         },
         on_msg
     );
@@ -78,7 +78,7 @@ nano.render_filters = (first) => {
     vAPI.messaging.send(
         "dashboard",
         {
-            what: "readUserFilters"
+            what: "readUserFilters",
         },
         on_msg
     );
@@ -93,7 +93,7 @@ nano.render_anno = () => {
     vAPI.messaging.send(
         "dashboard",
         {
-            what: "nanoGetFilterLinterResult"
+            what: "nanoGetFilterLinterResult",
         },
         on_msg
     );
@@ -123,7 +123,7 @@ nano.filters_saved = () => {
     vAPI.messaging.send(
         "dashboard",
         {
-            what: "reloadAllFilters"
+            what: "reloadAllFilters",
         }
     );
 
@@ -153,7 +153,7 @@ nano.filters_apply = () => {
         "dashboard",
         {
             what: "writeUserFilters",
-            content: nano.editor.get_unix_value()
+            content: nano.editor.get_unix_value(),
         },
         on_msg
     );
@@ -182,10 +182,9 @@ nano.import_picked = function () {
             return s;
 
         const out = [];
-        let filter_match;
         while (matches !== null) {
             if (matches.length === 2) {
-                filter_match = re_abp_filter_extractor.exec(matches[1].trim());
+                let filter_match = re_abp_filter_extractor.exec(matches[1].trim());
                 if (filter_match !== null && filter_match.length === 2)
                     out.push(filter_match[1].trim().replace(/\\\[/g, "["));
             }
@@ -224,7 +223,7 @@ nano.import_filters = () => {
 /*****************************************************************************/
 
 nano.export_filters = () => {
-    var val = nano.editor.get_platform_value().trim();
+    const val = nano.editor.get_platform_value().trim();
     if (val === "")
         return;
 

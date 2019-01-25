@@ -167,7 +167,7 @@
     "content": "filters",
     "group": "ads",
     "off": true,
-    "title": "Adguard Base Filters",
+    "title": "AdGuard Base filter",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/2_without_easylist.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
@@ -176,7 +176,7 @@
     "content": "filters",
     "group": "ads",
     "off": true,
-    "title": "Adguard Mobile Filters",
+    "title": "AdGuard Mobile Ads filter",
     "ua": "mobile",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/11.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
@@ -194,13 +194,21 @@
     ],
     "supportURL": "https://forums.lanik.us/"
   },
+  "nano-contrib-0": {
+    "content": "filters",
+    "group": "ads",
+    "updateAfter": 5,
+    "off": true,
+    "title": "Nano contrib filter – Placeholder buster",
+    "contentURL": "https://gitcdn.xyz/repo/NanoAdblockerLab/NanoContrib/master/dist/placeholder-buster.txt"
+  },
 
 
   "adguard-spyware": {
     "content": "filters",
     "group": "privacy",
     "off": true,
-    "title": "Adguard Spyware Filters",
+    "title": "AdGuard Spyware filter",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/3.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
@@ -274,8 +282,17 @@
     "content": "filters",
     "group": "social",
     "off": true,
-    "title": "Adguard's Annoyance List",
+    "title": "AdGuard Annoyances filter",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/14.txt",
+    "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
+    "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
+  },
+  "adguard-social": {
+    "content": "filters",
+    "group": "social",
+    "off": true,
+    "title": "AdGuard Social Media filter",
+    "contentURL": "https://filters.adtidy.org/extension/ublock/filters/4.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
     "instructionURL": "https://kb.adguard.com/en/general/adguard-ad-filters"
   },
@@ -486,12 +503,9 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "IDN: ABPindo",
-    "lang": "id",
-    "contentURL": [
-      "https://raw.githubusercontent.com/ABPindo/indonesianadblockrules/master/subscriptions/abpindo.txt",
-      "https://raw.githubusercontent.com/heradhis/indonesianadblockrules/master/subscriptions/abpindo.txt"
-    ],
+    "title": "IDN, MYS: ABPindo",
+    "lang": "id ms",
+    "contentURL": "https://raw.githubusercontent.com/ABPindo/indonesianadblockrules/master/subscriptions/abpindo.txt",
     "supportURL": "https://github.com/ABPindo/indonesianadblockrules"
   },
   "IRN-0": {
@@ -554,7 +568,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "JPN: Adguard Japan Filter",
+    "title": "JPN: AdGuard Japanese filter",
     "lang": "ja",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/7.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
@@ -609,8 +623,8 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "NOR: Dandelion Sprouts norske filtre",
-    "lang": "nb",
+    "title": "NOR, DNK, ISL: Dandelion Sprouts nordiske filtre",
+    "lang": "nb no da is",
     "contentURL": [
       "https://raw.githubusercontent.com/DandelionSprout/adfilt/master/NorwegianList.txt",
       "https://repo.or.cz/FilterMirrorRepo.git/blob_plain/refs/heads/master:/NorwegianList.txt"
@@ -621,11 +635,20 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "POL: Official Polish filters for AdBlock, uBlock Origin & AdGuard",
+    "title": "POL: Oficjalne Polskie Filtry do AdBlocka, uBlocka Origin i AdGuarda",
     "lang": "pl",
     "contentURL": "https://raw.githubusercontent.com/MajkiIT/polish-ads-filter/master/polish-adblock-filters/adblock.txt",
     "supportURL": "https://github.com/MajkiIT/polish-ads-filter/issues",
     "instructionURL": "https://github.com/MajkiIT/polish-ads-filter#polish-filters-for-adblock-ublock-origin--adguard"
+  },
+  "POL-2": {
+    "content": "filters",
+    "group": "regions",
+    "off": true,
+    "title": "POL: Oficjalne polskie filtry przeciwko alertom o Adblocku",
+    "lang": "pl",
+    "contentURL": "https://raw.githubusercontent.com/olegwukr/polish-privacy-filters/master/anti-adblock.txt",
+    "supportURL": "https://github.com/olegwukr/polish-privacy-filters/issues"
   },
   "ROU-1": {
     "content": "filters",
@@ -653,7 +676,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "RUS: Adguard Russian Filter",
+    "title": "RUS: AdGuard Russian filter",
     "lang": "be ru uk",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/1.txt",
     "supportURL": "https://forum.adguard.com/forumdisplay.php?69-%D0%A4%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D1%8B-Adguard",
@@ -672,7 +695,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "SPA, POR: Adguard Spanish/Portuguese",
+    "title": "SPA, POR: AdGuard Spanish/Portuguese filter",
     "lang": "es pt",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/9.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",
@@ -709,7 +732,7 @@
     "content": "filters",
     "group": "regions",
     "off": true,
-    "title": "TUR: Adguard Turkish Filter",
+    "title": "TUR: AdGuard Turkish filter",
     "lang": "tr",
     "contentURL": "https://filters.adtidy.org/extension/ublock/filters/13.txt",
     "supportURL": "https://github.com/AdguardTeam/AdguardFilters#adguard-filters",

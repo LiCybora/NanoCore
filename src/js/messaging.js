@@ -52,7 +52,7 @@ var getDomainNames = function(targets) {
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'getAssetContent':
@@ -84,7 +84,7 @@ var onMessage = function(request, sender, callback) {
         break;
     }
 
-    var tabId = sender && sender.tab ? sender.tab.id : 0;
+    const tabId = sender && sender.tab ? sender.tab.id : 0;
 
     // Sync
     var response;
@@ -103,7 +103,7 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'createUserFilter':
-        µb.appendUserFilters(request.filters);
+        µb.appendUserFilters(request.filters, request);
         // https://github.com/gorhill/uBlock/issues/1786
         µb.cosmeticFilteringEngine.removeFromSelectorCache(request.pageDomain);
         break;
@@ -501,8 +501,8 @@ var onMessage = function(request, sender, callback) {
     }
 
     // Sync
-    var µb = µBlock,
-        response,
+    const µb = µBlock;
+    let response,
         tabId, frameId,
         pageStore = null;
 
@@ -531,9 +531,8 @@ var onMessage = function(request, sender, callback) {
 
     case 'shouldRenderNoscriptTags':
         if ( pageStore === null ) { break; }
-        let tabContext = µb.tabContextManager.lookup(tabId);
-        if ( tabContext === null ) { break; }
-        if ( pageStore.filterScripting(tabContext.rootHostname, undefined) ) {
+        const fctxt = µb.filteringContext.fromTabId(tabId);
+        if ( pageStore.filterScripting(fctxt, undefined) ) {
             vAPI.tabs.injectScript(
                 tabId,
                 {
@@ -565,12 +564,18 @@ var onMessage = function(request, sender, callback) {
         request.domain = µb.URI.domainFromHostname(request.hostname);
         request.entity = µb.URI.entityFromDomain(request.domain);
         response.specificCosmeticFilters =
-            µb.cosmeticFilteringEngine.retrieveSpecificSelectors(request, response);
+            µb.cosmeticFilteringEngine.retrieveSpecificSelectors(
+                request,
+                response
+            );
         if ( µb.canInjectScriptletsNow === false ) {
             response.scriptlets = µb.scriptletFilteringEngine.retrieve(request);
         }
-        if ( response.noCosmeticFiltering !== true ) {
-            µb.logCosmeticFilters(tabId, frameId);
+        if ( µb.logger.enabled ) {
+            if ( response.noCosmeticFiltering !== true ) {
+                µb.logCosmeticFilters(tabId, frameId);
+            }
+            µb.logInlineScript(tabId, frameId);
         }
         break;
 
@@ -607,15 +612,13 @@ vAPI.messaging.listen('contentscript', onMessage);
 
 /******************************************************************************/
 
-var µb = µBlock;
+const onMessage = function(request, sender, callback) {
+    const µb = µBlock;
 
-/******************************************************************************/
-
-var onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'elementPickerArguments':
-        var xhr = new XMLHttpRequest();
+        const xhr = new XMLHttpRequest();
         xhr.open('GET', 'epicker.html', true);
         xhr.overrideMimeType('text/html;charset=utf-8');
         xhr.responseType = 'text';
@@ -631,8 +634,8 @@ var onMessage = function(request, sender, callback) {
                 cosmeticFilters: vAPI.i18n('pickerCosmeticFilters'),
                 cosmeticFiltersHint: vAPI.i18n('pickerCosmeticFiltersHint')
             };
-            var reStrings = /\{\{(\w+)\}\}/g;
-            var replacer = function(a0, string) {
+            const reStrings = /\{\{(\w+)\}\}/g;
+            const replacer = function(a0, string) {
                 return i18n[string];
             };
 
@@ -656,7 +659,7 @@ var onMessage = function(request, sender, callback) {
     }
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'elementPickerEprom':
@@ -1039,14 +1042,6 @@ var onMessage = function(request, sender, callback) {
     var response;
 
     switch ( request.what ) {
-    case 'benchmark':
-        response = µb.staticNetFilteringEngine.benchmark(request.contexts);
-        break;
-
-    case 'benchmarkingPane':
-        response = µb.hiddenSettings.benchmarkingPane;
-        break;
-
     case 'canUpdateShortcuts':
         response = µb.canUpdateShortcuts;
         break;
@@ -1137,30 +1132,31 @@ vAPI.messaging.listen('dashboard', onMessage);
 
 /******************************************************************************/
 
-var µb = µBlock,
-    extensionOriginURL = vAPI.getURL('');
+const µb = µBlock;
+const extensionOriginURL = vAPI.getURL('');
 
 /******************************************************************************/
 
-var getLoggerData = function(details, activeTabId, callback) {
-    let response = {
+const getLoggerData = function(details, activeTabId, callback) {
+    const response = {
         colorBlind: µb.userSettings.colorBlindFriendly,
         entries: µb.logger.readAll(details.ownerId),
         maxEntries: µb.userSettings.requestLogMaxEntries,
         activeTabId: activeTabId,
-        tabIdsToken: µb.pageStoresToken
+        tabIdsToken: µb.pageStoresToken,
+        tooltips: µb.userSettings.tooltipsDisabled === false
     };
     if ( µb.pageStoresToken !== details.tabIdsToken ) {
-        let tabIds = new Map();
-        for ( let entry of µb.pageStores ) {
-            let pageStore = entry[1];
+        const tabIds = new Map();
+        for ( const entry of µb.pageStores ) {
+            const pageStore = entry[1];
             if ( pageStore.rawURL.startsWith(extensionOriginURL) ) { continue; }
             tabIds.set(entry[0], pageStore.title);
         }
         response.tabIds = Array.from(tabIds);
     }
     if ( activeTabId ) {
-        let pageStore = µb.pageStoreFromTabId(activeTabId);
+        const pageStore = µb.pageStoreFromTabId(activeTabId);
         if (
             pageStore === null ||
             pageStore.rawURL.startsWith(extensionOriginURL)
@@ -1168,43 +1164,67 @@ var getLoggerData = function(details, activeTabId, callback) {
             response.activeTabId = undefined;
         }
     }
+    if ( details.popupLoggerBoxChanged && browser.windows instanceof Object ) {
+        browser.tabs.query(
+            { url: vAPI.getURL('/logger-ui.html?popup=1') },
+            tabs => {
+                if ( Array.isArray(tabs) === false ) { return; }
+                if ( tabs.length === 0 ) { return; }
+                browser.windows.get(tabs[0].windowId, win => {
+                    if ( win instanceof Object === false ) { return; }
+                    vAPI.localStorage.setItem(
+                        'popupLoggerBox',
+                        JSON.stringify({
+                            left: win.left,
+                            top: win.top,
+                            width: win.width,
+                            height: win.height,
+                        })
+                    );
+                });
+            }
+        );
+    }
     callback(response);
 };
 
 /******************************************************************************/
 
-var getURLFilteringData = function(details) {
-    var colors = {};
-    var response = {
+const getURLFilteringData = function(details) {
+    const colors = {};
+    const response = {
         dirty: false,
         colors: colors
     };
-    var suf = µb.sessionURLFiltering;
-    var puf = µb.permanentURLFiltering;
-    var urls = details.urls,
-        context = details.context,
-        type = details.type;
-    var url, colorEntry;
-    var i = urls.length;
-    while ( i-- ) {
-        url = urls[i];
-        colorEntry = colors[url] = { r: 0, own: false };
+    const suf = µb.sessionURLFiltering;
+    const puf = µb.permanentURLFiltering;
+    const urls = details.urls;
+    const context = details.context;
+    const type = details.type;
+    for ( const url of urls ) {
+        const colorEntry = colors[url] = { r: 0, own: false };
         if ( suf.evaluateZ(context, url, type).r !== 0 ) {
             colorEntry.r = suf.r;
-            colorEntry.own = suf.r !== 0 && suf.context === context && suf.url === url && suf.type === type;
+            colorEntry.own = suf.r !== 0 &&
+                             suf.context === context &&
+                             suf.url === url &&
+                             suf.type === type;
         }
-        if ( response.dirty ) {
-            continue;
-        }
+        if ( response.dirty ) { continue; }
         puf.evaluateZ(context, url, type);
-        response.dirty = colorEntry.own !== (puf.r !== 0 && puf.context === context && puf.url === url && puf.type === type);
+        response.dirty = colorEntry.own !== (
+            puf.r !== 0 &&
+            puf.context === context &&
+            puf.url === url &&
+            puf.type === type
+        );
     }
     return response;
 };
 
 /******************************************************************************/
 
-var onMessage = function(request, sender, callback) {
+const onMessage = function(request, sender, callback) {
     // Async
     switch ( request.what ) {
     case 'readAll':
@@ -1225,7 +1245,7 @@ var onMessage = function(request, sender, callback) {
     }
 
     // Sync
-    var response;
+    let response;
 
     switch ( request.what ) {
     case 'releaseView':
@@ -1313,15 +1333,15 @@ vAPI.messaging.listen('documentBlocked', onMessage);
 
 /******************************************************************************/
 
-let µb = µBlock;
-let broadcastTimers = new Map();
+const µb = µBlock;
+const broadcastTimers = new Map();
 
 /******************************************************************************/
 
-var domSurveyFinalReport = function(tabId) {
+const domSurveyFinalReport = function(tabId) {
     broadcastTimers.delete(tabId + '-domSurveyReport');
 
-    let pageStore = µb.pageStoreFromTabId(tabId);
+    const pageStore = µb.pageStoreFromTabId(tabId);
     if ( pageStore === null ) { return; }
 
     vAPI.messaging.broadcast({
@@ -1334,33 +1354,28 @@ var domSurveyFinalReport = function(tabId) {
 
 /******************************************************************************/
 
-var logCosmeticFilters = function(tabId, details) {
-    if ( µb.logger.isEnabled() === false ) {
-        return;
-    }
+const logCosmeticFilters = function(tabId, details) {
+    if ( µb.logger.enabled === false ) { return; }
 
-    var selectors = details.matchedSelectors;
-
-    selectors.sort();
-
-    for ( var i = 0; i < selectors.length; i++ ) {
-        µb.logger.writeOne(
-            tabId,
-            'cosmetic',
-            { source: 'cosmetic', raw: '##' + selectors[i] },
-            'dom',
-            details.frameURL,
-            null,
-            details.frameHostname
-        );
+    const filter = { source: 'cosmetic', raw: '' };
+    const fctxt = µb.filteringContext.duplicate();
+    fctxt.fromTabId(tabId)
+         .setRealm('cosmetic')
+         .setType('dom')
+         .setURL(details.frameURL)
+         .setDocOriginFromURL(details.frameURL)
+         .setFilter(filter);
+    for ( const selector of details.matchedSelectors.sort() ) {
+        filter.raw = '##' + selector;
+        fctxt.toLogger();
     }
 };
 
 /******************************************************************************/
 
 var onMessage = function(request, sender, callback) {
-    let tabId = sender && sender.tab ? sender.tab.id : 0;
-    let pageStore = µb.pageStoreFromTabId(tabId);
+    const tabId = sender && sender.tab ? sender.tab.id : 0;
+    const pageStore = µb.pageStoreFromTabId(tabId);
 
     // Async
     switch ( request.what ) {
@@ -1386,6 +1401,19 @@ var onMessage = function(request, sender, callback) {
                     ( ) => { domSurveyFinalReport(tabId); },
                     53
                 ));
+            }
+        }
+        break;
+
+    case 'inlinescriptFound':
+        if ( µb.logger.enabled && pageStore !== null ) {
+            const fctxt = µb.filteringContext.duplicate();
+            fctxt.fromTabId(tabId)
+                .setType('inline-script')
+                .setURL(request.docURL)
+                .setDocOriginFromURL(request.docURL);
+            if ( pageStore.filterRequest(fctxt) === 0 ) {
+                fctxt.setRealm('network').toLogger();
             }
         }
         break;

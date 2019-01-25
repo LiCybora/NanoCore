@@ -40,9 +40,9 @@ const µBlock = (function() { // jshint ignore:line
 
     const hiddenSettingsDefault = {
         assetFetchTimeout: 30,
+        autoCommentFilterTemplate: '{{date}} {{origin}}',
         autoUpdateAssetFetchPeriod: 300,
         autoUpdatePeriod: 4,
-        benchmarkingPane: false,
         cacheStorageCompression: true,
         cacheControlForFirefox1376932: 'no-cache, no-store, must-revalidate',
         debugScriptlets: false,

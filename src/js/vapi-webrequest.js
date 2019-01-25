@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2017-2018 Raymond Hill
+    Copyright (C) 2017-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
     // https://github.com/gorhill/uBlock/issues/2950
     // Firefox 56 does not normalize URLs to ASCII, uBO must do this itself.
     // https://bugzilla.mozilla.org/show_bug.cgi?id=945240
-    let evalMustPunycode = function() {
+    const evalMustPunycode = function() {
         return vAPI.webextFlavor.soup.has('firefox') &&
                vAPI.webextFlavor.major < 57;
     };
@@ -39,16 +39,16 @@
 
     // The real actual webextFlavor value may not be set in stone, so listen
     // for possible future changes.
-    window.addEventListener('webextFlavor', function() {
+    window.addEventListener('webextFlavor', ( ) => {
         mustPunycode = evalMustPunycode();
     }, { once: true });
 
-    let denormalizeTypes = function(aa) {
+    const denormalizeTypes = function(aa) {
         if ( aa.length === 0 ) {
             return Array.from(vAPI.net.validTypes);
         }
-        let out = new Set(),
-            i = aa.length;
+        const out = new Set();
+        let i = aa.length;
         while ( i-- ) {
             let type = aa[i];
             if ( vAPI.net.validTypes.has(type) ) {
@@ -57,22 +57,18 @@
             if ( type === 'image' && vAPI.net.validTypes.has('imageset') ) {
                 out.add('imageset');
             }
+            if ( type === 'sub_frame' ) {
+                out.add('object');
+            }
         }
         return Array.from(out);
     };
 
-    let punycode = self.punycode;
-    let reAsciiHostname  = /^https?:\/\/[0-9a-z_.:@-]+[/?#]/;
-    let parsedURL = new URL('about:blank');
+    const punycode = self.punycode;
+    const reAsciiHostname  = /^https?:\/\/[0-9a-z_.:@-]+[/?#]/;
+    const parsedURL = new URL('about:blank');
 
     vAPI.net.normalizeDetails = function(details) {
-        if (
-            details.tabId === vAPI.noTabId &&
-            typeof details.documentUrl === 'string'
-        ) {
-            details.tabId = vAPI.anyTabId;
-        }
-
         if ( mustPunycode && !reAsciiHostname.test(details.url) ) {
             parsedURL.href = details.url;
             details.url = details.url.replace(
@@ -81,11 +77,11 @@
             );
         }
 
-        let type = details.type;
+        const type = details.type;
 
         // https://github.com/gorhill/uBlock/issues/1493
-        // Chromium 49+/WebExtensions support a new request type: `ping`,
-        // which is fired as a result of using `navigator.sendBeacon`.
+        //   Chromium 49+/WebExtensions support a new request type: `ping`,
+        //   which is fired as a result of using `navigator.sendBeacon`.
         if ( type === 'ping' ) {
             details.type = 'beacon';
             return;
@@ -95,10 +91,24 @@
             details.type = 'image';
             return;
         }
+
+        // https://github.com/uBlockOrigin/uBlock-issues/issues/345
+        //   Re-categorize an embedded object as a `sub_frame` if its
+        //   content type is that of a HTML document.
+        if ( type === 'object' && Array.isArray(details.responseHeaders) ) {
+            for ( const header of details.responseHeaders ) {
+                if ( header.name.toLowerCase() === 'content-type' ) {
+                    if ( header.value.startsWith('text/html') ) {
+                        details.type = 'sub_frame';
+                    }
+                    break;
+                }
+            }
+        }
     };
 
     vAPI.net.denormalizeFilters = function(filters) {
-        let urls = filters.urls || [ '<all_urls>' ];
+        const urls = filters.urls || [ '<all_urls>' ];
         let types = filters.types;
         if ( Array.isArray(types) ) {
             types = denormalizeTypes(types);
@@ -116,6 +126,55 @@
             }
         }
         return { types, urls };
+    };
+})();
+
+/******************************************************************************/
+
+// Related issues:
+// - https://github.com/gorhill/uBlock/issues/1327
+// - https://github.com/uBlockOrigin/uBlock-issues/issues/128
+// - https://bugzilla.mozilla.org/show_bug.cgi?id=1503721
+
+vAPI.net.onBeforeReady = (function() {
+    let pendings;
+
+    const handler = function(details) {
+        if ( pendings === undefined ) { return; }
+        if ( details.tabId < 0 ) { return; }
+
+        const pending = {
+            details: Object.assign({}, details),
+            resolve: undefined,
+            promise: undefined
+        };
+
+        pending.promise = new Promise(function(resolve) {
+            pending.resolve = resolve;
+        });
+
+        pendings.push(pending);
+
+        return pending.promise;
+    };
+
+    return {
+        start: function() {
+            pendings = [];
+            browser.webRequest.onBeforeRequest.addListener(
+                handler,
+                { urls: [ 'http://*/*', 'https://*/*' ] },
+                [ 'blocking' ]
+            );
+        },
+        stop: function(resolver) {
+            if ( pendings === undefined ) { return; }
+            for ( const pending of pendings ) {
+                vAPI.net.normalizeDetails(pending.details);
+                pending.resolve(resolver(pending.details));
+            }
+            pendings = undefined;
+        },
     };
 })();
 

@@ -24,15 +24,23 @@
 /******************************************************************************/
 
 µBlock.htmlFilteringEngine = (function() {
-    const api = {};
+    const µb = µBlock;
+    const pselectors = new Map();
+    const duplicates = new Set();
 
-    const µb = µBlock,
-        pselectors = new Map(),
-        duplicates = new Set();
     let filterDB = new µb.staticExtFilteringEngine.HostnameBasedDB(),
         acceptedCount = 0,
         discardedCount = 0,
         docRegister;
+
+    const api = {
+        get acceptedCount() {
+            return acceptedCount;
+        },
+        get discardedCount() {
+            return discardedCount;
+        }
+    };
 
     const PSelectorHasTextTask = function(task) {
         let arg0 = task[1], arg1;
@@ -42,8 +50,8 @@
         this.needle = new RegExp(arg0, arg1);
     };
     PSelectorHasTextTask.prototype.exec = function(input) {
-        let output = [];
-        for ( let node of input ) {
+        const output = [];
+        for ( const node of input ) {
             if ( this.needle.test(node.textContent) ) {
                 output.push(node);
             }
@@ -61,8 +69,8 @@
         }
     });
     PSelectorIfTask.prototype.exec = function(input) {
-        let output = [];
-        for ( let node of input ) {
+        const output = [];
+        for ( const node of input ) {
             if ( this.pselector.test(node) === this.target ) {
                 output.push(node);
             }
@@ -81,10 +89,10 @@
         this.xpe = task[1];
     };
     PSelectorXpathTask.prototype.exec = function(input) {
-        let output = [],
-            xpe = docRegister.createExpression(this.xpe, null),
-            xpr = null;
-        for ( let node of input ) {
+        const output = [];
+        const xpe = docRegister.createExpression(this.xpe, null);
+        let xpr = null;
+        for ( const node of input ) {
             xpr = xpe.evaluate(
                 node,
                 XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE,
@@ -92,7 +100,7 @@
             );
             let j = xpr.snapshotLength;
             while ( j-- ) {
-                node = xpr.snapshotItem(j);
+                const node = xpr.snapshotItem(j);
                 if ( node.nodeType === 1 ) {
                     output.push(node);
                 }
@@ -108,6 +116,7 @@
                 [ ':has-text', PSelectorHasTextTask ],
                 [ ':if', PSelectorIfTask ],
                 [ ':if-not', PSelectorIfNotTask ],
+                [ ':not', PSelectorIfNotTask ],
                 [ ':xpath', PSelectorXpathTask ]
             ]);
         }
@@ -115,13 +124,13 @@
         this.selector = o.selector;
         this.tasks = [];
         if ( !o.tasks ) { return; }
-        for ( let task of o.tasks ) {
-            let ctor = this.operatorToTaskMap.get(task[0]);
+        for ( const task of o.tasks ) {
+            const ctor = this.operatorToTaskMap.get(task[0]);
             if ( ctor === undefined ) {
                 this.invalid = true;
                 break;
             }
-            let pselector = new ctor(task);
+            const pselector = new ctor(task);
             if ( pselector instanceof PSelectorIfTask && pselector.invalid ) {
                 this.invalid = true;
                 break;
@@ -132,7 +141,7 @@
     PSelector.prototype.operatorToTaskMap = undefined;
     PSelector.prototype.invalid = false;
     PSelector.prototype.prime = function(input) {
-        let root = input || docRegister;
+        const root = input || docRegister;
         if ( this.selector !== '' ) {
             return root.querySelectorAll(this.selector);
         }
@@ -141,7 +150,7 @@
     PSelector.prototype.exec = function(input) {
         if ( this.invalid ) { return []; }
         let nodes = this.prime(input);
-        for ( let task of this.tasks ) {
+        for ( const task of this.tasks ) {
             if ( nodes.length === 0 ) { break; }
             nodes = task.exec(nodes);
         }
@@ -149,10 +158,12 @@
     };
     PSelector.prototype.test = function(input) {
         if ( this.invalid ) { return false; }
-        let nodes = this.prime(input), AA = [ null ], aa;
-        for ( let node of nodes ) {
-            AA[0] = node; aa = AA;
-            for ( var task of this.tasks ) {
+        const nodes = this.prime(input);
+        const AA = [ null ];
+        for ( const node of nodes ) {
+            AA[0] = node;
+            let aa = AA;
+            for ( const task of this.tasks ) {
                 aa = task.exec(aa);
                 if ( aa.length === 0 ) { break; }
             }
@@ -162,18 +173,18 @@
     };
 
     const logOne = function(details, exception, selector) {
-        µb.logger.writeOne(
-            details.tabId,
-            'cosmetic',
-            {
+        µBlock.filteringContext
+            .duplicate()
+            .fromTabId(details.tabId)
+            .setRealm('cosmetic')
+            .setType('dom')
+            .setURL(details.url)
+            .setDocOriginFromURL(details.url)
+            .setFilter({
                 source: 'cosmetic',
                 raw: (exception === 0 ? '##' : '#@#') + '^' + selector
-            },
-            'dom',
-            details.url,
-            null,
-            details.hostname
-        );
+            })
+            .toLogger();
     };
 
     const applyProceduralSelector = function(details, selector) {
@@ -182,34 +193,34 @@
             pselector = new PSelector(JSON.parse(selector));
             pselectors.set(selector, pselector);
         }
-        let nodes = pselector.exec(),
-            i = nodes.length,
+        const nodes = pselector.exec();
+        let i = nodes.length,
             modified = false;
         while ( i-- ) {
-            let node = nodes[i];
+            const node = nodes[i];
             if ( node.parentNode !== null ) {
                 node.parentNode.removeChild(node);
                 modified = true;
             }
         }
-        if ( modified && µb.logger.isEnabled() ) {
+        if ( modified && µb.logger.enabled ) {
             logOne(details, 0, pselector.raw);
         }
         return modified;
     };
 
     const applyCSSSelector = function(details, selector) {
-        let nodes = docRegister.querySelectorAll(selector),
-            i = nodes.length,
+        const nodes = docRegister.querySelectorAll(selector);
+        let i = nodes.length,
             modified = false;
         while ( i-- ) {
-            let node = nodes[i];
+            const node = nodes[i];
             if ( node.parentNode !== null ) {
                 node.parentNode.removeChild(node);
                 modified = true;
             }
         }
-        if ( modified && µb.logger.isEnabled() ) {
+        if ( modified && µb.logger.enabled ) {
             logOne(details, 0, selector);
         }
         return modified;
@@ -228,9 +239,15 @@
     };
 
     api.compile = function(parsed, writer) {
-        let selector = parsed.suffix.slice(1).trim(),
-            compiled = µb.staticExtFilteringEngine.compileSelector(selector);
+        const selector = parsed.suffix.slice(1).trim();
+        const compiled = µb.staticExtFilteringEngine.compileSelector(selector);
         if ( compiled === undefined ) {
+            const who = writer.properties.get('assetKey') || '?';
+            µb.logger.writeOne({
+                realm: 'message',
+                type: 'error',
+                text: `Invalid HTML filter in ${who}: ##${selector}`
+            });
             nano.flinte('nano_l_filter_bad_selector');
             return;
         }
@@ -240,7 +257,7 @@
 
         // TODO: Mind negated hostnames, they are currently discarded.
 
-        for ( let hn of parsed.hostnames ) {
+        for ( const hn of parsed.hostnames ) {
             if ( hn.charCodeAt(0) === 0x7E /* '~' */ ) {
                 nano.flintw('nano_l_filter_negated_html_filtering');
                 continue;
@@ -267,13 +284,13 @@
 
         while ( reader.next() ) {
             acceptedCount += 1;
-            let fingerprint = reader.fingerprint();
+            const fingerprint = reader.fingerprint();
             if ( duplicates.has(fingerprint) ) {
                 discardedCount += 1;
                 continue;
             }
             duplicates.add(fingerprint);
-            let args = reader.args();
+            const args = reader.args();
             filterDB.add(args[1], {
                 type: args[0],
                 hostname: args[2],
@@ -283,7 +300,7 @@
     };
 
     api.retrieve = function(details) {
-        let hostname = details.hostname;
+        const hostname = details.hostname;
 
         // https://github.com/gorhill/uBlock/issues/2835
         //   Do not filter if the site is under an `allow` rule.
@@ -294,13 +311,13 @@
             return;
         }
 
-        let toRemoveArray = [];
-        let domainHash = µb.staticExtFilteringEngine.makeHash(details.domain);
+        const toRemoveArray = [];
+        const domainHash = µb.staticExtFilteringEngine.makeHash(details.domain);
         if ( domainHash !== 0 ) {
             filterDB.retrieve(domainHash, hostname, toRemoveArray);
         }
-        let entity = details.entity;
-        let entityHash = µb.staticExtFilteringEngine.makeHash(entity);
+        const entity = details.entity;
+        const entityHash = µb.staticExtFilteringEngine.makeHash(entity);
         if ( entityHash !== 0 ) {
             filterDB.retrieve(entityHash, entity, toRemoveArray);
         }
@@ -319,14 +336,14 @@
             return toRemoveArray;
         }
 
-        let toRemoveMap = new Map();
-        for ( let entry of toRemoveArray ) {
+        const toRemoveMap = new Map();
+        for ( const entry of toRemoveArray ) {
             toRemoveMap.set(entry.selector, entry);
         }
-        for ( let entry of notToRemoveArray ) {
+        for ( const entry of notToRemoveArray ) {
             if ( toRemoveMap.has(entry.selector) === false ) { continue; }
             toRemoveMap.delete(entry.selector);
-            if ( µb.logger.isEnabled() === false ) { continue; }
+            if ( µb.logger.enabled === false ) { continue; }
             let selector = entry.selector;
             if ( entry.type === 65 ) {
                 selector = JSON.parse(selector).raw;
@@ -341,7 +358,7 @@
     api.apply = function(doc, details) {
         docRegister = doc;
         let modified = false;
-        for ( let entry of details.selectors ) {
+        for ( const entry of details.selectors ) {
             if ( entry.type === 64 ) {
                 if ( applyCSSSelector(details, entry.selector) ) {
                     modified = true;
@@ -365,19 +382,6 @@
         filterDB = new µb.staticExtFilteringEngine.HostnameBasedDB(selfie);
         pselectors.clear();
     };
-
-    Object.defineProperties(api, {
-        acceptedCount: {
-            get: function() {
-                return acceptedCount;
-            }
-        },
-        discardedCount: {
-            get: function() {
-                return discardedCount;
-            }
-        }
-    });
 
     return api;
 })();

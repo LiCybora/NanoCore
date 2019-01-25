@@ -1,7 +1,7 @@
 /*******************************************************************************
 
     uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2018 Raymond Hill
+    Copyright (C) 2014-present Raymond Hill
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ let filterFromCompiledData = function(args) {
 
 // One hostname => one selector
 
-let FilterOneOne = function(hostname, selector) {
+const FilterOneOne = function(hostname, selector) {
     this.hostname = hostname;
     this.selector = selector;
 };
@@ -87,7 +87,7 @@ FilterOneOne.prototype = {
 
     retrieve: function(target, out) {
         if ( target.endsWith(this.hostname) === false ) { return; }
-        let i = target.length - this.hostname.length;
+        const i = target.length - this.hostname.length;
         if ( i !== 0 && target.charCodeAt(i-1) !== 0x2E /* '.' */ ) { return; }
         out.add(this.selector);
     },
@@ -107,7 +107,7 @@ registerFilterClass(FilterOneOne);
 
 // One hostname => many selectors
 
-let FilterOneMany = function(hostname, selectors) {
+const FilterOneMany = function(hostname, selectors) {
     this.hostname = hostname;
     this.selectors = selectors;
 };
@@ -131,7 +131,7 @@ FilterOneMany.prototype = {
 
     retrieve: function(target, out) {
         if ( target.endsWith(this.hostname) === false ) { return; }
-        let i = target.length - this.hostname.length;
+        const i = target.length - this.hostname.length;
         if ( i !== 0 && target.charCodeAt(i-1) !== 0x2E /* '.' */ ) { return; }
         for ( let selector of this.selectors ) {
             out.add(selector);
@@ -161,7 +161,7 @@ FilterManyAny.prototype = {
     fid: 10,
 
     add: function(hostname, selector) {
-        let selectors = this.entries.get(hostname);
+        const selectors = this.entries.get(hostname);
         if ( selectors === undefined ) {
             this.entries.set(hostname, selector);
         } else if ( typeof selectors === 'string' ) {
@@ -172,19 +172,19 @@ FilterManyAny.prototype = {
     },
 
     retrieve: function(target, out) {
-        for ( let entry of this.entries ) {
-            let hostname = entry[0];
+        for ( const entry of this.entries ) {
+            const hostname = entry[0];
             if ( target.endsWith(hostname) === false ) { continue; }
-            let i = target.length - hostname.length;
+            const i = target.length - hostname.length;
             if ( i !== 0 && target.charCodeAt(i-1) !== 0x2E /* '.' */ ) {
                 continue;
             }
-            let selectors = entry[1];
+            const selectors = entry[1];
             if ( typeof selectors === 'string' ) {
                 out.add(selectors);
                 continue;
             }
-            for ( let selector of selectors ) {
+            for ( const selector of selectors ) {
                 out.add(selector);
             }
         }
@@ -361,25 +361,6 @@ let FilterContainer = function() {
     this.reEscapeSequence = /\\([0-9A-Fa-f]+ |.)/g;
     this.reSimpleHighGeneric1 = /^[a-z]*\[[^[]+]$/;
     this.reHighMedium = /^\[href\^="https?:\/\/([^"]{8})[^"]*"\]$/;
-    this.reNeedHostname = new RegExp([
-        '^',
-        '(?:',
-            [
-            '.+?:has',
-            '.+?:has-text',
-            '.+?:if',
-            '.+?:if-not',
-            '.+?:matches-css(?:-before|-after)?',
-            '.*?:xpath',
-            '.+?:style',
-            '.+?:-abp-contains', // ABP-specific for `:has-text`
-            '.+?:-abp-has',      // ABP-specific for `:if`
-            '.+?:contains'       // Adguard-specific for `:has-text`
-            ].join('|'),
-        ')',
-        '\\(.+\\)',
-        '$'
-    ].join(''));
 
     this.selectorCache = new Map();
     this.selectorCachePruneDelay = 10 * 60 * 1000; // 10 minutes
@@ -542,8 +523,8 @@ FilterContainer.prototype.compile = function(parsed, writer) {
     // 1000 = cosmetic filtering
     writer.select(1000);
 
-    let hostnames = parsed.hostnames,
-        i = hostnames.length;
+    const hostnames = parsed.hostnames;
+    let i = hostnames.length;
     if ( i === 0 ) {
         this.compileGenericSelector(parsed, writer);
         return true;
@@ -554,7 +535,7 @@ FilterContainer.prototype.compile = function(parsed, writer) {
     // of same filter OR globally if there is no non-negated hostnames.
     let applyGlobally = true;
     while ( i-- ) {
-        let hostname = hostnames[i];
+        const hostname = hostnames[i];
         if ( hostname.startsWith('~') === false ) {
             applyGlobally = false;
         }
@@ -584,28 +565,48 @@ FilterContainer.prototype.compileGenericHideSelector = function(
     writer,
     nanoIsGlobal
 ) {
-    let selector = parsed.suffix;
+    const selector = parsed.suffix;
+    const type = selector.charCodeAt(0);
+    let key;
 
-    // For some selectors, it is mandatory to have a hostname or entity:
-    //   ##.foo:-abp-contains(...)
-    //   ##.foo:-abp-has(...)
-    //   ##.foo:contains(...)
-    //   ##.foo:has(...)
-    //   ##.foo:has-text(...)
-    //   ##.foo:if(...)
-    //   ##.foo:if-not(...)
-    //   ##.foo:matches-css(...)
-    //   ##.foo:matches-css-after(...)
-    //   ##.foo:matches-css-before(...)
-    //   ##:xpath(...)
-    //   ##.foo:style(...)
-    if ( this.reNeedHostname.test(selector) ) {
-        µb.logger.writeOne(
-            '',
-            'error',
-            'Cosmetic filtering – invalid generic filter: ##' + selector
-        );
-        if ( nanoIsGlobal === true ) {
+    if ( type === 0x23 /* '#' */ ) {
+        key = this.keyFromSelector(selector);
+        // Simple selector-based CSS rule: no need to test for whether the
+        // selector is valid, the regex took care of this. Most generic
+        // selector falls into that category.
+        // - ###ad-bigbox
+        if ( key === selector ) {
+            writer.push([ 0, key.slice(1) ]);
+            return;
+        }
+    } else if ( type === 0x2E /* '.' */ ) {
+        key = this.keyFromSelector(selector);
+        // Simple selector-based CSS rule: no need to test for whether the
+        // selector is valid, the regex took care of this. Most generic
+        // selector falls into that category.
+        // - ##.ads-bigbox
+        if ( key === selector ) {
+            writer.push([ 2, key.slice(1) ]);
+            return;
+        }
+    }
+
+    const compiled = µb.staticExtFilteringEngine.compileSelector(selector);
+
+    // Invalid cosmetic filter, possible reasons:
+    // - Bad syntax
+    // - Procedural filters (can't be generic): the compiled version of
+    //   a procedural selector is NEVER equal to its raw version.
+    if ( compiled === undefined || compiled !== selector ) {
+        const who = writer.properties.get('assetKey') || '?';
+        µb.logger.writeOne({
+            realm: 'message',
+            type: 'error',
+            text: `Invalid generic cosmetic filter in ${who}: ##${selector}`
+        });
+        if ( compiled === undefined ) {
+            nano.flinte('nano_l_filter_bad_selector');
+        } else if ( nanoIsGlobal === true ) {
             nano.flintw('nano_l_filter_converted_to_exception');
         } else {
             nano.flinte('nano_l_filter_too_expensive');
@@ -613,68 +614,26 @@ FilterContainer.prototype.compileGenericHideSelector = function(
         return;
     }
 
-    let type = selector.charCodeAt(0);
-
-    if ( type === 0x23 /* '#' */ ) {
-        let key = this.keyFromSelector(selector);
-        if ( key === undefined ) {
-            nano.flinte('nano_l_filter_bad_selector');
-            return;
-        }
-        // Simple selector-based CSS rule: no need to test for whether the
-        // selector is valid, the regex took care of this. Most generic
-        // selector falls into that category.
-        if ( key === selector ) {
-            writer.push([ 0 /* lg */, key.slice(1) ]);
-            return;
-        }
-        // Complex selector-based CSS rule.
-        if ( µb.staticExtFilteringEngine.compileSelector(selector) !== undefined ) {
-            writer.push([ 1 /* lg+ */, key.slice(1), selector ]);
-        } else {
-            nano.flinte('nano_l_filter_bad_selector');
-        }
+    // Complex selector-based CSS rule:
+    // - ###tads + div + .c
+    // - ##.rscontainer > .ellip
+    if ( key !== undefined ) {
+        writer.push([
+            type === 0x23 /* '#' */ ? 1 : 3,
+            key.slice(1),
+            selector ]
+        );
         return;
     }
-
-    if ( type === 0x2E /* '.' */ ) {
-        let key = this.keyFromSelector(selector);
-        if ( key === undefined ) {
-            nano.flinte('nano_l_filter_bad_selector');
-            return;
-        }
-        // Simple selector-based CSS rule: no need to test for whether the
-        // selector is valid, the regex took care of this. Most generic
-        // selector falls into that category.
-        if ( key === selector ) {
-            writer.push([ 2 /* lg */, key.slice(1) ]);
-            return;
-        }
-        // Complex selector-based CSS rule.
-        if ( µb.staticExtFilteringEngine.compileSelector(selector) !== undefined ) {
-            writer.push([ 3 /* lg+ */, key.slice(1), selector ]);
-        } else {
-            nano.flinte('nano_l_filter_bad_selector');
-        }
-        return;
-    }
-
-    let compiled = µb.staticExtFilteringEngine.compileSelector(selector);
-    if ( compiled === undefined ) {
-        nano.flinte('nano_l_filter_bad_selector');
-        return;
-    }
-    // TODO: Detect and error on procedural cosmetic filters.
 
     // https://github.com/gorhill/uBlock/issues/909
     //   Anything which contains a plain id/class selector can be classified
     //   as a low generic cosmetic filter.
-    let matches = this.rePlainSelectorEx.exec(selector);
+    const matches = this.rePlainSelectorEx.exec(selector);
     if ( matches !== null ) {
-        let key = matches[1] || matches[2];
-        type = key.charCodeAt(0);
+        const key = matches[1] || matches[2];
         writer.push([
-            type === 0x23 ? 1 : 3 /* lg+ */,
+            key.charCodeAt(0) === 0x23 /* '#' */ ? 1 : 3,
             key.slice(1),
             selector
         ]);
@@ -707,6 +666,12 @@ FilterContainer.prototype.compileGenericUnhideSelector = function(
     // Procedural cosmetic filters are acceptable as generic exception filters.
     let compiled = µb.staticExtFilteringEngine.compileSelector(parsed.suffix);
     if ( compiled === undefined ) {
+        const who = writer.properties.get('assetKey') || '?';
+        µb.logger.writeOne({
+            realm: 'message',
+            type: 'error',
+            text: `Invalid cosmetic filter in ${who}: #@#${parsed.suffix}`
+        });
         nano.flinte('nano_l_filter_bad_selector');
         return;
     }
@@ -733,6 +698,12 @@ FilterContainer.prototype.compileSpecificSelector = function(
 
     let compiled = µb.staticExtFilteringEngine.compileSelector(parsed.suffix);
     if ( compiled === undefined ) {
+        const who = writer.properties.get('assetKey') || '?';
+        µb.logger.writeOne({
+            realm: 'message',
+            type: 'error',
+            text: `Invalid cosmetic filter in ${who}: ##${parsed.suffix}`
+        });
         nano.flinte('nano_l_filter_bad_selector');
         return;
     }
@@ -1099,14 +1070,8 @@ FilterContainer.prototype.retrieveGenericSelectors = function(request) {
     for ( let type in this.lowlyGeneric ) {
         let entry = this.lowlyGeneric[type];
         let selectors = request[entry.canonical];
-        if ( typeof selectors !== 'string' ) { continue; }
-        let strEnd = selectors.length;
-        let sliceBeg = 0;
-        do {
-            let sliceEnd = selectors.indexOf('\n', sliceBeg);
-            if ( sliceEnd === -1 ) { sliceEnd = strEnd; }
-            let selector = selectors.slice(sliceBeg, sliceEnd);
-            sliceBeg = sliceEnd + 1;
+        if ( Array.isArray(selectors) === false ) { continue; }
+        for ( let selector of selectors ) {
             if ( entry.simple.has(selector) === false ) { continue; }
             let bucket = entry.complex.get(selector);
             if ( bucket !== undefined ) {
@@ -1125,7 +1090,7 @@ FilterContainer.prototype.retrieveGenericSelectors = function(request) {
                     simpleSelectors.add(selector);
                 }
             }
-        } while ( sliceBeg < strEnd );
+        }
     }
 
     // Apply exceptions: it is the responsibility of the caller to provide
