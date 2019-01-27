@@ -29,7 +29,7 @@ updates.
 
 ## Installation
 
-You need Firefox version 52 or above to install this extension, but recommend 
+You need Firefox version 55 (57 for Android) or above to install this extension, but recommend 
 60 or above for working with Nano Defender.
 
 Caution: You need Firefox 60+ for keyboard shortcuts assignment!
