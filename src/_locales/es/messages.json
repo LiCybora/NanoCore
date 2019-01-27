@@ -576,7 +576,7 @@
     "description": "Tooltip for the row filterer button in the logger page"
   },
   "logFilterPrompt": {
-    "message": "filtrar contenido del registro de peticiones",
+    "message": "filtrar contenido",
     "description": "Placeholder string for logger output filtering input field"
   },
   "loggerRowFiltererBuiltinTip": {
@@ -744,11 +744,11 @@
     "description": "A label for the partyness column"
   },
   "loggerExportFormatList": {
-    "message": "Formato lista",
+    "message": "Lista",
     "description": "Label for radio-button to pick export format"
   },
   "loggerExportFormatTable": {
-    "message": "Formato tabla",
+    "message": "Tabla",
     "description": "Label for radio-button to pick export format"
   },
   "loggerExportEncodePlain": {
@@ -980,7 +980,7 @@
     "description": "Unsaved change warning"
   },
   "nano_d_about_based_on": {
-    "message": "Basado en uBlock Origin Version/1.18.0 Commit/3dac43e",
+    "message": "Basado en uBlock Origin Version/1.18.2 Commit/85f0062",
     "description": "English: Based on {{@data}}"
   },
   "nano_v_title": {

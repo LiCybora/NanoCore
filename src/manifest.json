@@ -74,7 +74,7 @@
     "webRequestBlocking",
     "<all_urls>"
   ],
-  "version": "1.0.0.85",
+  "version": "1.0.0.86",
   "web_accessible_resources": [
     "web_accessible_resources/*"
   ],

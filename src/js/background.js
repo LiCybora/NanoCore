@@ -43,6 +43,7 @@ const µBlock = (function() { // jshint ignore:line
         autoCommentFilterTemplate: '{{date}} {{origin}}',
         autoUpdateAssetFetchPeriod: 300,
         autoUpdatePeriod: 4,
+        cacheStorageAPI: 'unset',
         cacheStorageCompression: true,
         cacheControlForFirefox1376932: 'no-cache, no-store, must-revalidate',
         debugScriptlets: false,

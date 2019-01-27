@@ -728,7 +728,7 @@
     "description": "Logger settings: a sentence to describe the purpose of the checkboxes below"
   },
   "loggerSettingHideColumnTime": {
-    "message": "{{input}} Tempo",
+    "message": "{{input}} Hora",
     "description": "A label for the time column"
   },
   "loggerSettingHideColumnFilter": {
@@ -980,7 +980,7 @@
     "description": "Unsaved change warning"
   },
   "nano_d_about_based_on": {
-    "message": "Based on uBlock Origin Version/1.18.0 Commit/3dac43e",
+    "message": "Based on uBlock Origin Version/1.18.2 Commit/85f0062",
     "description": "English: Based on {{@data}}"
   },
   "nano_v_title": {
