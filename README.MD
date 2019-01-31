@@ -14,12 +14,6 @@ Official builds and sources can be found on [Nano Adblocker](https://github.com/
 
 ## Announcement
 
-### Warning: If you find this on AMO, that IS NOT MINE.
-
-Due to unavailable for Nano Defender on AMO, there is no plan to put Nano 
-Adblocker for Firefox on AMO. **If you see any in AMO, that is NOT mine and
-I give no support to that.**
-
 **Important: This is unofficial source and NOT supported by original author. 
 You must report issues other than filters here or you may not get help.**
 
