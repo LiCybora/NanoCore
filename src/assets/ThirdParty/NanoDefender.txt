@@ -2,15 +2,12 @@
 # This filter list is intended to be used with Nano Defender
 # Visit my home page for more information: https://jspenguin2017.github.io/uBlockProtector/
 # This file is a compiled binary, any modification will be overwritten on the next build
-|https://jspenguin.com/uBlockProtector/Solutions/Blocked.php$important
-|https://jspenguin.com/uBlockProtector/Solutions/
-@@|https://jspenguin.com/uBlockProtector/Solutions/MoatFreeWheelJSPEM.js|$script
+|https://legacy.hugoxu.com/uBlockProtector/Solutions/Blocked.php$important
+|https://legacy.hugoxu.com/uBlockProtector/Solutions/
+@@|https://legacy.hugoxu.com/uBlockProtector/Solutions/MoatFreeWheelJSPEM.js|$script
 @@|https://*.moatads.com/*/MoatFreeWheelJSPEM.js*$script
 @@|https://ads.korri.fr/index.js|$script
 @@|http://*.medianetworkinternational.com/js/advertisement.js*$script
-@@|https://*.v.fwmrm.net/ad/g/*$script,domain=ncaa.com|pga.com|q2.be|vtm.be|ruutu.fi|medialaancdn.be|medialaan.be
-@@|http://*.v.fwmrm.net/ad/g/*$script,domain=ncaa.com|pga.com|q2.be|vtm.be|ruutu.fi|medialaancdn.be|medialaan.be
-@@||ads-v-darwin.hulustream.com/published/*.mp4$domain=hulu.com
 ! Asking for permission does not have an enforced cooldown, can be exploited to make the permission request to be not refusable
 ! More information: https://github.com/uBlockOrigin/uAssets/issues/770
 ||authedmine.com^$third-party
@@ -55,8 +52,6 @@ zmovs.com##.inplayer_banners
 /jquery.adi.css
 /jquery.adi.js$domain=123link.top
 ||pelcro.com^$third-party
-||perceivequarter.com^$third-party
-||hammerhearing.com^$third-party
 ||sixscissors.com^$third-party,domain=~itavisen.no
 sectorsatoshi-amarillo.website,sectorsatoshi-azul.website,sectorsatoshi-blanco.website,sectorsatoshi-celeste.website,sectorsatoshi-gris.website,sectorsatoshi-naranja.website##+js(bab-defuser.js)
 sectorsatoshi-negro.website,sectorsatoshi-rosa.website,sectorsatoshi-verde.website,sectorsatoshi-violeta.website##+js(bab-defuser.js)
@@ -310,8 +305,6 @@ peugeot-metropolis.de###displaywise
 t3n.de#@##adsbox
 yiv.com###LeftAdDiv
 yiv.com###RightAdDiv
-4j.com###game_bottom_ad
-4j.com###game_top_ad
 agar.io###advertisement
 ||dolldivine.com/images/fairy-preview.jpg
 peugeot-metropolis.de##+js(abort-current-inline-script.js, $, #gandalfads)
@@ -419,12 +412,8 @@ locopelis.com##.div-banner-popup-event
 locopelis.com##+js(abort-on-property-write.js, adbClick)
 /assets/js/sourcepoint/*$script,domain=nba.com
 nbc.com##+js(abort-on-property-read.js, mps._ab)
-sledujserialy.sk##div.w-episode-source > div:has(iframe[src*="ad.php"])
 eurogamer.de##+js(abort-on-property-read.js, _sp_.msg.displayMessage)
 deportesmax.info###wmpu
-hulu.com###banner-ad-container
-hulu.com##.ad-choices
-||ads-v-darwin.hulustream.com^
 msfn.org##.displayGlobalMessage:has-text(ad-blocking)
 theguardian.com##div.site-message:has(a[href^="https://membership.theguardian.com/"])
 theguardian.com##.contributions__epic
@@ -454,7 +443,6 @@ redtube.com##div[class][style]:has(> div[class][style] > a.removeAdLink)
 blockads.fivefilters.org###no-blocking:style(display: block !important;)
 @@||20min.ch^$generichide
 @@||24opole.pl^$generichide
-@@||4j.com^$generichide
 @@||7sim.net^$generichide
 @@||aftonbladet.se^$generichide
 @@||al.ly^$generichide
@@ -474,17 +462,14 @@ blockads.fivefilters.org###no-blocking:style(display: block !important;)
 @@||globalbesthosting.com^$generichide
 @@||greenocktelegraph.co.uk^$generichide
 @@||hells-hack.com^$generichide
-@@||hulu.com^$generichide
 @@||imleagues.com^$generichide
 @@||leech.ae^$generichide
 @@||libertyunyielding.com^$generichide
-@@||linkneverdie.com^$generichide
 @@||linksh.top^$generichide
 @@||lolstat.gg^$generichide
 @@||main-echo.de^$generichide
 @@||mitele.es^$generichide
 @@||mycinema.pro^$generichide
-@@||ncaa.com^$generichide
 @@||playstation.com^$generichide
 @@||randaris-anime.net^$generichide
 @@||simply-debrid.com^$generichide
@@ -510,16 +495,13 @@ blockads.fivefilters.org###no-blocking:style(display: block !important;)
 @@||cf.http.anno.channel4.com^$domain=channel4.com
 @@||playapi.mtgx.tv/v3/adinfo?$xmlhttprequest,domain=tvplay.skaties.lv|play.tv3.lt|tv3play.tv3.ee|play.nova.bg
 @@||edgedatg.com^$script,domain=abc.go.com
-@@||pga.com^$generichide
-@@||manifest.auditude.com^$xmlhttprequest,domain=pga.com
 @@||acortar.net/rollups/aes.js$domain=dclinks.info
-@@||fwmrm.net/ad/g/$xmlhttprequest,domain=q2.be|vtm.be|medialaancdn.be|medialaan.be
 @@||akamaihd.net^$xmlhttprequest,script,domain=mitele.es
 @@||fwmrm.net^$domain=viasatsport.se
 ||freewheel-mtgx-tv.akamaized.net^$media,domain=viasatsport.se
 ||fwmrm.net^$image,important,domain=viasatsport.se
 ||fwmrm.net/ad/*$xmlhttprequest,important,redirect=nooptext,domain=viasatsport.se
-@@||moatads.com/*/moatwrapper.js$script,domain=hulu.com|viz.com
+@@||moatads.com/*/moatwrapper.js$script,domain=viz.com
 ! ===== Patched Anti-Adblock Killer List (originally by Reek) ====================================
 ! License and original source code are available here: https://github.com/reek/anti-adblock-killer
 ! ================================================================================================
@@ -1326,7 +1308,6 @@ hayan.tv#@##uzcrsite
 @@||ddtorun.pl/pl/js/show_ads.js$script
 @@||ddwloclawek.pl/pl/js/show_ads.js$script
 benchmark.pl###adblock-info
-@@||adserver.adtech.de/?adrawdata/$xmlhttprequest,domain=ruutu.fi
 zelaznalogika.net#@##adsense
 @@||mymanga.io/css/ads.css$stylesheet
 rychlost.cz###cpcbsd9z1

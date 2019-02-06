@@ -154,9 +154,9 @@ HNTrieContainer.prototype = {
         if ( HNTrieContainer.wasmModulePromise instanceof Promise === false ) {
             return Promise.resolve();
         }
-        return HNTrieContainer.wasmModulePromise.then(module => {
-            return this.initWASM(module);
-        });
+        return HNTrieContainer.wasmModulePromise.then(
+            module => this.initWASM(module)
+        );
     },
 
     setNeedle: function(needle) {
@@ -497,6 +497,9 @@ HNTrieContainer.prototype = {
     },
 
     initWASM: function(module) {
+        if ( module instanceof WebAssembly.Module === false ) {
+            return Promise.resolve(null);
+        }
         if ( this.wasmInstancePromise === null ) {
             const memory = new WebAssembly.Memory({ initial: 2 });
             this.wasmInstancePromise = WebAssembly.instantiate(
@@ -674,10 +677,13 @@ HNTrieContainer.prototype.HNTrieRef.prototype = {
         workingDir = url.href;
     }
 
-    HNTrieContainer.wasmModulePromise = WebAssembly.compileStreaming(
-        fetch(workingDir + 'wasm/hntrie.wasm')
+    HNTrieContainer.wasmModulePromise = fetch(
+        workingDir + 'wasm/hntrie.wasm',
+        { mode: 'same-origin' }
+    ).then(
+        WebAssembly.compileStreaming
     ).catch(reason => {
         HNTrieContainer.wasmModulePromise = null;
-        console.error(reason);
+        console.info(reason);
     });
 })();

@@ -84,7 +84,7 @@
     "description": "English: or"
   },
   "popupTipDashboard": {
-    "message": "Abrir painel de controle",
+    "message": "Abrir painel",
     "description": "English: Click to open the dashboard"
   },
   "popupTipZapper": {
@@ -980,7 +980,7 @@
     "description": "Unsaved change warning"
   },
   "nano_d_about_based_on": {
-    "message": "Based on uBlock Origin Version/1.18.2 Commit/85f0062",
+    "message": "Based on uBlock Origin Version/1.18.4 Commit/74823f6",
     "description": "English: Based on {{@data}}"
   },
   "nano_v_title": {

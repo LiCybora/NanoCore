@@ -1,5 +1,5 @@
 [Nano Adblocker]
-! Title: Nano filters
+! Title: Nano Filters
 ! Expires: 1 days
 ! License: GPL-3.0
 ! Source: https://github.com/NanoAdblocker/NanoFilters/tree/master/NanoFiltersSource/NanoBase.txt
@@ -10,13 +10,21 @@ blockadblock.com##+js(bab-defuser.js)
 @@||cdnjs.cloudflare.com/ajax/libs/fuckadblock/*/fuckadblock.min.js$script,domain=fuckadblock.sitexw.fr
 captchme.com##script:inject(set-constant.js, CaptchmeState.adb, undefined)
 ||browserleaks.com/js/proxy_ab.js$script
+@@||whoer.net/js/advert.js$script,first-party
 /wp-content/plugins/end-of-adblock-cycle/*
 /wp-content/plugins/pause-adblocker/*$domain=~roboticsandautomationnews.com
 ||fastly.net/js/prebid-*$script,redirect=noopjs
+||butterburst.com^$important
+||culturedcrayon.com^$important
+||dk4ywix.com^$important
+||jamexistence.com^$important
+||rebelsubway.com^$important
+||unequalbrake.com^$important
 vvvvid.it##+js(nano-vvvvid-it.js)
 msnbc.com,nbcnews.com,today.com##+js(abort-on-property-read.js, stop)
 @@||videolab.io^$generichide
 vizer.tv##.open.adsByVizer.vizerNewBox
+math.semestr.ru##+js(setInterval-defuser.js, IsAdBlock, 1000)
 @@||blockersurvive.com^$generichide
 blockersurvive.com,blockergame.com##.ads > .ads-body > .ads-content > div
 blockersurvive.com,blockergame.com##.ads > .ads-body:style(background: initial !important;)
@@ -91,7 +99,7 @@ punto-informatico.it##+js(abort-on-property-read.js, blazemedia_adBlock)
 wyff4.com##+js(setTimeout-defuser.js, [native code], 500)
 @@||ps3-infos.fr^$generichide
 tweakers.net##.notificationsContainer:has-text(whitelisten of beleef Tweakers)
-@@||motherjones.com/*/ads.js$script,first-party
+motherjones.com##.adblock
 gearside.com##+js(set-constant.js, nebula.session.flags.adblock, undefined)
 zerohedge.com###abd-banner
 eca-anime.net##+js(abort-current-inline-script.js, document.getElementById, advert-tester)
@@ -122,31 +130,46 @@ bucketpages.com##+js(setTimeout-defuser.js, #advert-tracker, 500)
 @@||orlygift.com^$generichide
 orlygift.com##.ad-container-responsive
 orlygift.com##div[id^="div-gpt-ad"]
+@@||dermatologytimes.com^$generichide
+cfouca.fr##+js(set-constant.js, sgpbCanRunAds, true)
+maxedtech.com##+js(set-constant.js, adb, noopFunc)
+polygon.com##+js(abort-on-property-write.js, loadOutbrain)
+##.adblock-whitelist-messaging__wrapper
+@@||topspeed.com^$generichide
+webwereld.nl##+js(set-constant.js, adsAreShown, true)
+sbenny.com##+js(setTimeout-defuser.js, (), 2000)
+forum.sbenny.com##.message-inner:has(.ads)
+80beyond.spacestation-online.com##+js(abort-on-property-write.js, adBlockDetected)
+howjsay.com##+js(setTimeout-defuser.js, (), 1500)
+endocrineweb.com##+js(abort-on-property-read.js, admiral)
+@@||soundonsound.com^$generichide
+theverge.com##+js(setTimeout-defuser.js, (), 1500)
+wheel-size.com##+js(set-constant.js, detector_active, true)
+@@||xnxx.com^$generichide
+@@||pagead2.googlesyndication.com/pagead/*$image,domain=free-scores.com
+@@||atwiki.jp^$generichide
+gardenista.com##+js(set-constant.js, adsAreBlocked, false)
+||fastly.net/js/prebid$script,redirect=noopjs,domain=spanishdict.com
+@@||freetls.fastly.net/js/_ads$script,domain=spanishdict.com
+spanishdict.com##.ad-wrapper
+windowscentral.com##.swal-modal, .swal-overlay
+randaris.app##.adblock-box
 altadefinizione.*##.sm_header.sm_nomobile:has(:scope > a[href*="/HD/play"])
-lequipe.fr##+js(abort-on-property-write.js, adback)
 @@||rapidvideo.com/js/jquery.min.js$script,first-party
-||geoip.nekudo.com^$badfilter
-||geoip.nekudo.com^$third-party
-@@||easyweb.td.com/*/loggingService.js$script,first-party
 @@||hackintoshzone.com^$generichide
 porndig.com#@#.noadblock
-games2jolly.com###leaderboard_area
-games2jolly.com###leaderboard_area_home
-games2jolly.com##.ads_310_610_sidebar_new
-games2jolly.com##.game_play > div:nth-of-type(1)
-streamhentaimovies.com##.popmake-overlay
-jn.pt,tsf.pt##.t-pubbox-inner
-dn.pt##.t-pub-inner
 avseesee.com###getadiv
 avseesee.com##.ads
-link.tl##.mobsplOverlay
-link.tl##.mobsplBox
-reddit.com##.recommended-link
-btcmanager.com##.wpbanners-banner
-btcmanager.com##.advert
 filmozercy.com##a[href$="filmozercy.com/wspieraj-nasza-prace-wylacz-adblocka"]
 !#if env_edge
 businessinsider.com##+js(set-constant.js, _PIANO.setAdblockerCookie, noopFunc)
 businessinsider.com##+js(set-constant.js, setAdblockerCookie, noopFunc)
 businessinsider.com##+js(nanop-easy-set-cookie.js, __adblocker=false)
 !#endif
+@@||hulu.com^$generichide
+hulu.com###banner-ad-container
+hulu.com##.ad-choices
+||assetshuluimcom-a.akamaihd.net/*.mp3$media,redirect=noopmp3-0.1s,domain=hulu.com
+||ads-e-darwin.hulustream.com/published/*.mp4$media,redirect=noopmp4-1s,domain=hulu.com
+||ads-v-darwin.hulustream.com/published/*.mp4$media,redirect=noopmp4-1s,domain=hulu.com
+||akamaihd.net/prerolls$media,redirect=noopmp4-1s,domain=hulu.com

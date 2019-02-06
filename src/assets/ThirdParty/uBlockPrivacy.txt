@@ -1,9 +1,14 @@
-# uBlock Origin -- Privacy filters
-#
-# Some of these filters make use of the `important` filter option,
-# which purpose is to guarantee that a filter won't be overriden by 
-# exception filters.
-#
+! Title: uBlock filters – Privacy
+! Description: Some of these filters make use of the `important` filter option,
+!              which purpose is to guarantee that a filter won't be overriden by
+!              exception filters.
+! Expires: 4 days
+! Licence: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+! Homepage: https://github.com/uBlockOrigin/uAssets
+!
+! GitHub issues: https://github.com/uBlockOrigin/uAssets/issues
+! GitHub pull requests: https://github.com/uBlockOrigin/uAssets/pulls
+!
 # I will use data from benchmarks to decide what to add here.
 # https://github.com/gorhill/uBlock/wiki/%C2%B5Block-and-others:-Blocking-ads,-trackers,-malwares
 
@@ -154,3 +159,11 @@ teamskeet.com##+js(set-constant.js, $.tstracker, noopFunc)
 
 ! https://github.com/uBlockOrigin/uAssets/issues/3673
 technologyreview.com##+js(set-constant.js, webkitRequestFileSystem, undefined)
+
+! https://github.com/uBlockOrigin/uAssets/issues/4138
+rediff.com##+js(remove-attr.js, onclick, [onclick^="track"])
+rediff.com##+js(remove-attr.js, onmousedown, [onmousedown^="return enc(this,'https://track.rediff.com"])
+||track.rediff.com^
+
+! https://github.com/uBlockOrigin/uAssets/issues/4649
+||mutinyhq.com^$3p

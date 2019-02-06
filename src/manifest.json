@@ -61,8 +61,7 @@
   "name": "Nano Adblocker",
   "options_ui": {
     "open_in_tab": true,
-    "page": "dashboard.html",
-    "browser_style": true
+    "page": "dashboard.html"
   },
   "permissions": [
     "contextMenus",
@@ -74,15 +73,21 @@
     "webRequestBlocking",
     "<all_urls>"
   ],
-  "version": "1.0.0.86",
+  "version": "1.0.0.87",
   "web_accessible_resources": [
     "web_accessible_resources/*"
   ],
+  "sidebar_action": {
+    "default_title": "__MSG_statsPageName__",
+    "default_panel": "logger-ui.html",
+    "default_icon": "img/128_on.png",
+    "open_at_install": false
+  },
   "applications": {
     "gecko": {
       "id": "{0f929014-5ed2-4527-8b8d-86a9c889b129}",
       "update_url": "https://raw.githubusercontent.com/LiCybora/NanoCoreFirefox/master/Extension%20Compiler/updates.json",
-      "strict_min_version": "52.0"
+      "strict_min_version": "55.0"
     }
   }
 }

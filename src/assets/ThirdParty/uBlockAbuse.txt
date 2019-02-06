@@ -1,8 +1,13 @@
-! uBlock Origin -- Resource-abuse filters
+! Title: uBlock filters – Resource abuse
+! Description: To foil sites potentially abusing CPU/bandwidth resources without informed
+!              consent. Any such resource-abuse scripts MUST be opt-in, with complete
+!              informed consent from the visitor.
+! Expires: 4 days
+! Licence: https://github.com/uBlockOrigin/uAssets/blob/master/LICENSE
+! Homepage: https://github.com/uBlockOrigin/uAssets
 !
-! To foil sites potentially abusing CPU/bandwidth resources without informed
-! consent. Any such resource-abuse scripts MUST be opt-in, with complete
-! informed consent from the visitor.
+! GitHub issues: https://github.com/uBlockOrigin/uAssets/issues
+! GitHub pull requests: https://github.com/uBlockOrigin/uAssets/pulls
 
 ! https://github.com/uBlockOrigin/uAssets/issues/659
 ||edgeno.de^$script,third-party,domain=~edgemesh.com
@@ -21,9 +26,6 @@
 
 ! https://github.com/jspenguin2017/uBlockProtector/issues/624#issuecomment-333700969
 /c-hive.js
-
-! https://github.com/jspenguin2017/uBlockProtector/issues/636#issuecomment-334317456
-||info^$script,third-party,domain=oload.info
 
 ! https://github.com/uBlockOrigin/uAssets/issues/742
 ||crypto-loot.com^$third-party
@@ -103,7 +105,7 @@ csgoconfigs.com##+js(abort-current-inline-script.js, m, CH.Anonymous)
 
 ! other miners
 .cf^*.wasm$third-party
-.info^$script,third-party,domain=oload.tv|openload.co|streamango.com|streamcherry.com
+.info^$script,third-party,domain=oload.info|oload.tv|openload.co|streamango.com|streamcherry.com
 .space^*.wasm$third-party
 /cloudcoins.js
 /cloudcoins.min.js
@@ -157,8 +159,6 @@ csgoconfigs.com##+js(abort-current-inline-script.js, m, CH.Anonymous)
 ||api.inwemo.com^$third-party
 ||azvjudwr.info^$third-party
 ||baiduccdn1.com^$third-party
-||cdn.cloudcoins.co^$third-party
-||cdn.cloudcoins.co^$third-party
 ||cloudcoins.co^$third-party
 ||coinhive-manager.com^$third-party
 ||coinhive-proxy.party^$third-party
@@ -186,9 +186,6 @@ csgoconfigs.com##+js(abort-current-inline-script.js, m, CH.Anonymous)
 ||minecrunch.co^$third-party
 ||miner.pr0gramm.com^$third-party
 ||minero-proxy-*.sh^$third-party
-||minero-proxy-01.now.sh^$third-party
-||minero-proxy-02.now.sh^$third-party
-||minero-proxy-03.now.sh^$third-party
 ||minexmr.com^$third-party
 ||mmpool.org^$third-party
 ||monerominer.rocks^$third-party
@@ -196,7 +193,6 @@ csgoconfigs.com##+js(abort-current-inline-script.js, m, CH.Anonymous)
 ||onlinereserchstatistics.online^$third-party
 ||papoto.com^$third-party
 ||podrltid.info^$third-party
-||pool.supportxmr.com^$third-party
 ||rapidvideo.com/J5xj_2.js
 ||rawgit.com/Pocketart/$script,third-party
 ||reactor.cc^*.wasm
@@ -223,9 +219,7 @@ csgoconfigs.com##+js(abort-current-inline-script.js, m, CH.Anonymous)
 ||cndhit.xyz^$third-party
 ||g-content.bid^$third-party
 ||statistic.date^$third-party
-||ad.g-content.bid^$third-party
 ||cdnfile.xyz^$third-party
-||cnt.statistic.date^$third-party
 ||web.clod.pw^$third-party
 ||static-net.nut.cc^$third-party
 ||static-02.flu.cc^$third-party
@@ -284,9 +278,6 @@ vidzi.tv##+js(abort-on-property-write.js, decodeURIComponent)
 ||flare-analytics.com^
 ||fileone.tv^$csp=child-src 'none';frame-src 'self' *;worker-src 'none';
 
-! https://github.com/uBlockOrigin/uAssets/issues/1351
-||miner.nablabee.com^$third-party
-
 ! https://github.com/hoshsadiq/adblock-nocoin-list/issues/111
 ||m.anyfiles.ovh^
 /deepMiner.min.js
@@ -331,7 +322,7 @@ shrink-service.it##+js(abort-on-property-read.js, WebAssembly)
 ! https://www.reddit.com/r/uBlockOrigin/comments/7wwejy/cryptojackers_defeat_all_countermeasures/
 ! https://github.com/NanoAdblocker/NanoFilters/issues/35#issuecomment-403137195
 ! https://github.com/uBlockOrigin/uAssets/issues/3244#issuecomment-420854707
-*$csp=worker-src 'none',domain=estream.to|flashx.cc|flashx.co|streamango.com|vidoza.net|vidto.me|vidto.se|vidtudu.com
+*$csp=worker-src 'none',domain=estream.to|flashx.cc|flashx.co|flashx.pw|streamango.com|vidoza.net|vidto.me|vidto.se|vidtudu.com
 ||tulip18.com^$third-party
 
 ! https://github.com/uBlockOrigin/uAssets/pull/818#issuecomment-365770341
@@ -380,7 +371,7 @@ sleeptimer.org##+js(abort-on-property-read.js, WebAssembly)
 *$csp=worker-src 'none',domain=kinokongo.cc
 
 ! https://github.com/uBlockOrigin/uAssets/issues/1826
-*$csp=worker-src 'none',domain=powvideo.cc|povw1deo.com|povwideo.net|powvideo.net
+*$csp=worker-src 'none',domain=povwideo.cc|powvideo.cc|povw1deo.com|povwideo.net|powvideo.net
 
 ! https://github.com/gorhill/uBlock/issues/3675
 ||potomy.ru^$csp=worker-src 'none'
@@ -425,7 +416,6 @@ tomadivx.tv##+js(abort-on-property-read.js, WebAssembly)
 ! https://forums.lanik.us/viewtopic.php?f=62&t=41585
 ./M5q5.js$script
 ||jshosting.*^
-||freecontent.*^
 ||hostingcloud.*^
 
 ! https://github.com/uBlockOrigin/uAssets/issues/1962#issuecomment-420471103
@@ -460,3 +450,27 @@ descargas2020.com##+js(abort-current-inline-script.js, atob, _0x)
 
 ! https://github.com/uBlockOrigin/uAssets/issues/3958
 ||flightsy.win^$third-party
+
+! https://github.com/uBlockOrigin/uAssets/issues/4082
+*$csp=worker-src 'none',domain=123moviesgo.nl|123movieshub.asia|123movieshub.cx|7tors.com|bmovie123.me|bmoviego.me|bmovies123.me|btstors.com|cmovieshd.nl|fbmovies.org|fmoviesgo.me|gomovie123.me|gomovies123.me|idope.tv|seventorrents.cc|skytorrents.co|skytorrents.me|stream247.me|watch-free.co|watchfreemovies.tv|xmovies8.nl
+||185.165.169.108^$websocket
+
+! https://github.com/uBlockOrigin/uAssets/issues/4152
+||dragonballzpolo.*^$csp=worker-src 'none'
+||besstahete.info^
+
+! https://github.com/uBlockOrigin/uAssets/issues/4161
+/lib/crypta.js
+
+! https://github.com/uBlockOrigin/uAssets/issues/941#issuecomment-442634483
+onplay.tv##+js(abort-on-property-read.js, Nimiq)
+
+! https://github.com/uBlockOrigin/uAssets/issues/4728
+||torrentrapid.com^$csp=worker-src 'none'
+||tercabilis.info^
+
+! https://github.com/uBlockOrigin/uAssets/issues/3134#issuecomment-457897773
+*$csp=worker-src 'none',domain=ahoypirate.in|ahoypiratebaai.eu|airproxyproxy.pw|airproxytpb.red|bayception.pw|baypirateproxy.pw|ikwildepiratebay.xyz|indiaproxydl.org|magnetbay.eu|noobnoob.rocks|pietpiraat.org|piratbaypirate.link|pirate.bet|piratebay.tel|piratebay.town|proxyindia.net|superbay.link|thepirate.xyz|thepiratebay.blue|thepiratebay.kiwi|tpb.one|tpb.tw|unblocktheship.org
+
+! https://github.com/uBlockOrigin/uAssets/issues/4797
+||speedvid.net^$csp=worker-src 'none';
