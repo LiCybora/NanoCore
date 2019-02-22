@@ -32,6 +32,6 @@ var nano = nano || {};
 
 nano.defender_ext_id_chrome = "ggolfgbegefeeoocgjbmkembbncoadlb";
 nano.defender_ext_id_edge = "";
-nano.defender_ext_id_firefox = "{fcf60470-b210-4c17-969e-9ae01491071e}";
+nano.defender_ext_id_firefox = "{f9cacf2e-cafc-4f0f-b6ad-8e1a01b4b4d0}";
 
 /*****************************************************************************/
