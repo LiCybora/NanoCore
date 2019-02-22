@@ -1,29 +1,16 @@
-# Nano Adblocker Core for Firefox (Unoffical)
+# Nano Adblocker Core for Firefox
 
 Just another adblocker on Firefox
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
-This repository contains the built code of Nano Adblocker for Firefox 
-(Unofficial), the code of the builder can be found in the
-[Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
+This repository contains the built code of Nano Adblocker for Firefox, the code of 
+the builder can be found in the [Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
 
-### WARNING: This is NOT official Firefox port to Nano Adblocker!
-
-Official builds and sources can be found on [Nano Adblocker](https://github.com/NanoAdblocker/NanoCore). 
-
-## Announcement
-
-**Important: This is unofficial source and NOT supported by original author. 
-You must report issues other than filters here or you may not get help.**
-
-Note: This unofficial port will not necessarily follow the official update 
-frequency (except fixing issue). Instead, it will follow the uBO stable release 
-updates. 
 
 ## Installation
 
-You need Firefox version 55 (57 for Android) or above to install this extension, but recommend 
+You need Firefox version 57 or above to install this extension, but recommend 
 60 or above for working with Nano Defender.
 
 Caution: You need Firefox 60+ for keyboard shortcuts assignment!
@@ -32,43 +19,13 @@ Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
 Click .xpi file to download and install from link below.
 
-### [Get it for Firefox (Unofficial, Signed, Unlisted)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
+### [Get it here (Signed, Unlisted)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-Note: Firefox Sync will **NOT** sync this addon among devices due to unlisted 
-from AMO.
+### [Get it on AMO (Experimental)](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
+
+Note: The version on AMO is still experimental. **DO NOT install both version.**
 
 ### [Get also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
-
-### Install Unsigned (For Developers or testing purpose ONLY)
-
-Developer version will not be signed. Please download the zip file. I **won't**
-provide unsigned xpi file which may cause confusion.
-
-#### Force Install
-
- 1. You will need either [Developer Edition](https://www.mozilla.org/firefox/developer/)
- or [Nightly](https://nightly.mozilla.org/) to Install.
- 	 - If release or beta build is mandatory, consider
- 	 [ESR](https://www.mozilla.org/en-US/firefox/organizations/) or
- 	 [Unbranded Builds](https://wiki.mozilla.org/Add-ons/Extension_Signing#Unbranded_Builds). 
- 	 - Otherwise see [Debugging](https://github.com/LiCybora/NanoCoreFirefox#debugging).
-
- 2. Go `about:config`, then set `xpinstall.signatures.required` to false (by 
- double click).
- 	 - In regular release or beta has **no** effect for this setting.
-
- 3. Either rename .zip to .xpi then drag-and drop to Firefox, or go 
- `about:addons`, and click `Install from Add-on File...` and choose the .zip
- you just downloaded.
-
-#### Debugging
-
- - This works for **ALL** Firefox builds, but all debugging addons **will be
- removed** whenever quit Firefox.
- 	- But seems settings and filters will remain.
-
- - Go `about:debugging#addons` and `Load Temporary Add-on`, choose the .zip you
- just downloaded.
 
 ## Notable Change
 
