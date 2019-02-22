@@ -434,7 +434,7 @@
         const compiledFilters = this.compileFilters(
             filters,
             { assetKey: this.userFiltersPath },
-            µb.nanoPartialUserFiltersPath
+            nano.ub.nanoPartialUserFiltersPath
         );
         const snfe = this.staticNetFilteringEngine;
         const cfe = this.cosmeticFilteringEngine;
