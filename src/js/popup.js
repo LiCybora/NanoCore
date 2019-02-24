@@ -450,6 +450,7 @@ const renderPopup = function() {
     uDom.nodeFromId('gotoPick').classList.toggle('enabled', canElementPicker);
     uDom.nodeFromId('gotoZap').classList.toggle('enabled', canElementPicker);
     uDom.nodeFromId('nanoForceEnableScroll').classList.toggle('enabled', canElementPicker);
+    uDom.nodeFromId('nanoOpenBugReporter').classList.toggle('enabled', canElementPicker);
 
     let blocked = popupData.pageBlockedRequestCount,
         total = popupData.pageAllowedRequestCount + blocked,
@@ -758,6 +759,8 @@ const nanoForceEnableScroll = function() {
 
     vAPI.closePopup();
 };
+
+const nanoOpenBugReporter = vAPI.nanoOpenBugReporter;
 
 /******************************************************************************/
 
@@ -1153,6 +1156,7 @@ uDom('#switch .fa-icon').on('click', toggleNetFilteringSwitch);
 uDom('#gotoZap').on('click', gotoZap);
 uDom('#gotoPick').on('click', gotoPick);
 uDom('#nanoForceEnableScroll').on('click', nanoForceEnableScroll);
+uDom('#nanoOpenBugReporter').on('click', nanoOpenBugReporter);
 uDom('#nanoFirewallPaneToggle').on('click', toggleFirewallPane);
 uDom('#refresh').on('click', reloadTab);
 uDom('.hnSwitch').on('click', toggleHostnameSwitch);

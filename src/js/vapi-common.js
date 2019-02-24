@@ -143,6 +143,23 @@ vAPI.download = function(details) {
 
 vAPI.getURL = chrome.runtime.getURL;
 
+vAPI.nanoOpenBugReporter = function() {
+    const reporter = vAPI.getURL('/reporter/index.html');
+
+    chrome.tabs.query({
+        active: true,
+        currentWindow: true
+    }, function(tabs) {
+        if (chrome.runtime.lastError || tabs.length === 0) {
+            return;
+        }
+
+        chrome.tabs.create({
+            url: reporter + '?' + tabs[0].id
+        });
+    });
+};
+
 /******************************************************************************/
 
 vAPI.i18n = chrome.i18n.getMessage;
