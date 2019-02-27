@@ -21,9 +21,9 @@ Click .xpi file to download and install from link below.
 
 ### [Get it here (Signed, Unlisted)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### [Get it on AMO (Experimental)](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
+### [Get it on AMO](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
 
-Note: The version on AMO is still experimental. **DO NOT install both version.**
+Note: **DO NOT install both version.**
 
 ### [Get also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
 
