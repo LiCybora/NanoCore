@@ -115,7 +115,7 @@ ace.define("ace/mode/nano_filters_hr", function (require, exports, module) {
                 // Extended filtering
                 {
                     token: "keyword",
-                    regex: /#@?(?:\?|\$)?#\^?(?!$)/,
+                    regex: /#@?(?:\?|\$\??)?#\^?(?!$)/,
                     next: "double_hash"
                 },
 
@@ -123,7 +123,7 @@ ace.define("ace/mode/nano_filters_hr", function (require, exports, module) {
                 {
 
                     token: "invalid",
-                    regex: /#@?(?:\?|\$)?@#\^?(?!$).*/
+                    regex: /#@?(?:\?|\$\??)?@#\^?(?!$).*/
                 },
 
                 // Raw JavaScript injection is not supported
@@ -576,6 +576,7 @@ nano.Editor = function (elem, highlight, readonly) {
     else
         this.session.setMode("ace/mode/text");
 
+    this.editor.setPrintMarginColumn(120);
     this.editor.setReadOnly(readonly);
 
     const useless_commands = [
