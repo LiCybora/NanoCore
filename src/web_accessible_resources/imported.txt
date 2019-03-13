@@ -17,60 +17,60 @@
 3x2-transparent.png
 	08bccca4f0b22bca18001da690ef0f6b.png
 addthis.com/addthis_widget.js
-	af3c919ee9a3d97f5dedaf2f8bec146a.javascript
+	af3c919ee9a3d97f5dedaf2f8bec146a.js
 amazon-adsystem.com/aax2/amzn_ads.js
-	d363525161c56887ceebe5e72ed4ef31.javascript
+	d363525161c56887ceebe5e72ed4ef31.js
 ampproject.org/v0.js
-	f643260136b645d95fdc78fc46e9d00a.javascript
+	f643260136b645d95fdc78fc46e9d00a.js
 antiAdBlock.js
-	c2e1fb0f4c1450d9be9884c583747d83.javascript
+	c2e1fb0f4c1450d9be9884c583747d83.js
 d3pkae9owd2lcf.cloudfront.net/mb105.js
-	8f846d6d2abbdbb39219191e407f6cce.javascript
+	8f846d6d2abbdbb39219191e407f6cce.js
 disqus.com/embed.js
-	f97120ae9a642fea9bf2dc61b0dac5c3.javascript
+	f97120ae9a642fea9bf2dc61b0dac5c3.js
 disqus.com/forums/*/embed.js
-	52cd82bf4163cf85a2e578f33f3a1c5b.javascript
+	52cd82bf4163cf85a2e578f33f3a1c5b.js
 doubleclick.net/instream/ad_status.js
-	2b73c2782126b83faf6ba7d4b30919b5.javascript
+	2b73c2782126b83faf6ba7d4b30919b5.js
 fuckadblock.js-3.2.0
-	b2cc2af4a6c9cac1992c377747d98036.javascript
+	b2cc2af4a6c9cac1992c377747d98036.js
 google-analytics.com/analytics.js
-	59fb24a2d12455d15bea20980e8a6801.javascript
+	59fb24a2d12455d15bea20980e8a6801.js
 google-analytics.com/cx/api.js
-	bf451d42525251f69895201650a9c1ea.javascript
+	bf451d42525251f69895201650a9c1ea.js
 google-analytics.com/ga.js
-	c2c7eb5240aa19439b7ebbf38d6789e5.javascript
+	c2c7eb5240aa19439b7ebbf38d6789e5.js
 google-analytics.com/inpage_linkid.js
-	acc6e24fce1dcf79ba6a698dc09b0d99.javascript
+	acc6e24fce1dcf79ba6a698dc09b0d99.js
 googlesyndication.com/adsbygoogle.js
-	add5ec8fb7834916ff54b56578dc07c4.javascript
+	add5ec8fb7834916ff54b56578dc07c4.js
 googletagmanager.com/gtm.js
-	9146d832a0025daf20ec16a48b909c81.javascript
+	9146d832a0025daf20ec16a48b909c81.js
 googletagservices.com/gpt.js
-	f1df24e1f123b1137cec098dab038b34.javascript
+	f1df24e1f123b1137cec098dab038b34.js
 hd-main.js
-	bed5a2e0e77ce019b181b365896fd84f.javascript
+	bed5a2e0e77ce019b181b365896fd84f.js
 ligatus.com/*/angular-tag.js
-	59abf2914ae612c22ca7faecfa5d19e9.javascript
+	59abf2914ae612c22ca7faecfa5d19e9.js
 noopframe
 	e1cb8d0e96fd55057c8e7a4948c0e704.html
 noopjs
-	b71d4af3b115e6d5b5b02c18f901e313.javascript
+	b71d4af3b115e6d5b5b02c18f901e313.js
 noopmp3-0.1s
 	649775b1644161f11f034be886082fac.mp3
 noopmp4-1s
 	7f7127b0b406fcd719b081372b7ce451.mp4
 nooptext
-	7e270994feadd29c8f6cfe846ab7769c.plain
+	7e270994feadd29c8f6cfe846ab7769c.txt
 popads-dummy.js
-	b4fa32e8497f63fd2ca54c1fdae6d273.javascript
+	b4fa32e8497f63fd2ca54c1fdae6d273.js
 popads.net.js
-	c3f690ad3b4d5a1b308d1461a9978749.javascript
+	c3f690ad3b4d5a1b308d1461a9978749.js
 scorecardresearch.com/beacon.js
-	4bf7b393d3b1b313682eed660b3f79f6.javascript
+	4bf7b393d3b1b313682eed660b3f79f6.js
 silent-noeval.js
-	cb5ec55f9d28a46c647c9aa7c48fd158.javascript
+	cb5ec55f9d28a46c647c9aa7c48fd158.js
 static.chartbeat.com/chartbeat.js
-	049ba9cad461c1d73512654fa0505f24.javascript
+	049ba9cad461c1d73512654fa0505f24.js
 widgets.outbrain.com/outbrain.js
-	f6f25816c1c5ce3d465f4cd083539931.javascript
+	f6f25816c1c5ce3d465f4cd083539931.js
