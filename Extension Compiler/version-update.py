@@ -7,7 +7,7 @@ with open("updates.json", 'r') as v:
 	info = json.loads(data)
 	old_version = info["addons"][moz_id]["updates"][0]["version"]
 
-	with open("../src/manifest.json", 'r') as f:
+	with open("../../NanoCore2/build/firefox/manifest.json", 'r') as f:
 		new_version = json.load(f)["version"]
 
 	data = data.replace(old_version, new_version)

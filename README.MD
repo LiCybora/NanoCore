@@ -4,9 +4,11 @@ Just another adblocker on Firefox
 
 Nano Adblocker is based on [uBlock Origin](https://github.com/gorhill/uBlock).
 
-This repository contains the built code of Nano Adblocker for Firefox, the code of 
-the builder can be found in the [Nano Core 2 repository](https://github.com/LiCybora/NanoCore2).
+This repository contains only auto-update script and documentations.
 
+The code of the builder can be found in the [Nano Core 2 repository](https://github.com/LiCybora/NanoCore2). 
+
+The built code can be found in the [release](https://github.com/LiCybora/NanoCoreFirefox/releases).
 
 ## Installation
 
