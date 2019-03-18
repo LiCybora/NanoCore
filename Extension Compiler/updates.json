@@ -3,9 +3,9 @@
   "{0f929014-5ed2-4527-8b8d-86a9c889b129}": {
    "updates": [
     {
-     "version": "1.0.0.95",
+     "version": "1.0.0.96",
      "applications": { "gecko": { "strict_min_version": "55.0" } },
-     "update_link": "https://github.com/LiCybora/NanoCoreFirefox/releases/download/v1.0.0.95/nano_adblocker-1.0.0.95-an+fx.xpi"
+     "update_link": "https://github.com/LiCybora/NanoCoreFirefox/releases/download/v1.0.0.96/nano_adblocker-1.0.0.96-an+fx.xpi"
     }
    ]
   }
