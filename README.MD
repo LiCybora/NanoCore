@@ -13,7 +13,7 @@ The built code can be found in the [release](https://github.com/LiCybora/NanoCor
 ## Installation
 
 You need Firefox version 55 (57 for Android) or above to install this extension, 
-but require 57 for HTML filtering.
+but require 57+ for HTML filtering.
 
 Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
