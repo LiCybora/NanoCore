@@ -12,8 +12,8 @@ The built code can be found in the [release](https://github.com/LiCybora/NanoCor
 
 ## Installation
 
-You need Firefox version 57 or above to install this extension, but recommend 
-60 or above for working with Nano Defender.
+You need Firefox version 55 (57 for Android) or above to install this extension, 
+but require 57 for HTML filtering.
 
 Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
@@ -21,9 +21,9 @@ Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
 Click .xpi file to download and install from link below.
 
-### [Get it here (Signed, Unlisted)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
+### [Get it here (Signed, Unlisted, for Firefox 55+)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### [Get it on AMO](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
+### [Get it on AMO (Firefox 57+ ONLY)](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
 
 Note: **DO NOT install both version.**
 
