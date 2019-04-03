@@ -21,13 +21,17 @@ Caution: You need Firefox 60+ for keyboard shortcuts assignment!
 
 Click .xpi file to download and install from link below.
 
-### [Get it here (Signed, Unlisted, for Firefox 55+)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
+### [Get it here (for Firefox 55+, including Waterfox)](https://github.com/LiCybora/NanoCoreFirefox/releases/)
 
-### [Get it on AMO (Firefox 57+ ONLY)](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
+### [Get it on AMO (Recommend, Firefox 57+ ONLY)](https://addons.mozilla.org/en-US/firefox/addon/nano-adblocker-firefox/)
 
-Note: **DO NOT install both version.**
+**IMPORTANT: DO NOT install both versions.**
 
 ### [Get also Nano Defender, the perfect companion extension for Nano Adblocker](https://jspenguin2017.github.io/uBlockProtector)
+
+Note: If you decide to pair with Nano Defender, please install both extensions from same source. 
+That is: either both from AMO OR both from GitHub.
+Otherwise, you will have to go through Step 2 of [extra installation step](https://jspenguin2017.github.io/uBlockProtector/#extra-installation-steps-for-ublock-origin) (but not other steps).
 
 ## Notable Change
 
