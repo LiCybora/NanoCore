@@ -1,3 +1,11 @@
+# Important Announcements Regarding Recent Changes
+
+The project upstream has handovered, while at the time of this announcement, I still do not receive any words from old or new developer's stance about Firefox port. The project is considered detached from upstream until I got notified by upstream developer.
+
+For more information, please read important announcements from upstream here: https://github.com/NanoAdblocker/NanoCore/issues/362
+
+
+
 # Nano Adblocker Core for Firefox
 
 Just another adblocker on Firefox
