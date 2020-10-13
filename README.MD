@@ -1,28 +1,42 @@
-# Important Announcements Regarding Recent Changes
+## Nano Adblocker For Firefox Is No Longer Maintained!
 
-The project upstream [is sold](https://github.com/NanoAdblocker/NanoCore/issues/362) and **I refuse to maintain for new developers who never show up on GitHub**. Nano Adblocker on Firefox port is now inactive. Users are recommended to backup and uninstall, and migrate to other alternative extension.
+As of upstream [sell the project to unknown developers](https://github.com/NanoAdblocker/NanoCore/issues/362), I refuse to maintain the project for stranger(s) that never show up to introduce themselves to their users.
 
-**NOTE: Unlike upstream, Nano Adblocker on this port is still under my control and not related to upstream's new developer(s)**
+**NOTE: Unlike upstream, Nano Adblocker on this port is still under my control and not related to upstream's new developer(s)!**
 
-For more information, please read this [ticket](https://github.com/LiCybora/NanoDefenderFirefox/issues/187).
+For more details or questions, visit [my issue ticket](https://github.com/LiCybora/NanoDefenderFirefox/issues/187). If you can't read English, use a translator or raise your problem on [this issue ticket](https://github.com/LiCybora/NanoDefenderFirefox/issues/187) such that other volunteer can help.
 
-## Alternative
+## What Should I Do?!
 
-Try [uBlock Origin](https://github.com/gorhill/uBlock) where Nano Adblocker forked from. Their interfaces are similar are quite easy to familiar with. You may restore most settings from Nano to uBlock Origin by: 
+1. Backup settings: In Nano Adblocker, Go to `Dashboard` > `Settings` > `Backup to files`. (Optional )
+2. Backup Filter Lists: Take a screenshot of your Filter List such that you can recover later. (Optional)
+3. Disable/Remove Nano Adblocker: In Firefox, Go to `Add-ons` and Disable Nano Adblocker. You may also remove it later if you sure everything are backup and reversible.
 
-`Settings` > `Back up to file` in Nano and `Settings` > `Restore from file` in uBlock Origin
+## But I Need An Ad-blocker!
 
-`Filter List` may be an exception as two extensions have different built-in list and you might need to configure it manually.
+Try [uBlock Origin](https://github.com/gorhill/uBlock) where Nano Adblocker forked from. Their interfaces are similar and quite easy to familiar with. You may restore most settings from Nano to uBlock Origin by:
 
-## Time line
+1. In uBlock Origin, Go to `Dashboard` > `Settings`
+2. Click `Restore from file...` and choose the file you backup from previous section.
 
-v1.0.0.154 will be released as final version with bug reporter disabled (to prevent unnoticed user submit bug report to unknown developers). Nano Adblocker will be unlisted from AMO a week after final version release to prevent new install. Any version before this will be disabled to prevent submitting bug reporter to stranger which might potentially compromise privacy policy.
+Since uBlock Origin and Nano Adblocker do not share exactly same built-in filter list. In case restore cannot fully recover all filter list, you may manually add back according to the screenshot you take from previous section.
 
-XPI file will be archived on [here](https://github.com/LiCybora/NanoCoreFirefox/releases) if user still want to install.
+Of course, you are free to choose any ad-blocker you want! Above is just my personal recommendation.
 
-## Final words
+## What If I Really Want to Use Nano Adblocker?
 
-Thanks for all volunteer that contribute to this project. Also thanks for users reporting issue to benefit other users as well.
+No problem, you can still use it. Filter list can still be updated and you can use it as usual. 
+
+But it is not recommended because you won't receive update anymore. No fix will be released when you experience issue(s). In future, you may not be able to use filter rule that is written in new syntax which is released after the retirement.
+
+## Timeline for Retirement
+v1.0.0.154 will be the final version of Nano Adblocker. Extension will be unlisted from AMO one week after released, no more new installation form AMO. You may still install from [my repository](https://github.com/LiCybora/NanoCoreFirefox) after that if you really want Nano Adblocker back.
+
+It is highly recommended to install alternative instead of continue using Nano Adblocker, however.
+
+## Final Words from Maintainer
+Thanks for all volunteer that contribute to this project. Also thanks for users reporting issue to benefit other users as well. Thanks for all users choose Nano Adblocker as their content-blocker.
+Hope everyone can still enjoy clean web site in future.
 
 # Nano Adblocker Core for Firefox
 
