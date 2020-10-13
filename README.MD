@@ -1,10 +1,28 @@
 # Important Announcements Regarding Recent Changes
 
-The project upstream has handovered, while at the time of this announcement, I still do not receive any words from old or new developer's stance about Firefox port. The project is considered detached from upstream until I got notified by upstream developer.
+The project upstream [is sold](https://github.com/NanoAdblocker/NanoCore/issues/362) and **I refuse to maintain for new developers who never show up on GitHub**. Nano Adblocker on Firefox port is now inactive. Users are recommended to backup and uninstall, and migrate to other alternative extension.
 
-For more information, please read important announcements from upstream here: https://github.com/NanoAdblocker/NanoCore/issues/362
+**NOTE: Unlike upstream, Nano Adblocker on this port is still under my control and not related to upstream's new developer(s)**
 
+For more information, please read this [ticket](https://github.com/LiCybora/NanoDefenderFirefox/issues/187).
 
+## Alternative
+
+Try [uBlock Origin](https://github.com/gorhill/uBlock) where Nano Adblocker forked from. Their interfaces are similar are quite easy to familiar with. You may restore most settings from Nano to uBlock Origin by: 
+
+`Settings` > `Back up to file` in Nano and `Settings` > `Restore from file`
+
+`Filter List` may be an exception as two extensions have different built-in list and you might need to configure it manually.
+
+## Time line
+
+v1.0.0.154 will be released as final version with bug reporter disabled (to prevent unnoticed user submit bug report to unknown developers). Nano Adblocker will be unlisted from AMO a week after final version release to prevent new install. Any version before this will be disabled to prevent submitting bug reporter to stranger which might potentially compromise privacy policy.
+
+XPI file will be archived on [here](https://github.com/LiCybora/NanoCoreFirefox/releases) if user still want to install.
+
+## Final words
+
+Thanks for all volunteer that contribute to this project. Also thanks for users reporting issue to benefit other users as well.
 
 # Nano Adblocker Core for Firefox
 
