@@ -10,7 +10,7 @@ For more information, please read this [ticket](https://github.com/LiCybora/Nano
 
 Try [uBlock Origin](https://github.com/gorhill/uBlock) where Nano Adblocker forked from. Their interfaces are similar are quite easy to familiar with. You may restore most settings from Nano to uBlock Origin by: 
 
-`Settings` > `Back up to file` in Nano and `Settings` > `Restore from file`
+`Settings` > `Back up to file` in Nano and `Settings` > `Restore from file` in uBlock Origin
 
 `Filter List` may be an exception as two extensions have different built-in list and you might need to configure it manually.
 
