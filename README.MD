@@ -30,7 +30,7 @@ No problem, you can still use it. Filter list can still be updated and you can u
 But it is not recommended because you won't receive update anymore. No fix will be released when you experience issue(s). In future, you may not be able to use filter rule that is written in new syntax which is released after the retirement.
 
 ## Timeline for Retirement
-v1.0.0.154 will be the final version of Nano Adblocker. Extension will be unlisted from AMO one week after released, no more new installation form AMO. You may still install from [my repository](https://github.com/LiCybora/NanoCoreFirefox) after that if you really want Nano Adblocker back.
+v1.0.0.154 will be the final version of Nano Adblocker. Extension will be unlisted from AMO one week after released, no more new installation form AMO. You may still install from [my repository](https://github.com/LiCybora/NanoCoreFirefox/releases) after that if you really want Nano Adblocker back.
 
 It is highly recommended to install alternative instead of continue using Nano Adblocker, however.
 
